@@ -2,15 +2,11 @@ import GlobalLayout from "../layouts/GlobalLayout";
 import Home from "../pages/dashboard/Home";
 import Users from "../pages/users/Users";
 
-import BedtimeStoriesTable from "../components/bedtimestories/BedtimeStoriesTable";
-import UpcomingTable from "../components/upcoming/UpcomingTable";
 import MeditationDetails from "../pages/meditation/MeditationDetails";
 import SubscriptionTable from "../components/subscription/SubscriptionTable";
 
 import Notifications from "../pages/notifications/Notifications";
-import FeedbackTable from "../components/feedback/FeedbackTable";
-import SubjectsTable from "../components/subject/SubjectsTable";
-import PromocodesTable from "../components/promocodes/PromoCodesTable";
+
 import MeditationUpload from "../pages/meditation/MeditationUpload";
 import PromocodeDetails from "../pages/promocodes/PromocodeDetails";
 import UserDetail from "../pages/users/UserDetail";
@@ -19,7 +15,7 @@ import BedtimeStories from "../pages/bedtimeStories/bedtimeStories";
 import UpcomingStories from "../pages/upcommingStories/UpcomingStories";
 import Subscription from "../pages/subscription/Subscription";
 import Subject from "../pages/subject/Subject";
-import PromoCodesTable from "../components/promocodes/PromoCodesTable";
+
 import PromoCodes from "../pages/promocodes/PromoCodes";
 import Feedback from "../pages/feedback/Feedback";
 
@@ -34,12 +30,29 @@ export const normalRoutes = [
     url: "/users",
     page: <GlobalLayout page={<Users />} />,
   },
+  {
+    title: "User Profile",
+    url: "/user-detail/:id",
+    page: <GlobalLayout page={<UserDetail />} />,
+  },
 
   {
     title: "Meditation",
     url: "/meditation",
     page: <GlobalLayout page={<Meditation />} />,
   },
+  {
+    title: "Meditation",
+    url: "/meditation-details/:id",
+    page: <GlobalLayout page={<MeditationDetails />} />,
+  },
+
+  {
+    title: "Meditation Upload",
+    url: "/meditation-upload",
+    page: <GlobalLayout page={<MeditationUpload />} />,
+  },
+
   {
     title: "Bedtime Stories",
     url: "/bedtime-stories",
@@ -50,12 +63,6 @@ export const normalRoutes = [
     title: "Upcoming",
     url: "/upcoming",
     page: <GlobalLayout page={<UpcomingStories />} />,
-  },
-
-  {
-    title: "Meditation",
-    url: "/meditation-details/:id",
-    page: <GlobalLayout page={<MeditationDetails />} />,
   },
 
   {
@@ -86,18 +93,6 @@ export const normalRoutes = [
     title: "Promo Codes",
     url: "/promo-codes",
     page: <GlobalLayout page={<PromoCodes />} />,
-  },
-
-  {
-    title: "User Profile",
-    url: "/user-detail/:id",
-    page: <GlobalLayout page={<UserDetail />} />,
-  },
-
-  {
-    title: "Meditation Upload",
-    url: "/meditation-upload",
-    page: <GlobalLayout page={<MeditationUpload />} />,
   },
 
   {

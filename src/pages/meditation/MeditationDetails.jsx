@@ -52,16 +52,6 @@ const MeditationDetails = () => {
           <AudioPlayer playlist={playlist} />
         </div>
 
-        {/* 
-          <div className="flex items-center gap-4">
-            <span>00:48</span>
-            <div className="flex-1 bg-gray-700 h-1 rounded-full relative">
-              <div className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] h-1 rounded-full w-1/3"></div>
-            </div>
-            <span>02:50</span>
-          </div>
-           */}
-
         {/* Right Section */}
         <div className="bg-black backdrop-blur-md rounded-xl p-6 w-1/3">
           <div className="flex justify-between items-center mb-6 border-b">

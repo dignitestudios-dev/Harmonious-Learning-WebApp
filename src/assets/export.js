@@ -20,6 +20,9 @@ import userSide from "../assets/user_side.png";
 import plantSide from "../assets/plant_side.png";
 import bookSide from "../assets/book_side.png";
 import bin from "../assets/bin.png";
+import uploadImg from "../assets/uploadImg.png";
+import srtImage from "../assets/srtImage.png";
+import musicSymbol from "../assets/musicSymbol.png";
 
 export {
   Logo,
@@ -43,4 +46,7 @@ export {
   plantSide,
   bookSide,
   bin,
+  uploadImg,
+  srtImage,
+  musicSymbol,
 };
