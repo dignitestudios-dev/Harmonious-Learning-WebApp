@@ -9,7 +9,7 @@ const TracksInput = ({
   handleFileUpload,
 }) => {
   return (
-    <div>
+    <div className="w-full">
       <label htmlFor="description" className="block text-[16px] mb-1">
         {label}{" "}
         {id === "music" && (
@@ -27,7 +27,9 @@ const TracksInput = ({
                 ? `${file.length} file uploaded`
                 : placeholder
               : file.name
-              ? file.name
+              ? file.name?.length > 38
+                ? file.name?.slice(0, 38) + "..."
+                : file.name
               : placeholder
             : placeholder}
           <input

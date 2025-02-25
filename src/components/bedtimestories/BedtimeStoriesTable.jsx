@@ -3,8 +3,10 @@ import { IoMdTrash } from "react-icons/io";
 
 import { FaChevronRight } from "react-icons/fa";
 import { bin, right } from "../../assets/export";
+import { useNavigate } from "react-router-dom";
 
 const BedtimeStoriesTable = ({ stories, handleToggleStatus }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#00000044] border-[#000] rounded-[25px] overflow-hidden p-2">
       <div
@@ -52,7 +54,9 @@ const BedtimeStoriesTable = ({ stories, handleToggleStatus }) => {
           </div>
           <div className="col-span-1 py-4 px-2 flex items-center justify-center gap-2">
             <img src={bin} />
-            <img src={right} />
+            <button onClick={() => navigate("/bedtime-stories-details/1")}>
+              <img src={right} />
+            </button>
           </div>
         </div>
       ))}

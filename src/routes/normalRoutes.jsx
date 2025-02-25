@@ -18,6 +18,10 @@ import Subject from "../pages/subject/Subject";
 
 import PromoCodes from "../pages/promocodes/PromoCodes";
 import Feedback from "../pages/feedback/Feedback";
+import MeditationEdit from "../pages/meditation/MeditationEdit";
+import BedtimeStoriesDetail from "../pages/bedtimeStories/BedtimeStoriesDetail";
+import BedtimeStoriesUpload from "../pages/bedtimeStories/BedtimeStoriesUpload";
+import BedtimeStoriesEdit from "../pages/bedtimeStories/BedtimeStoriesEdit";
 
 export const normalRoutes = [
   {
@@ -41,11 +45,6 @@ export const normalRoutes = [
     url: "/meditation",
     page: <GlobalLayout page={<Meditation />} />,
   },
-  {
-    title: "Meditation",
-    url: "/meditation-details/:id",
-    page: <GlobalLayout page={<MeditationDetails />} />,
-  },
 
   {
     title: "Meditation Upload",
@@ -54,9 +53,39 @@ export const normalRoutes = [
   },
 
   {
+    title: "Meditation",
+    url: "/meditation-details/:id",
+    page: <GlobalLayout page={<MeditationDetails />} />,
+  },
+
+  {
+    title: "Meditation",
+    url: "/meditation-edit/:id",
+    page: <GlobalLayout page={<MeditationEdit />} />,
+  },
+
+  {
     title: "Bedtime Stories",
     url: "/bedtime-stories",
     page: <GlobalLayout page={<BedtimeStories />} />,
+  },
+
+  {
+    title: "Bedtime Stories",
+    url: "/bedtime-stories-details/:id",
+    page: <GlobalLayout page={<BedtimeStoriesDetail />} />,
+  },
+
+  {
+    title: "Bedtime Stories",
+    url: "/upload-bedtime-stories",
+    page: <GlobalLayout page={<BedtimeStoriesUpload />} />,
+  },
+
+  {
+    title: "Bedtime Stories",
+    url: "/bedtime-stories-edit/:id",
+    page: <GlobalLayout page={<BedtimeStoriesEdit />} />,
   },
 
   {

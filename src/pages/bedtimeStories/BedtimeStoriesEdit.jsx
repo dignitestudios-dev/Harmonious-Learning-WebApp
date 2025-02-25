@@ -12,17 +12,26 @@ import TracksInput from "./../../components/global/TracksInput";
 
 const options = ["Physics", "Maths", "Chemistry"];
 
-const MeditationUpload = () => {
-  const [imageFile, setImageFile] = useState(null);
+const BedtimeStoriesEdit = () => {
+  const dummyData = {
+    name: "Relaxing Meditation",
+    subject: "Mindfulness",
+    description: "A relaxing meditation track for mindfulness practice.",
+    imageFile: background, // Assume you have an image file URL or path here
+    trackFile: null, // Assume you have an audio file URL or path here
+    srtFile: null, // Assume you have an SRT file URL or path here
+    backgroundMusic: [], // Assume you have background music files here
+  };
 
-  const [trackFile, setTrackFile] = useState(null);
-  const [srtFile, setSrtFile] = useState(null);
-
-  const [backgroundMusic, setBackgroundMusic] = useState([]);
-
-  const [name, setName] = useState("");
-  const [subject, setSubject] = useState("");
-  const [description, setDescription] = useState("");
+  const [imageFile, setImageFile] = useState(dummyData.imageFile);
+  const [trackFile, setTrackFile] = useState(dummyData.trackFile);
+  const [srtFile, setSrtFile] = useState(dummyData.srtFile);
+  const [backgroundMusic, setBackgroundMusic] = useState(
+    dummyData.backgroundMusic
+  );
+  const [name, setName] = useState(dummyData.name);
+  const [subject, setSubject] = useState(dummyData.subject);
+  const [description, setDescription] = useState(dummyData.description);
 
   const handleChange = (e) => {
     setName(e.target.value);
@@ -78,8 +87,8 @@ const MeditationUpload = () => {
       >
         &larr; Back
       </button>
-      <h1 className="text-[36px] font-bold mb-6">Add New Story</h1>
-      <div className="w-full flex gap-8">
+      <h1 className="text-[36px] font-bold mb-6">Edit Story</h1>
+      <div className="w-full flex gap-8 mb-10">
         {/* Left Image Upload Section */}
         <div
           className="flex flex-col items-center justify-center border-[1px]
@@ -88,9 +97,9 @@ const MeditationUpload = () => {
           {imageFile ? (
             <>
               <img
-                src={URL.createObjectURL(imageFile)}
+                src={imageFile}
                 alt="Uploaded"
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-lg p-[3px]"
               />
               <button
                 onClick={() => setImageFile(null)}
@@ -138,19 +147,6 @@ const MeditationUpload = () => {
             value={subject}
             options={options}
           />
-
-          <div>
-            <label htmlFor="description" className="block text-sm mb-1">
-              Description
-            </label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full h-[149px] bg-transparent border border-white/30 rounded-[16px] text-white p-3 "
-              rows="5"
-            ></textarea>
-          </div>
 
           {/* Meditation Tracks Upload Section with Icon */}
           <TracksInput
@@ -265,4 +261,4 @@ const MeditationUpload = () => {
   );
 };
 
-export default MeditationUpload;
+export default BedtimeStoriesEdit;

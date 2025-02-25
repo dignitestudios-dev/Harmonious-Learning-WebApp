@@ -12,7 +12,7 @@ import TracksInput from "./../../components/global/TracksInput";
 
 const options = ["Physics", "Maths", "Chemistry"];
 
-const MeditationUpload = () => {
+const BedtimeStoriesUpload = () => {
   const [imageFile, setImageFile] = useState(null);
 
   const [trackFile, setTrackFile] = useState(null);
@@ -139,19 +139,6 @@ const MeditationUpload = () => {
             options={options}
           />
 
-          <div>
-            <label htmlFor="description" className="block text-sm mb-1">
-              Description
-            </label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full h-[149px] bg-transparent border border-white/30 rounded-[16px] text-white p-3 "
-              rows="5"
-            ></textarea>
-          </div>
-
           {/* Meditation Tracks Upload Section with Icon */}
           <TracksInput
             id="track"
@@ -265,4 +252,4 @@ const MeditationUpload = () => {
   );
 };
 
-export default MeditationUpload;
+export default BedtimeStoriesUpload;

@@ -12,17 +12,26 @@ import TracksInput from "./../../components/global/TracksInput";
 
 const options = ["Physics", "Maths", "Chemistry"];
 
-const MeditationUpload = () => {
-  const [imageFile, setImageFile] = useState(null);
+const MeditationEdit = () => {
+  const dummyData = {
+    name: "Relaxing Meditation",
+    subject: "Mindfulness",
+    description: "A relaxing meditation track for mindfulness practice.",
+    imageFile: background, // Assume you have an image file URL or path here
+    trackFile: null, // Assume you have an audio file URL or path here
+    srtFile: null, // Assume you have an SRT file URL or path here
+    backgroundMusic: [], // Assume you have background music files here
+  };
 
-  const [trackFile, setTrackFile] = useState(null);
-  const [srtFile, setSrtFile] = useState(null);
-
-  const [backgroundMusic, setBackgroundMusic] = useState([]);
-
-  const [name, setName] = useState("");
-  const [subject, setSubject] = useState("");
-  const [description, setDescription] = useState("");
+  const [imageFile, setImageFile] = useState(dummyData.imageFile);
+  const [trackFile, setTrackFile] = useState(dummyData.trackFile);
+  const [srtFile, setSrtFile] = useState(dummyData.srtFile);
+  const [backgroundMusic, setBackgroundMusic] = useState(
+    dummyData.backgroundMusic
+  );
+  const [name, setName] = useState(dummyData.name);
+  const [subject, setSubject] = useState(dummyData.subject);
+  const [description, setDescription] = useState(dummyData.description);
 
   const handleChange = (e) => {
     setName(e.target.value);
@@ -78,7 +87,7 @@ const MeditationUpload = () => {
       >
         &larr; Back
       </button>
-      <h1 className="text-[36px] font-bold mb-6">Add New Story</h1>
+      <h1 className="text-[36px] font-bold mb-6">Edit Story</h1>
       <div className="w-full flex gap-8">
         {/* Left Image Upload Section */}
         <div
@@ -88,9 +97,9 @@ const MeditationUpload = () => {
           {imageFile ? (
             <>
               <img
-                src={URL.createObjectURL(imageFile)}
+                src={imageFile}
                 alt="Uploaded"
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-lg p-[3px]"
               />
               <button
                 onClick={() => setImageFile(null)}
@@ -265,4 +274,4 @@ const MeditationUpload = () => {
   );
 };
 
-export default MeditationUpload;
+export default MeditationEdit;

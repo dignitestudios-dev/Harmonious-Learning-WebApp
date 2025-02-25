@@ -23,6 +23,9 @@ import bin from "../assets/bin.png";
 import uploadImg from "../assets/uploadImg.png";
 import srtImage from "../assets/srtImage.png";
 import musicSymbol from "../assets/musicSymbol.png";
+import playSymbol from "../assets/playSymbol.png";
+import instructionSymbol from "../assets/instructionSymbol.png";
+import bedtime from "../assets/bedtime.png";
 
 export {
   Logo,
@@ -49,4 +52,7 @@ export {
   uploadImg,
   srtImage,
   musicSymbol,
+  playSymbol,
+  instructionSymbol,
+  bedtime,
 };

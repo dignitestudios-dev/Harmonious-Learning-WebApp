@@ -1,64 +1,31 @@
 import React, { useState, useRef, useEffect } from "react";
-import { background } from "../../assets/export";
+import { background, bedtime, instructionSymbol } from "../../assets/export";
 import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import { FaPlay, FaStop } from "react-icons/fa";
 
-const AudioPlayer = ({ playlist }) => {
+const AudioPlayer = ({
+  playlist,
+  audioFile,
+  srtFile,
+  currentLyric,
+  currentSongIndex,
+  lyrics,
+  setLyrics,
+}) => {
   const audioRef = useRef(null);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const currentLyricRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [lyrics, setLyrics] = useState([]);
-  console.log("🚀 ~ AudioPlayer ~ lyrics:", lyrics);
-  const [currentLyric, setCurrentLyric] = useState("");
 
-  const [audioFile, setAudioFile] = useState(null);
-  const [srtFile, setSrtFile] = useState(null);
-
-  // Handle audio file upload
-  const handleAudioUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setAudioFile(URL.createObjectURL(file));
+  useEffect(() => {
+    if (currentLyricRef.current) {
+      currentLyricRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
-  };
-
-  // Handle SRT file upload and parse it
-  const handleSrtUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const srtContent = e.target.result;
-        const parsedLyrics = parseSrt(srtContent);
-        setLyrics(parsedLyrics);
-      };
-      reader.readAsText(file);
-    }
-  };
-
-  // Parse SRT file content
-  const parseSrt = (srtContent) => {
-    const lines = srtContent.split("\n\n");
-    return lines
-      .map((line) => {
-        const [index, time, ...text] = line.split("\n");
-        if (!time) return null;
-        const [start, end] = time.split(" --> ").map((t) => {
-          const [h, m, s] = t.split(":");
-          const [sec, ms] = s.split(",");
-          return (
-            parseFloat(h) * 3600 +
-            parseFloat(m) * 60 +
-            parseFloat(sec) +
-            parseFloat(ms) / 1000
-          );
-        });
-        return { start, end, text: text.join("\n") };
-      })
-      .filter((line) => line !== null);
-  };
+  }, [currentTime]);
 
   // Load lyrics for the current song
   // useEffect(() => {
@@ -79,7 +46,7 @@ const AudioPlayer = ({ playlist }) => {
     const currentLine = lyrics.find(
       (line) => line.time <= time && line.time + 5 >= time
     );
-    setCurrentLyric(currentLine ? currentLine.text : "");
+    // setCurrentLyric(currentLine ? currentLine.text : "");
   };
 
   // Handle metadata load to get the duration of the audio
@@ -131,28 +98,35 @@ const AudioPlayer = ({ playlist }) => {
 
   return (
     <div>
-      <div className="relative flex flex-col items-center">
+      <div className="relative">
         <img
-          src={background}
+          src={bedtime}
           alt="Anxiety Release"
-          className="rounded-xl w-[695px] h-[350px] mb-4 object-cover  shadow-2xl"
+          className="rounded-xl w-[695px] h-[350px] mb-4 object-cover shadow-2xl"
         />
-        <span className="absolute top-4 left-4 bg-black/60 text-white px-3 py-1 rounded-full">
-          Math
-        </span>
-        <button className="absolute top-4 right-4 bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white px-4 py-2 rounded-full">
-          i
-        </button>
+        <div className="w-full flex justify-between items-center absolute top-0 pt-4 pr-8 pl-5">
+          <span className=" bg-white/10 text-white w-[124px] h-[46px] text-center pt-[11px] rounded-full">
+            Math
+          </span>
+          {/* <div>
+            <img src={instructionSymbol} alt="instruction" />
+          </div> */}
+        </div>
       </div>
 
       <h2 className="text-2xl font-semibold text-center mb-4">
         {/* {playlist[currentSongIndex].title} */}
       </h2>
 
-      <div className="h-24 overflow-y-auto bg-gray-700 p-3 rounded-lg mb-4">
+      <div className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4">
         {lyrics.map((lyric, index) => (
           <p
             key={index}
+            ref={
+              currentTime >= lyric.start && currentTime <= lyric.end
+                ? currentLyricRef
+                : null
+            }
             className={`text-gray-300 text-center ${
               currentTime >= lyric.start && currentTime <= lyric.end
                 ? "text-white font-bold"
@@ -191,28 +165,6 @@ const AudioPlayer = ({ playlist }) => {
           ></div>
         </div>
         <span className="w-8">-{formatTime(duration - currentTime)}</span>
-      </div>
-
-      {/* Audio and File upload */}
-      <div className="mb-4">
-        <label className="block mb-2">
-          Upload Audio File:
-          <input
-            type="file"
-            accept="audio/*"
-            onChange={handleAudioUpload}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600"
-          />
-        </label>
-        <label className="block mb-2">
-          Upload SRT File:
-          <input
-            type="file"
-            accept=".srt"
-            onChange={handleSrtUpload}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600"
-          />
-        </label>
       </div>
 
       {/* Audio Element */}
