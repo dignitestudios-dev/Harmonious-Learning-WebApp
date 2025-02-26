@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { background, deactivate, uploadImg } from "../../assets/export";
 import TracksInput from "../global/TracksInput";
 import { RxCross2 } from "react-icons/rx";
+import SaveButton from "../global/SaveButton";
 
 const BackgroundMusicModal = ({
   isOpen,
@@ -55,13 +56,14 @@ const BackgroundMusicModal = ({
             }}
           />
           <div className="w-full flex space-x-4 mt-6">
-            <button
+            <SaveButton />
+            {/* <button
               onClick={onConfirm}
               className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] hover:bg-gradient-to-r w-full h-[50px]
                hover:from-[#1d0086] hover:to-[#d5a6df] px-6 py-2 rounded-full"
             >
               Save
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

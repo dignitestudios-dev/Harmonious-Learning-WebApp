@@ -1,53 +1,9 @@
 import React, { useState } from "react";
 import UsersTable from "../../components/users/UsersTable";
+import { getStories } from "../../static/dummyData";
 
 const Users = () => {
-  const initialData = [
-    {
-      id: 1,
-      name: "Story Name",
-      email: "email@example.com",
-      date: "18/12/2024",
-      status: true,
-    },
-    {
-      id: 2,
-      name: "Story Name",
-      email: "email@example.com",
-      date: "18/12/2024",
-      status: false,
-    },
-    {
-      id: 3,
-      name: "Story Name",
-      email: "email@example.com",
-      date: "18/12/2024",
-      status: true,
-    },
-    {
-      id: 4,
-      name: "Story Name",
-      email: "email@example.com",
-      date: "18/12/2024",
-      status: true,
-    },
-    {
-      id: 5,
-      name: "Story Name",
-      email: "email@example.com",
-      date: "18/12/2024",
-      status: false,
-    },
-    {
-      id: 6,
-      name: "Story Name",
-      email: "email@example.com",
-      date: "18/12/2024",
-      status: true,
-    },
-  ];
-
-  const [stories, setStories] = useState(initialData);
+  const [stories, setStories] = useState(getStories);
 
   const handleToggleStatus = (index) => {
     const updatedStories = [...stories];

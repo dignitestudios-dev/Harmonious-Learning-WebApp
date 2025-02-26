@@ -2,38 +2,12 @@ import React, { useState } from "react";
 import MeditationTable from "../../components/meditation/MeditationTable";
 import { background } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
+import { meditationData } from "../../static/dummyData";
 
 const Meditation = () => {
-  const initialData = [
-    {
-      id: 1,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      status: true,
-    },
-    {
-      id: 2,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      status: false,
-    },
-    {
-      id: 3,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      status: true,
-    },
-  ];
-
   const navigate = useNavigate();
 
-  const [meditation, setMeditation] = useState(initialData);
+  const [meditation, setMeditation] = useState(meditationData);
 
   const handleToggleStatus = (index) => {
     const updatedStories = [...meditation];

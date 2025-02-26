@@ -3,8 +3,11 @@ import { IoMdTrash } from "react-icons/io";
 import { background } from "../../assets/export"; // Assuming you are importing the image from assets
 import { FaChevronRight } from "react-icons/fa";
 import { FaPen } from "react-icons/fa";
+import CreateSubjectModal from "./CreateSubjectModal";
 
 const SubjectsTable = ({ stories, handleToggleStatus }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="bg-[#00000044] border-[#000] rounded-[25px] overflow-hidden p-2">
       <div
@@ -38,7 +41,10 @@ const SubjectsTable = ({ stories, handleToggleStatus }) => {
             {" "}
             {/* Remaining content area */}
           </div>
-          <div className="col-span-1 py-4 px-4 flex items-center justify-center gap-4 pt-7">
+          <div
+            onClick={() => setIsModalOpen(true)}
+            className="col-span-1 py-4 px-4 flex items-center justify-center gap-4 pt-7"
+          >
             {/* <IoMdTrash className="text-red-500 cursor-pointer hover:text-red-700" size={24} /> */}
             <FaPen
               className="text-white/90 cursor-pointer hover:text-white"
@@ -47,6 +53,11 @@ const SubjectsTable = ({ stories, handleToggleStatus }) => {
           </div>
         </div>
       ))}
+
+      <CreateSubjectModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

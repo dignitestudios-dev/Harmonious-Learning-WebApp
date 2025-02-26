@@ -2,38 +2,12 @@ import React, { useState } from "react";
 import BedtimeStoriesTable from "../../components/bedtimestories/BedtimeStoriesTable";
 import { background } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
+import { bedtimeData } from "../../static/dummyData";
 
 const BedtimeStories = () => {
-  const initialData = [
-    {
-      id: 1,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      status: true,
-    },
-    {
-      id: 2,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      status: false,
-    },
-    {
-      id: 3,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      status: true,
-    },
-  ];
-
   const navigate = useNavigate();
 
-  const [stories, setStories] = useState(initialData);
+  const [stories, setStories] = useState(bedtimeData);
 
   const handleToggleStatus = (index) => {
     const updatedStories = [...stories];

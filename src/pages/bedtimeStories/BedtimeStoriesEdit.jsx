@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   background,
+  bedtime,
   bin,
   musicSymbol,
   srtImage,
@@ -9,6 +10,7 @@ import {
 import InputField from "../../components/global/InputField";
 import SelectableField from "../../components/global/SelectableField";
 import TracksInput from "./../../components/global/TracksInput";
+import SaveButton from "../../components/global/SaveButton";
 
 const options = ["Physics", "Maths", "Chemistry"];
 
@@ -17,7 +19,7 @@ const BedtimeStoriesEdit = () => {
     name: "Relaxing Meditation",
     subject: "Mindfulness",
     description: "A relaxing meditation track for mindfulness practice.",
-    imageFile: background, // Assume you have an image file URL or path here
+    imageFile: bedtime, // Assume you have an image file URL or path here
     trackFile: null, // Assume you have an audio file URL or path here
     srtFile: null, // Assume you have an SRT file URL or path here
     backgroundMusic: [], // Assume you have background music files here
@@ -250,13 +252,7 @@ const BedtimeStoriesEdit = () => {
           </div>
         </div>
       </div>
-      <button
-        onClick={handleSubmit}
-        className="w-[201px] h-[49px] p-2 bg-gradient-to-r from-[#000086] to-[#CEA3D8]
-         rounded-full text-white text-[16px] absolute -bottom-64 hover:opacity-90"
-      >
-        Save Track
-      </button>
+      <SaveButton />
     </div>
   );
 };

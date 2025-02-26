@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IoMdTrash } from "react-icons/io";
 import { FaChevronRight } from "react-icons/fa";
 import { background, bin, right } from "../../assets/export"; // Assuming you are importing the image from assets
+import { useNavigate } from "react-router-dom";
 
 const PromoCodesTable = () => {
   const initialData = [
@@ -33,6 +34,8 @@ const PromoCodesTable = () => {
       discount: "25%",
     },
   ];
+
+  const navigate = useNavigate();
 
   const [stories, setStories] = useState(initialData);
 
@@ -92,7 +95,9 @@ const PromoCodesTable = () => {
           </div>
           <div className="col-span-1 px-4 py-4 flex items-center justify-center gap-4">
             <img src={bin} />
-            <img src={right} />
+            <div onClick={() => navigate("/promo-code-details")}>
+              <img src={right} />
+            </div>
           </div>
         </div>
       ))}

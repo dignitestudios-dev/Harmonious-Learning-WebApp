@@ -3,8 +3,11 @@ import { IoMdTrash } from "react-icons/io";
 import { background, bin, right } from "../../assets/export"; // Assuming you are importing the image from assets
 
 import { FaChevronRight } from "react-icons/fa";
+import SubscriptionDetailModal from "./SubscriptionDetailModal";
 
 const SubscriptionTable = ({ subscription, handleToggleStatus }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="bg-[#00000044] border-[#000] rounded-[25px] overflow-hidden p-2">
       <div
@@ -57,12 +60,19 @@ const SubscriptionTable = ({ subscription, handleToggleStatus }) => {
             <div>
               <img src={bin} alt="bin" />
             </div>
-            <div>
+            <div
+              onClick={() => setIsModalOpen(true)}
+              className="cursor-pointer"
+            >
               <img src={right} alt="right" />
             </div>
           </div>
         </div>
       ))}
+      <SubscriptionDetailModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

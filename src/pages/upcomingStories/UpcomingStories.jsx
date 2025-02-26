@@ -1,65 +1,12 @@
 import React, { useState } from "react";
 import UpcomingStoryModal from "../../components/upcoming/UpcomingStoryModal";
 import UpcomingTable from "../../components/upcoming/UpcomingTable";
-
-const meditationData = [
-  {
-    id: 1,
-    name: "Meditation Name",
-    transcription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-    date: "18/12/2024",
-    status: true,
-  },
-  {
-    id: 2,
-    name: "Meditation Name",
-    transcription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-    date: "19/12/2024",
-    status: false,
-  },
-  {
-    id: 3,
-    name: "Meditation Name",
-    transcription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-    date: "20/12/2024",
-    status: true,
-  },
-];
-
-const bedtimeData = [
-  {
-    id: 1,
-    name: "Story Name",
-    transcription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-    date: "18/12/2024",
-    status: true,
-  },
-  {
-    id: 2,
-    name: "Story Name",
-    transcription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-    date: "18/12/2024",
-    status: false,
-  },
-  {
-    id: 3,
-    name: "Story Name",
-    transcription:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-    date: "18/12/2024",
-    status: true,
-  },
-];
+import { bedtimeData, meditationData } from "../../static/dummyData";
 
 const UpcomingStories = () => {
   // State for stories, and whether it's Meditation or Bedtime Stories
   const [stories, setStories] = useState(meditationData);
-  const [isMeditation, setIsMeditation] = useState(true); // State for toggling between Meditation and Bedtime Stories
+  const [isMeditation, setIsMeditation] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Handle toggling the status of a story
@@ -74,6 +21,7 @@ const UpcomingStories = () => {
     setIsMeditation(isMeditationSelected);
     setStories(isMeditationSelected ? meditationData : bedtimeData);
   };
+
   return (
     <div className="w-full min-h-screen p-8">
       <div className="w-full min-h-screen ">

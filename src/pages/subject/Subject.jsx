@@ -1,39 +1,12 @@
 import React, { useState } from "react";
 import SubjectsTable from "../../components/subject/SubjectsTable";
+import CreateSubjectModal from "../../components/subject/CreateSubjectModal";
+import { storyData } from "../../static/dummyData";
 
 const Subject = () => {
-  const initialData = [
-    {
-      id: 1,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      time: "10:00pm",
-      status: true,
-    },
-    {
-      id: 2,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      time: "10:00pm",
-      status: false,
-    },
-    {
-      id: 3,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      time: "10:00pm",
-      status: true,
-    },
-  ];
-
-  const [stories, setStories] = useState(initialData);
+  const [stories, setStories] = useState(storyData);
   const [isMeditation, setIsMeditation] = useState(true); // State for toggling between Meditation and Bedtime Stories
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleToggleStatus = (index) => {
     const updatedStories = [...stories];
@@ -49,7 +22,10 @@ const Subject = () => {
 
           {/* Container for the Add New and Switchable buttons */}
           <div className="flex items-center gap-4 ">
-            <button className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] lg:w-[151px] lg:h-[49px] text-white py-2 px-6 rounded-full shadow-md hover:bg-purple-700 transition duration-300">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] lg:w-[151px] lg:h-[49px] text-white py-2 px-6 rounded-full shadow-md hover:bg-purple-700 transition duration-300"
+            >
               Add New
             </button>
           </div>
@@ -59,6 +35,10 @@ const Subject = () => {
           handleToggleStatus={handleToggleStatus}
         />
       </div>
+      <CreateSubjectModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

@@ -1,16 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { FaCalendarAlt } from "react-icons/fa";
-import { uploadimage } from "../../assets/export"; // Assuming the image is imported from assets
+import { background, bin, uploadimage } from "../../assets/export"; // Assuming the image is imported from assets
+import InputField from "../global/InputField";
+import UploadDateField from "../calendar/UploadDateField";
+import SaveButton from "../global/SaveButton";
 
 const UpcomingStoryModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  const [imageFile, setImageFile] = useState(null);
 
+  const [name, setName] = useState("");
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [description, setDescription] = useState("");
+
+  // Function to toggle first modal
+  const toggleModal = () => {
+    setIsDateModalOpen((prev) => !prev);
+  };
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    setIsDateModalOpen(false); // Close the first modal when a date is selected
+  };
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+
+    setImageFile(file);
+  };
+
+  if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-black text-white w-[455px] h-[673px] md:w-[500px] p-6 rounded-lg shadow-lg relative">
+    <div
+      className="fixed inset-0 flex items-center justify-center z-50"
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="bg-black bg-opacity-20 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[673px] relative">
         {/* Close Button */}
         <button
+          type="button"
           onClick={onClose}
           className="absolute bg-gradient-to-r from-[#000086] to-[#CEA3D8] rounded-full p-1 top-4 right-4 text-xl text-white hover:text-gray-300"
         >
@@ -24,61 +61,75 @@ const UpcomingStoryModal = ({ isOpen, onClose }) => {
         {/* Form */}
         <form className="space-y-4">
           <div>
-            <label className="block text-sm font-medium">Bed Time Story</label>
-            <input
-              type="text"
+            <InputField
+              label="Bed Time Story"
               placeholder="Name"
-              className="w-full mt-1 p-3 rounded-full border border-gray-600 bg-black bg-opacity-30 text-white"
+              handleChange={(e) => handleChange(e)}
+              value={name}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Release Date</label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Select"
-                className="w-full mt-1 p-3 rounded-full border border-gray-600 bg-black bg-opacity-30 text-white pr-10" // Keep background and padding-right
-              />
-              {/* Container with gradient background behind the icon */}
-              <div className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-gradient-to-r from-[#000086] to-[#CEA3D8] p-2 rounded-full">
-                <FaCalendarAlt className="text-gray-100" />
-              </div>
-            </div>
+            <UploadDateField
+              toggleModal={toggleModal}
+              selectedDate={selectedDate}
+              isModalOpen={isDateModalOpen}
+              handleDateClick={handleDateClick}
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium">Upload Image</label>
-            <div className="flex items-center justify-center w-full mt-1 h-[150px] border border-gray-600 rounded-2xl bg-black bg-opacity-30">
-              <label className="cursor-pointer flex flex-col items-center">
+            {imageFile ? (
+              <div className="w-full mt-1 h-[150px] border border-white/30 rounded-[18px] relative">
                 <img
-                  src={uploadimage} // Show the imported image
-                  alt="Upload"
-                  className="w-18 h-10 text-gray-400" // Adjust size accordingly
+                  src={URL.createObjectURL(imageFile)}
+                  alt="Uploaded"
+                  className="w-full h-full object-cover rounded-lg"
                 />
-                <span className="text-gray-400 text-sm mt-2">
-                  Choose File to upload Image
-                </span>
-                <input type="file" className="hidden" />
-              </label>
-            </div>
+                <button
+                  onClick={() => setImageFile(null)}
+                  type="button "
+                  className="cursor-pointer bg-white rounded-full top-2 right-2 absolute hover:bg-white/80"
+                >
+                  <img src={bin} alt="Uploaded" className="w-8" />
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-full mt-1 h-[150px] border border-white/30 rounded-[18px] bg-black/15 bg-opacity-30">
+                <label className="cursor-pointer flex flex-col items-center">
+                  <img
+                    src={uploadimage} // Show the imported image
+                    alt="Upload"
+                    className="w-18 h-10 text-gray-400" // Adjust size accordingly
+                  />
+                  <span className="text-gray-400 text-sm mt-2">
+                    Choose File to upload Imageszx
+                  </span>
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={(e) => handleFileUpload(e)}
+                  />
+                </label>
+              </div>
+            )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Description</label>
+            <label htmlFor="description" className="block text-sm mb-1">
+              Description
+            </label>
             <textarea
-              placeholder="Description"
-              rows={3}
-              className="w-full mt-1 p-3 rounded-2xl border border-gray-600 bg-black bg-opacity-30 text-white"
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full h-[149px] bg-transparent border border-white/30 rounded-[16px] text-white p-3 "
+              rows="5"
             ></textarea>
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white font-semibold rounded-full shadow-md hover:opacity-90 transition"
-          >
-            Save
-          </button>
+          <SaveButton />
         </form>
       </div>
     </div>

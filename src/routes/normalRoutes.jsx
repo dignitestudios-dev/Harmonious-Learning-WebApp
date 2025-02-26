@@ -3,16 +3,15 @@ import Home from "../pages/dashboard/Home";
 import Users from "../pages/users/Users";
 
 import MeditationDetails from "../pages/meditation/MeditationDetails";
-import SubscriptionTable from "../components/subscription/SubscriptionTable";
 
 import Notifications from "../pages/notifications/Notifications";
 
 import MeditationUpload from "../pages/meditation/MeditationUpload";
-import PromocodeDetails from "../pages/promocodes/PromocodeDetails";
+
 import UserDetail from "../pages/users/UserDetail";
 import Meditation from "../pages/meditation/Meditation";
 import BedtimeStories from "../pages/bedtimeStories/bedtimeStories";
-import UpcomingStories from "../pages/upcommingStories/UpcomingStories";
+import UpcomingStories from "../pages/upcomingStories/UpcomingStories";
 import Subscription from "../pages/subscription/Subscription";
 import Subject from "../pages/subject/Subject";
 
@@ -22,11 +21,12 @@ import MeditationEdit from "../pages/meditation/MeditationEdit";
 import BedtimeStoriesDetail from "../pages/bedtimeStories/BedtimeStoriesDetail";
 import BedtimeStoriesUpload from "../pages/bedtimeStories/BedtimeStoriesUpload";
 import BedtimeStoriesEdit from "../pages/bedtimeStories/BedtimeStoriesEdit";
+import PromoCodeDetails from "../pages/promocodes/PromoCodeDetails";
 
 export const normalRoutes = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: "/",
     page: <GlobalLayout page={<Home />} />,
   },
   {
@@ -125,8 +125,8 @@ export const normalRoutes = [
   },
 
   {
-    title: "promocode-details",
-    url: "/promocode-details",
-    page: <GlobalLayout page={<PromocodeDetails />} />,
+    title: "promo-code-details",
+    url: "/promo-code-details",
+    page: <GlobalLayout page={<PromoCodeDetails />} />,
   },
 ];

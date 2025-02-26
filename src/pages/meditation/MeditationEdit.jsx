@@ -17,7 +17,7 @@ const MeditationEdit = () => {
     name: "Relaxing Meditation",
     subject: "Mindfulness",
     description: "A relaxing meditation track for mindfulness practice.",
-    imageFile: background, // Assume you have an image file URL or path here
+    imageFile: bedtime, // Assume you have an image file URL or path here
     trackFile: null, // Assume you have an audio file URL or path here
     srtFile: null, // Assume you have an SRT file URL or path here
     backgroundMusic: [], // Assume you have background music files here
