@@ -5,15 +5,8 @@ const DeactivateUserModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-50"
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="bg-black bg-opacity-10 blur-0 rounded-[26px] shadow-md text-white p-8 w-[455px] h-[367px]">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">
+      <div className="bg-black bg-opacity-10 rounded-[26px] shadow-md text-white p-8 w-[455px] h-[367px]">
         <div className="flex flex-col items-center text-center">
           <div className="text-3xl p-4 rounded-full mb-1">
             {/* Replace the icon with the deactivate image */}

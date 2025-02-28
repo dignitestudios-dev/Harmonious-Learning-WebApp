@@ -26,107 +26,107 @@ import PromoCodeDetails from "../pages/promocodes/PromoCodeDetails";
 export const normalRoutes = [
   {
     title: "Dashboard",
-    url: "/",
-    page: <GlobalLayout page={<Home />} />,
+    url: "",
+    page: <Home />,
   },
   {
     title: "Dashboard",
-    url: "/users",
-    page: <GlobalLayout page={<Users />} />,
+    url: "users",
+    page: <Users />,
   },
   {
     title: "User Profile",
-    url: "/user-detail/:id",
-    page: <GlobalLayout page={<UserDetail />} />,
+    url: "user-detail/:id",
+    page: <UserDetail />,
   },
 
   {
     title: "Meditation",
-    url: "/meditation",
-    page: <GlobalLayout page={<Meditation />} />,
+    url: "meditation",
+    page: <Meditation />,
   },
 
   {
     title: "Meditation Upload",
-    url: "/meditation-upload",
-    page: <GlobalLayout page={<MeditationUpload />} />,
+    url: "meditation-upload",
+    page: <MeditationUpload />,
   },
 
   {
     title: "Meditation",
-    url: "/meditation-details/:id",
-    page: <GlobalLayout page={<MeditationDetails />} />,
+    url: "meditation-details/:id",
+    page: <MeditationDetails />,
   },
 
   {
     title: "Meditation",
-    url: "/meditation-edit/:id",
-    page: <GlobalLayout page={<MeditationEdit />} />,
+    url: "meditation-edit/:id",
+    page: <MeditationEdit />,
   },
 
   {
     title: "Bedtime Stories",
-    url: "/bedtime-stories",
-    page: <GlobalLayout page={<BedtimeStories />} />,
+    url: "bedtime-stories",
+    page: <BedtimeStories />,
   },
 
   {
     title: "Bedtime Stories",
-    url: "/bedtime-stories-details/:id",
-    page: <GlobalLayout page={<BedtimeStoriesDetail />} />,
+    url: "bedtime-stories-details/:id",
+    page: <BedtimeStoriesDetail />,
   },
 
   {
     title: "Bedtime Stories",
-    url: "/upload-bedtime-stories",
-    page: <GlobalLayout page={<BedtimeStoriesUpload />} />,
+    url: "upload-bedtime-stories",
+    page: <BedtimeStoriesUpload />,
   },
 
   {
     title: "Bedtime Stories",
-    url: "/bedtime-stories-edit/:id",
-    page: <GlobalLayout page={<BedtimeStoriesEdit />} />,
-  },
-
-  {
-    title: "Upcoming",
-    url: "/upcoming",
-    page: <GlobalLayout page={<UpcomingStories />} />,
+    url: "bedtime-stories-edit/:id",
+    page: <BedtimeStoriesEdit />,
   },
 
   {
     title: "Subscription",
-    url: "/subscription",
-    page: <GlobalLayout page={<Subscription />} />,
+    url: "subscription",
+    page: <Subscription />,
   },
 
   {
-    title: "Notifications",
-    url: "/notifications",
-    page: <GlobalLayout page={<Notifications />} />,
-  },
-
-  {
-    title: "Feedback",
-    url: "/feedback",
-    page: <GlobalLayout page={<Feedback />} />,
+    title: "Upcoming",
+    url: "upcoming",
+    page: <UpcomingStories />,
   },
 
   {
     title: "Subjects",
-    url: "/subjects",
-    page: <GlobalLayout page={<Subject />} />,
+    url: "subjects",
+    page: <Subject />,
   },
 
   {
     title: "Promo Codes",
-    url: "/promo-codes",
-    page: <GlobalLayout page={<PromoCodes />} />,
+    url: "promo-codes",
+    page: <PromoCodes />,
   },
 
   {
     title: "promo-code-details",
-    url: "/promo-code-details",
-    page: <GlobalLayout page={<PromoCodeDetails />} />,
+    url: "promo-code-details",
+    page: <PromoCodeDetails />,
+  },
+
+  {
+    title: "Feedback",
+    url: "feedback",
+    page: <Feedback />,
+  },
+
+  {
+    title: "Notifications",
+    url: "notifications",
+    page: <Notifications />,
   },
 ];

@@ -1,6 +1,6 @@
 import Logo from "../assets/Logo.png";
-// import background from "../assets/background.png";
-import background from "../assets/Bg-image.png";
+import loginBg from "../assets/bg-image.png";
+import background from "../assets/background.png";
 import uploadimage from "../assets/uploadimage.png";
 import deactivate from "../assets/deactivate.png";
 import user from "../assets/Category.png";
@@ -26,11 +26,14 @@ import musicSymbol from "../assets/musicSymbol.png";
 import playSymbol from "../assets/playSymbol.png";
 import instructionSymbol from "../assets/instructionSymbol.png";
 import bedtime from "../assets/bedtime.png";
+import NoInternetImage from "../assets/nointernet.jpg";
 
 export {
   Logo,
+  loginBg,
   background,
   uploadimage,
+  NoInternetImage,
   deactivate,
   user,
   plant,

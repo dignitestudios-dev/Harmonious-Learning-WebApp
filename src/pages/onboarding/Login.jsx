@@ -1,63 +1,92 @@
-import React, { useContext, useState } from "react";
-import { GlobalContext } from "../../contexts/GlobalContext";
-import AuthInput from "../../components/onboarding/AuthInput"; // Assuming AuthInput is correctly imported
-import AuthSubmitBtn from "../../components/onboarding/AuthSubmitBtn"; // Assuming AuthSubmitBtn is correctly imported
+import React, { useState } from "react";
+
+import AuthInput from "../../components/onboarding/AuthInput";
+import AuthSubmitBtn from "../../components/onboarding/AuthSubmitBtn";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import axios from "../../axios";
+import { signInValues } from "../../init/authentication/signInValues";
+import { signInSchema } from "../../schema/signInSchema";
+import { SuccessToast } from "../../components/global/Toaster";
 
 const Login = () => {
-  const { navigate } = useContext(GlobalContext);
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+  //   useFormik({
+  //     initialValues: signInValues,
+  //     validationSchema: signInSchema,
+  //     validateOnChange: true,
+  //     validateOnBlur: true,
+  //     onSubmit: async (values) => {
+  //       try {
+  //         setLoading(true);
+  //         const response = await axios.post("/admin/login", {
+  //           ...values,
+  //         });
+  //         if (response.status === 200) {
+  //           // login(response.data);
+  //           SuccessToast("Logged in successfully");
+  //           navigate("/");
+  //           setLoading(false);
+  //         }
+  //       } catch (err) {
+  //         console.error("🚀 ~ onSubmit: ~ err:", err);
+  //         ErrorToast(err.response.data.message);
+  //         setLoading(false);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     },
+  //   });
 
   return (
-    <div
-      className="flex w-full h-screen bg-cover bg-center items-center justify-center"
-      style={{
-        backgroundImage: "url('/path-to-your-background-image.jpg')",
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        navigate("/");
       }}
+      className="w-[610px] bg-[#00000044] border-[#000] rounded-[26px] shadow-md p-16 backdrop-blur-md items-center justify-center flex flex-col gap-6 z-50"
     >
-      <form
-        onSubmit={() => navigate("/dashboard", "Home")}
-        className="w-[610px] bg-black bg-opacity-70 p-16 rounded-2xl items-center justify-center flex flex-col gap-6"
-      >
-        <h1 className="text-2xl lg:text-4xl font-medium text-white text-center">
-          Welcome Back!
-        </h1>
+      <h1 className="text-[30px] lg:text-[36px] font-semibold text-white text-center">
+        Welcome Back!
+      </h1>
 
-        <div className="flex flex-col gap-4">
-          {/* Email Input */}
-          <AuthInput
-            text="Email"
-            placeholder="Type your email address here"
-            type="email"
-            state={email}
-            setState={setEmail}
-          />
+      <div className="flex flex-col gap-4">
+        {/* Email Input */}
+        <AuthInput
+          text="Email"
+          type="email"
+          id="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors?.email}
+          touched={touched?.email}
+        />
 
-          {/* Password Input */}
-          <AuthInput
-            text="Password"
-            placeholder="Enter Password"
-            type="password"
-            state={password}
-            setState={setPassword}
-          />
-          
-          {/* Forgot Password Link */}
-          {/* <button
-            type="button"
-            onClick={() => navigate("/forgot-password")}
-            className="text-sm font-medium text-blue-400 self-end"
-          >
-            Forgot Password?
-          </button> */}
-        </div>
+        {/* Password Input */}
+        <AuthInput
+          text="Password"
+          type="password"
+          id="password"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors?.password}
+          touched={touched?.password}
+        />
 
         {/* Submit Button */}
-        <div className="items-center justify-center rounded-lg">
+
         <AuthSubmitBtn text="Log In" />
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

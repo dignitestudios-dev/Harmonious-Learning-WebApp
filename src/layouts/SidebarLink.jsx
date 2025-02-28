@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react"; 
-import { GlobalContext } from "../contexts/GlobalContext";
+import React, { useContext, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const SidebarLink = ({ link, onCloseDrawer }) => {
-  const { navigate, activeLink } = useContext(GlobalContext);
+  const navigate = useNavigate();
+  const activeLink = "";
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSubmenu = () => {

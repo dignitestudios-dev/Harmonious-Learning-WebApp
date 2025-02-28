@@ -95,7 +95,10 @@ const PromoCodesTable = () => {
           </div>
           <div className="col-span-1 px-4 py-4 flex items-center justify-center gap-4">
             <img src={bin} />
-            <div onClick={() => navigate("/promo-code-details")}>
+            <div
+              className="cursor-pointer"
+              onClick={() => navigate("/promo-code-details")}
+            >
               <img src={right} />
             </div>
           </div>

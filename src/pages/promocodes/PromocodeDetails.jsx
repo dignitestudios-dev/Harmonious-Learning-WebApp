@@ -1,52 +1,10 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io";
-import PromoCodesTable from "../../components/promocodes/PromoCodesTable";
 import { useNavigate } from "react-router-dom";
+import PromoCodeUsersTable from "../../components/promocodes/PromoCodeUsersTable";
+import { CiSearch } from "react-icons/ci";
 
 const PromoCodeDetails = () => {
-  const users = [
-    {
-      id: 1,
-      name: "Olivia James",
-      email: "olivia.james@gmail.com",
-      plan: "Monthly",
-      date: "15 May 2023",
-      price: "$150",
-    },
-    {
-      id: 2,
-      name: "Christine Brooks",
-      email: "christinebrooks@mail.com",
-      plan: "Monthly",
-      date: "15 May 2023",
-      price: "$150",
-    },
-    {
-      id: 3,
-      name: "Christine Brooks",
-      email: "christinebrooks@mail.com",
-      plan: "Monthly",
-      date: "15 May 2023",
-      price: "$150",
-    },
-    {
-      id: 4,
-      name: "Olivia James",
-      email: "olivia.james@gmail.com",
-      plan: "Monthly",
-      date: "15 May 2023",
-      price: "$150",
-    },
-    {
-      id: 5,
-      name: "Christine Brooks",
-      email: "christinebrooks@mail.com",
-      plan: "Monthly",
-      date: "15 May 2023",
-      price: "$150",
-    },
-  ];
-
   const navigate = useNavigate();
 
   return (
@@ -61,8 +19,8 @@ const PromoCodeDetails = () => {
 
       {/* Promo Details Section */}
       <div className="mb-8">
-        <h1 className="text-4xl font-semibold mb-4">Promo Detail</h1>
-        <div className="bg-[#00000044] border-[#000] rounded-[25px] p-10 flex justify-between shadow-md">
+        <h1 className="text-4xl font-semibold mb-6">Promo Detail</h1>
+        <div className="bg-[#00000044] border-[#000] rounded-[25px] p-12 flex justify-between shadow-md">
           <div className="grid grid-cols-1 gap-4 text-sm">
             <div className="space-y-2">
               <p className="text-white font-thin">Promo Code</p>
@@ -94,22 +52,31 @@ const PromoCodeDetails = () => {
 
       {/* Users Section */}
       <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-[32px] font-semibold">
-            Used Users via Code (253)
-          </h2>
-          <div className="relative">
-            <IoMdSearch className="absolute left-3 top-3 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search anything..."
-              className="bg-[#0f0f1f] bg-opacity-60 text-sm text-gray-400 py-2 pl-10 pr-4 rounded-lg focus:outline-none"
-            />
+        <div className="flex justify-between items-center mb-3">
+          <div>
+            <h2 className="text-[32px] font-semibold">
+              Used Users via Code (253)
+            </h2>
+          </div>
+          <div
+            className="w-[275px] h-[42px] flex items-center justify-start border-[1px] border-white/30 rounded-full 
+                      focus-within:border-white/30 focus-within:border-[1px]"
+          >
+            <div className="w-full h-full flex items-center justify-start rounded-[12px] relative">
+              <input
+                type="text"
+                placeholder="Search anything..."
+                className="w-full text-sm font-normal text-white/50 absolute left-12
+                        placeholder:text-white/50 placeholder:font-normal outline-none bg-transparent"
+                onChange={(e) => console.log(e.target.value)}
+              />
+              <CiSearch size={24} className=" text-white/50 absolute mx-4 " />
+            </div>
           </div>
         </div>
 
         {/* Users Table */}
-        <PromoCodesTable />
+        <PromoCodeUsersTable />
       </div>
     </div>
   );

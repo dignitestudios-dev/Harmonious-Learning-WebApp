@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Logo } from "../../src/assets/export"; // Assuming Logo is an image component
-import { sidebarArr } from "../constants/sidebarArr"; // Import your sidebarArr
 import { RiLogoutCircleLine, RiMenuLine, RiCloseLine } from "react-icons/ri";
+import { sidebarArr } from "../static/sideBarArr";
 
 const Sidebar = () => {
   // State for controlling the drawer visibility
@@ -57,21 +57,23 @@ const Sidebar = () => {
                 key={index}
                 className="w-full flex justify-start items-center gap-3"
               >
-                <Link
+                <NavLink
                   to={link.url}
                   onClick={() => handleLinkClick(link.url)} // Set active on click
-                  className={`flex ml-4 items-end w-[calc(100%-1.9rem)] gap-2 px-8 py-4 rounded-full transition-all relative ${
-                    activeLink === link.url
-                      ? "bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white" // Active background color
-                      : "bg-[#074F5730] hover:bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white hover:text-white" // Hover background color
-                  }`}
+                  className={({ isActive }) =>
+                    `flex ml-4 items-end w-[calc(100%-1.9rem)] gap-2 px-8 py-4 rounded-full transition-all relative ${
+                      isActive
+                        ? "bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white" // Active background color
+                        : " hover:bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white hover:text-white" // Hover background color
+                    }`
+                  }
                 >
                   <img src={link.icon} alt="abc" className="mb-0.5" />
                   <span className="text-sm font-medium">{link.title}</span>
 
                   {/* Modern hover effect: underline */}
                   <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

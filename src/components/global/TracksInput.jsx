@@ -13,7 +13,9 @@ const TracksInput = ({
       <label htmlFor="description" className="block text-[16px] mb-1">
         {label}{" "}
         {id === "music" && (
-          <span className="text-xs font-extralight text-white">(Optional)</span>
+          <span className="text-xs font-extralight text-white">
+            (Optionall)
+          </span>
         )}
       </label>
       <div className="flex flex-col justify-center items-center bg-transparent h-[128px] border border-white/30 rounded-[16px]">

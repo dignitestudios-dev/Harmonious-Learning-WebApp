@@ -5,6 +5,10 @@ export default {
     extend: {
       fontFamily: {
         manrope: ["Manrope", "sans-serif"], // Add Manrope font
+        verdana: ["Verdana", "sans-serif"],
+      },
+      letterSpacing: {
+        wider: "0.125em",
       },
     },
   },

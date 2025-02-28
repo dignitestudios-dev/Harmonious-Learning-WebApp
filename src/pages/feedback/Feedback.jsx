@@ -58,7 +58,7 @@ const Feedback = () => {
 
   // State for feedback data, and whether it's User or Admin Feedback
   const [feedback, setFeedback] = useState(userFeedbackData);
-  const [isUserFeedback, setIsUserFeedback] = useState(true); // State for toggling between User and Admin Feedback
+  const [isUserFeedback, setIsUserFeedback] = useState(true);
 
   // Handle toggling the status of a feedback item
   const handleToggleStatus = (index) => {

@@ -1,19 +1,30 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { GoDotFill } from "react-icons/go";
-import { GlobalContext } from "../contexts/GlobalContext";
 import { CiSearch, CiUser } from "react-icons/ci";
 // import NotificationDropdown from "../components/Notifications/NotificationDropdown";
 
 const Navbar = () => {
-  const { navigate } = useContext(GlobalContext);
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".dropdown-container")) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
     <div className="w-full h-[60px]  flex justify-end items-center px-10">
@@ -39,7 +50,10 @@ const Navbar = () => {
 
         {/* Profile Button */}
         <button
-          onClick={() => navigate("/profile")}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent closing immediately
+            setIsDropdownOpen((prev) => !prev);
+          }}
           className="flex items-center gap-2 w-24 "
         >
           {/* Image for profile link */}
@@ -47,17 +61,25 @@ const Navbar = () => {
             src={`https://i.pravatar.cc/40?img=3`}
             alt="Profile"
             className="w-[32px] h-[32px] rounded-full cursor-pointer"
-            onClick={() => navigate("/profile", "Profile")}
           />
           <div className=" flex flex-col justify-start items-start">
-            <p
-              className="text-[13px] font-medium text-white"
-              onClick={() => navigate("/profile", "Profile")}
-            >
-              Admin
-            </p>
+            <p className="text-[13px] font-medium text-white">Admin</p>
           </div>
         </button>
+
+        <div
+          className={`w-[120px] h-[60px] rounded-[12px] absolute top-12 right-4 shadow-md p-3 transition-all duration-300
+             flex flex-col justify-start items-start   bg-white/40 z-[1000] ${
+               isDropdownOpen ? "scale-100" : "scale-0"
+             }`}
+        >
+          <button
+            onClick={() => navigate("auth/login")}
+            className="w-full py-2 px-2 rounded text-left text-white text-[14px] font-medium leading-[14.85px] hover:bg-white/30"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );

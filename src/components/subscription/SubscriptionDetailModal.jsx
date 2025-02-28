@@ -16,15 +16,8 @@ const SubscriptionDetailModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-50"
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="bg-black bg-opacity-20 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[580px] relative">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">
+      <div className="bg-black bg-opacity-30 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[580px] relative">
         {/* Close Button */}
         <button
           type="button"

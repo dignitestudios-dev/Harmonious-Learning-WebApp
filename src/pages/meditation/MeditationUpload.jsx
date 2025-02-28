@@ -9,6 +9,7 @@ import {
 import InputField from "../../components/global/InputField";
 import SelectableField from "../../components/global/SelectableField";
 import TracksInput from "./../../components/global/TracksInput";
+import SaveButton from "../../components/global/SaveButton";
 
 const options = ["Physics", "Maths", "Chemistry"];
 
@@ -254,13 +255,9 @@ const MeditationUpload = () => {
           </div>
         </div>
       </div>
-      <button
-        onClick={handleSubmit}
-        className="w-[201px] h-[49px] p-2 bg-gradient-to-r from-[#000086] to-[#CEA3D8]
-         rounded-full text-white text-[16px] absolute -bottom-64 hover:opacity-90"
-      >
-        Save Track
-      </button>
+      <div className="w-[201px] h-[49px] -mt-24">
+        <SaveButton title="Save Track" />
+      </div>
     </div>
   );
 };

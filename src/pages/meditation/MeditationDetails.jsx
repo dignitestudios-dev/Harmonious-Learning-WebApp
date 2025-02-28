@@ -95,7 +95,7 @@ const MeditationDetails = () => {
       <div className="flex justify-between items-center ">
         <h1 className="text-[36px] font-bold mb-6">Track Name</h1>
         {/* Audio and File upload */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="block mb-2">
             Upload SRT File:
             <input
@@ -105,7 +105,8 @@ const MeditationDetails = () => {
               className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600"
             />
           </label>
-        </div>
+        </div> */}
+
         <button
           onClick={() => navigate("/meditation-edit/1")}
           className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] flex justify-center items-center
@@ -120,7 +121,7 @@ const MeditationDetails = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex gap-8 ">
+      <div className="flex gap-8 mb-12">
         {/* Left Section */}
 
         <div className="bg-gray-800 w-[686px] h-[668px] backdrop-blur-md rounded-xl p-6 flex-1">
@@ -137,7 +138,7 @@ const MeditationDetails = () => {
 
         {/* Right Section */}
         <div className="bg-[#00000044] border-[#000] h-[668px] rounded-[26px] px-6 pt-2 w-[363px]">
-          <div className="flex justify-between items-center  pb-4">
+          <div className="flex justify-between items-center pb-4">
             <h3 className="text-[20px] font-medium ">
               Background Music{" "}
               <span className="text-white text-[11px] font-extralight">

@@ -6,6 +6,8 @@ const UploadDateField = ({
   selectedDate,
   isModalOpen,
   handleDateClick,
+  label,
+  top = false,
 }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
@@ -53,9 +55,9 @@ const UploadDateField = ({
   ).getDate();
 
   return (
-    <>
-      <label className="block text-sm mb-1">Release Date</label>
-      <div className="w-full h-[50px] flex justify-between items-center border pl-5 pr-2 border-white/40 rounded-full text-white">
+    <div className="relative">
+      <label className="block text-sm mb-1">{label ? label : null}</label>
+      <div className=" w-full h-[50px] flex justify-between items-center border pl-5 pr-2 border-white/40 rounded-full text-white">
         <span className="text-sm">{selectedDate}</span>
         <div className=" bg-gradient-to-r from-[#000086] to-[#CEA3D8] rounded-full px-2 py-1">
           <button
@@ -68,8 +70,12 @@ const UploadDateField = ({
         </div>
       </div>
       {isModalOpen && (
-        <div className="absolute top-16 right-8 w-full h-full flex items-center justify-end z-10">
-          <div className="bg-white/15 backdrop-blur-[20px] shadow-[0px_9px_34.4px_0px_#00000040] rounded-[18px] p-4 w-[315px]">
+        <div
+          className={`absolute ${
+            top ? "top-14 right-2" : "bottom-14 right-0"
+          }   flex items-center justify-end z-10 `}
+        >
+          <div className="bg-white/30 backdrop-blur-[5px] shadow-[0px_9px_34.4px_0px_#00000040] rounded-[18px] p-4 w-[315px]">
             {/* Header with month & year selection */}
             <div className="flex justify-between items-center text-white text-xl mb-4">
               <button
@@ -131,7 +137,7 @@ const UploadDateField = ({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

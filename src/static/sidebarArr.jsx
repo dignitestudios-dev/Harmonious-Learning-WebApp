@@ -25,7 +25,7 @@ import {
 export const sidebarArr = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: "/",
     icon: hexagon,
   },
 

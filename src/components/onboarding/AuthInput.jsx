@@ -1,28 +1,50 @@
 import React, { useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 
-const AuthInput = ({ state, setState, text, type, error, placeholder }) => {
+const AuthInput = ({
+  type,
+  id,
+  name,
+  placeholder,
+  value,
+  onChange,
+  onBlur,
+  text,
+  error,
+  touched,
+}) => {
+  console.log("🚀 ~ error:", error);
   const [isPassVisible, setIsPassVisible] = useState(false);
 
   return (
-    <div className="w-full h-auto flex   flex-col gap-1 justify-start items-start  ">
-      <label className="ml-1 text-sm font-medium text-white capitalize">
-        {text} 
+    <div className="w-full h-auto flex flex-col gap-1 justify-start items-start  ">
+      <label className="ml-1 text-[16px] font-medium text-white capitalize">
+        {text}
       </label>
       <div
-        className={`w-full h-[52px] lg:w-[434px] focus-within:border-[1px] rounded-[12px] bg-transparent flex items-center justify-start  ${
-          error && "error"
-        } `}
+        className={`w-full h-[52px] lg:w-[434px] text-white border border-white/60 focus-within:border-white/30 focus-within:border-[1px]
+            rounded-full bg-black bg-opacity-30 flex items-center justify-start  ${
+              error && "focus-within:border-red-600 focus-within:border-[1px]"
+            } `}
       >
         <div
           className={` w-full  h-full flex items-center justify-center  rounded-[12px] relative`}
         >
           <input
+            id={id}
+            name={name}
             type={isPassVisible ? "text" : type}
             placeholder={placeholder}
-            className="w-full outline-none bg-[#F3F3F3] rounded-[13px] placeholder:text-[13px] placeholder:font-normal placeholder:text-[#6B737E] text-black bg-transparent h-full px-3 text-sm font-medium "
-            value={state}
-            onChange={(e) => setState(e.target.value)}
+            // placeholder={placeholder}
+            className={`w-full outline-none bg-transparent rounded-full
+              ${
+                type == "password"
+                  ? "text-[18px] font-verdana tracking-wider"
+                  : "text-[14px] font-medium tracking-wide"
+              } h-full px-4`}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
           />
           <button
             type="button"
@@ -33,10 +55,11 @@ const AuthInput = ({ state, setState, text, type, error, placeholder }) => {
             }}
           >
             {type == "password" &&
-              (!isPassVisible ? <BsEyeSlash /> :  <BsEye />)}
+              (!isPassVisible ? <BsEyeSlash /> : <BsEye />)}
           </button>
         </div>
       </div>
+      {error && touched && <p className="text-red-500 text-sm">{error}</p>}
     </div>
   );
 };

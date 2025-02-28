@@ -3,15 +3,20 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { GlobalContextProvider } from "./contexts/GlobalContext.jsx";
-import { background } from "./assets/export.js";
+import {
+  AppContextProvider,
+  AuthContext,
+  AuthContextProvider,
+} from "./contexts/AppContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <GlobalContextProvider>
-        <App />
-      </GlobalContextProvider>
+      <AuthContextProvider>
+        <AppContextProvider>
+          <App />
+        </AppContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

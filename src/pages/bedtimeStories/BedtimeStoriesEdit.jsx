@@ -252,7 +252,9 @@ const BedtimeStoriesEdit = () => {
           </div>
         </div>
       </div>
-      <SaveButton />
+      <div className="mt-8 w-[18%]">
+        <SaveButton title="Save Story" />
+      </div>
     </div>
   );
 };

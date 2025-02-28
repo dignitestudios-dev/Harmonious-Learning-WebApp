@@ -36,15 +36,8 @@ const UpcomingStoryModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-50"
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="bg-black bg-opacity-20 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[673px] relative">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">
+      <div className="bg-black bg-opacity-30 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[700px] relative">
         {/* Close Button */}
         <button
           type="button"
@@ -54,7 +47,7 @@ const UpcomingStoryModal = ({ isOpen, onClose }) => {
           <IoMdClose />
         </button>
 
-        <h2 className="text-2xl font-semibold mb-4 text-left mt-6">
+        <h2 className="text-[18px] font-semibold mb-4 text-left mt-6">
           Create New Upcoming Story
         </h2>
 
@@ -71,10 +64,12 @@ const UpcomingStoryModal = ({ isOpen, onClose }) => {
 
           <div>
             <UploadDateField
+              label="Release Date"
               toggleModal={toggleModal}
               selectedDate={selectedDate}
               isModalOpen={isDateModalOpen}
               handleDateClick={handleDateClick}
+              top={true}
             />
           </div>
 
@@ -96,7 +91,7 @@ const UpcomingStoryModal = ({ isOpen, onClose }) => {
                 </button>
               </div>
             ) : (
-              <div className="flex items-center justify-center w-full mt-1 h-[150px] border border-white/30 rounded-[18px] bg-black/15 bg-opacity-30">
+              <div className="flex items-center justify-center w-full mt-1 h-[130px] border border-white/30 rounded-[18px] bg-black/15 bg-opacity-30">
                 <label className="cursor-pointer flex flex-col items-center">
                   <img
                     src={uploadimage} // Show the imported image
@@ -124,12 +119,12 @@ const UpcomingStoryModal = ({ isOpen, onClose }) => {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full h-[149px] bg-transparent border border-white/30 rounded-[16px] text-white p-3 "
+              className="w-full h-[139px] bg-transparent border border-white/30 rounded-[16px] text-white p-3 "
               rows="5"
             ></textarea>
           </div>
 
-          <SaveButton />
+          <SaveButton title="Save" />
         </form>
       </div>
     </div>
