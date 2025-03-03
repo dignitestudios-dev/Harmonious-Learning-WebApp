@@ -19,7 +19,7 @@ const TopMeditationTracks = ({ title, tracks }) => {
   };
   return (
     <div className="bg-[#00000082] border-[#000] shadow-lg rounded-[25px] p-5 w-full mx-auto">
-      <div className="flex items-center justify-between  border-b border-[#ffffff30] pb-4 -mx-5 ">
+      <div className="flex items-center justify-between  border-b border-[#ffffff30] pb-4 -mx-4 ">
         <h2 className="text-white text-lg font-bold px-5">{title}</h2>
         <div className="relative w-[160px]">
           <CalendarField
