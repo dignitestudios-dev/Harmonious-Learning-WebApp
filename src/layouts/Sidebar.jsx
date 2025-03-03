@@ -4,6 +4,7 @@ import { Logo } from "../../src/assets/export"; // Assuming Logo is an image com
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { sidebarArr } from "../static/sidebarArr";
 import { FaSignOutAlt } from "react-icons/fa";
+import LogoutModal from "../components/dashboard/LogoutModal";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -12,6 +13,8 @@ const Sidebar = () => {
 
   // State for tracking the active link
   const [activeLink, setActiveLink] = useState(null);
+
+  const [isModalOpen, setModalOpen] = useState(false);
 
   // Toggle Drawer (Mobile)
   const toggleDrawer = () => {
@@ -26,6 +29,12 @@ const Sidebar = () => {
   // Handle active link change
   const handleLinkClick = (url) => {
     setActiveLink(url);
+  };
+
+  const handleDeactivate = () => {
+    console.log("User deactivated");
+    setModalOpen(false);
+    navigate("auth/login");
   };
 
   return (
@@ -82,7 +91,7 @@ const Sidebar = () => {
             })}
             <li className="w-full flex justify-start items-center gap-3">
               <div
-                onClick={() => navigate("auth/login")}
+                onClick={() => setModalOpen(true)}
                 className={`flex ml-4 items-end w-[calc(100%-1.9rem)] gap-2 px-8 py-4 rounded-full transition-all relative 
                 text-white cursor-pointer  hover:bg-gradient-to-r from-[#CEA3D8] to-[#000086] hover:text-white`}
               >
@@ -134,6 +143,12 @@ const Sidebar = () => {
           }
         `}
       </style>
+
+      <LogoutModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={handleDeactivate}
+      />
     </div>
   );
 };
