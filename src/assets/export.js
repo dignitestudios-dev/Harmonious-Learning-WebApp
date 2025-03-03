@@ -1,5 +1,5 @@
 import Logo from "../assets/Logo.png";
-import loginBg from "../assets/bg-image.png";
+import loginBg from "../assets/Bg-image.png";
 import background from "../assets/background.png";
 import uploadimage from "../assets/uploadimage.png";
 import deactivate from "../assets/deactivate.png";
