@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { IoMdTrash } from "react-icons/io";
-import { FaChevronRight } from "react-icons/fa";
-import { background, bin, right } from "../../assets/export"; // Assuming you are importing the image from assets
+
+import { bin, right } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
 
 const PromoCodesTable = () => {
@@ -97,7 +96,7 @@ const PromoCodesTable = () => {
             <img src={bin} />
             <div
               className="cursor-pointer"
-              onClick={() => navigate("/promo-code-details")}
+              onClick={() => navigate("/promo-codes/promo-code-details")}
             >
               <img src={right} />
             </div>

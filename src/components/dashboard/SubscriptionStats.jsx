@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
-import { FaCalendarAlt } from "react-icons/fa";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -123,6 +123,7 @@ const SubscriptionStats = () => {
             selectedDate={selectedDate}
             isModalOpen={isModalOpen}
             handleDateClick={handleDateClick}
+            right={true}
           />
 
           {/* Date and Calendar Icon for the second date */}

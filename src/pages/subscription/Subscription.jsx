@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SubscriptionTable from "../../components/subscription/SubscriptionTable";
 import CreateSubscriptionModal from "../../components/subscription/CreateSubscriptionModal";
-import { storyData, subData } from "../../static/dummyData";
+import { subData } from "../../static/dummyData";
 
 const Subscription = () => {
   const [subscription, setSubscription] = useState(subData);

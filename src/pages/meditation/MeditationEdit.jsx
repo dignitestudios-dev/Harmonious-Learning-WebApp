@@ -240,7 +240,7 @@ const MeditationEdit = () => {
           <div className="flex">
             {backgroundMusic?.map((item, index) => {
               return (
-                <div className="p-2 relative">
+                <div key={index} className="p-2 relative">
                   <div className=" w-[89px] h-[82px] border-[1px] border-purple-600 bg-gradient-to-r from-[#000086] to-[#CEA3D8] rounded-lg">
                     <div>
                       <img

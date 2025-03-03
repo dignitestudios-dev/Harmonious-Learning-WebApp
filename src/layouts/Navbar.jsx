@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IoNotificationsOutline } from "react-icons/io5";
-import { GoDotFill } from "react-icons/go";
+
 import { CiSearch, CiUser } from "react-icons/ci";
 // import NotificationDropdown from "../components/Notifications/NotificationDropdown";
 
@@ -50,10 +49,10 @@ const Navbar = () => {
 
         {/* Profile Button */}
         <button
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent closing immediately
-            setIsDropdownOpen((prev) => !prev);
-          }}
+          // onClick={(e) => {
+          //   e.stopPropagation(); // Prevent closing immediately
+          //   setIsDropdownOpen((prev) => !prev);
+          // }}
           className="flex items-center gap-2 w-24 "
         >
           {/* Image for profile link */}
@@ -67,19 +66,20 @@ const Navbar = () => {
           </div>
         </button>
 
-        <div
+        {/* <div
           className={`w-[120px] h-[60px] rounded-[12px] absolute top-12 right-4 shadow-md p-3 transition-all duration-300
-             flex flex-col justify-start items-start   bg-white/40 z-[1000] ${
-               isDropdownOpen ? "scale-100" : "scale-0"
-             }`}
+    flex flex-col justify-start items-center bg-white bg-opacity-20 z-[1000] ${
+      isDropdownOpen ? "scale-100" : "scale-0"
+    }`}
         >
           <button
             onClick={() => navigate("auth/login")}
-            className="w-full py-2 px-2 rounded text-left text-white text-[14px] font-medium leading-[14.85px] hover:bg-white/30"
+            className="w-full flex justify-center items-center px-2 py-3 rounded-[8px] text-white text-[14px] font-medium leading-[14.85px]
+             hover:bg-white/30"
           >
-            Logout
+            <FaSignOutAlt className="mr-2" /> Logout
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

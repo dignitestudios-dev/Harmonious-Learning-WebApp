@@ -20,7 +20,7 @@ const PromoCodeUsersTable = () => {
 
       {getStories.map((story, index) => (
         <div
-          key={story.id}
+          key={index}
           className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
                   hover:bg-opacity-60 transition duration-300 "
         >

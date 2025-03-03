@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { Logo } from "../assets/export";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { background } from "../assets/export";

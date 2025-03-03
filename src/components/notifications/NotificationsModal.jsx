@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { FaCalendarAlt } from "react-icons/fa";
-import { background } from "../../assets/export";
+
 import InputField from "../global/InputField";
 import UploadDateField from "../calendar/UploadDateField";
 import SaveButton from "../global/SaveButton";
 
 const NotificationsModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
   // Manage state for the selected time and AM/PM
   const [time, setTime] = useState("");
   const [period, setPeriod] = useState("AM");
@@ -39,6 +36,8 @@ const NotificationsModal = ({ isOpen, onClose }) => {
     setSelectedEndDate(date);
     setIsEndDateOpen(false);
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { FaAngleDown, FaChevronDown } from "react-icons/fa";
+
 import { GoChevronDown } from "react-icons/go";
 
 const SelectableField = ({

@@ -5,7 +5,6 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import {
   AppContextProvider,
-  AuthContext,
   AuthContextProvider,
 } from "./contexts/AppContext.jsx";
 

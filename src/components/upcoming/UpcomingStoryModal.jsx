@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { FaCalendarAlt } from "react-icons/fa";
-import { background, bin, uploadimage } from "../../assets/export"; // Assuming the image is imported from assets
+
+import { bin, uploadimage } from "../../assets/export";
 import InputField from "../global/InputField";
 import UploadDateField from "../calendar/UploadDateField";
 import SaveButton from "../global/SaveButton";

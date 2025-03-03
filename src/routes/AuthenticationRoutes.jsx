@@ -1,5 +1,4 @@
 import Login from "../pages/onboarding/Login";
-import GlobalLayout from "../layouts/GlobalLayout";
 
 export const AuthenticationRoutes = [
   {

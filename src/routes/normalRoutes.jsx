@@ -1,4 +1,3 @@
-import GlobalLayout from "../layouts/GlobalLayout";
 import Home from "../pages/dashboard/Home";
 import Users from "../pages/users/Users";
 
@@ -36,7 +35,7 @@ export const normalRoutes = [
   },
   {
     title: "User Profile",
-    url: "user-detail/:id",
+    url: "users/user-detail/:id",
     page: <UserDetail />,
   },
 
@@ -48,19 +47,19 @@ export const normalRoutes = [
 
   {
     title: "Meditation Upload",
-    url: "meditation-upload",
+    url: "meditation/meditation-upload",
     page: <MeditationUpload />,
   },
 
   {
     title: "Meditation",
-    url: "meditation-details/:id",
+    url: "meditation/meditation-details/:id",
     page: <MeditationDetails />,
   },
 
   {
     title: "Meditation",
-    url: "meditation-edit/:id",
+    url: "meditation/meditation-edit/:id",
     page: <MeditationEdit />,
   },
 
@@ -72,19 +71,19 @@ export const normalRoutes = [
 
   {
     title: "Bedtime Stories",
-    url: "bedtime-stories-details/:id",
+    url: "bedtime-stories/bedtime-stories-details/:id",
     page: <BedtimeStoriesDetail />,
   },
 
   {
     title: "Bedtime Stories",
-    url: "upload-bedtime-stories",
+    url: "bedtime-stories/upload-bedtime-stories",
     page: <BedtimeStoriesUpload />,
   },
 
   {
     title: "Bedtime Stories",
-    url: "bedtime-stories-edit/:id",
+    url: "bedtime-stories/bedtime-stories-edit/:id",
     page: <BedtimeStoriesEdit />,
   },
 
@@ -114,7 +113,7 @@ export const normalRoutes = [
 
   {
     title: "promo-code-details",
-    url: "promo-code-details",
+    url: "promo-codes/promo-code-details",
     page: <PromoCodeDetails />,
   },
 

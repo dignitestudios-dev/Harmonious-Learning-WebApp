@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { IoMdTrash } from "react-icons/io";
-import { FaChevronRight } from "react-icons/fa";
-import { background, bin, right } from "../../assets/export"; // Assuming you are importing the image from assets
-import NotificationsModal from "./NotificationsModal"; // Import the modal component
 
-const NotificationsTable = ({ stories, handleToggleStatus }) => {
+import { bin } from "../../assets/export";
+
+const NotificationsTable = ({ stories }) => {
   return (
     <div className="bg-[#00000044] border-[#000] rounded-[25px] overflow-hidden p-2">
       <div

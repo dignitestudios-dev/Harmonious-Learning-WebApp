@@ -59,7 +59,9 @@ const MeditationTable = ({ meditation, handleToggleStatus }) => {
             </div>
             <div
               className="cursor-pointer"
-              onClick={() => navigate(`/meditation-details/${meditation.id}`)}
+              onClick={() =>
+                navigate(`/meditation/meditation-details/${meditation.id}`)
+              }
             >
               <img src={right} />
             </div>

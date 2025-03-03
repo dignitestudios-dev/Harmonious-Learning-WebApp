@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { background, bin, uploadimage } from "../../assets/export";
+
 import SaveButton from "../global/SaveButton";
 
 const CreateSubscriptionModal = ({ isOpen, onClose }) => {

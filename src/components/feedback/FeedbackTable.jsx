@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { IoMdTrash } from "react-icons/io";
-import { background, bin, right } from "../../assets/export"; // Assuming you are importing the image from assets
-import { FaChevronRight } from "react-icons/fa";
+import { bin, right } from "../../assets/export"; // Assuming you are importing the image from assets
+
 import FeedbackDetailModal from "./FeedbackDetailModal";
 import FeedbackReplyModal from "./FeedbackReplyModal";
 
-const FeedbackTable = ({ feedback, handleToggleStatus }) => {
+const FeedbackTable = ({ feedback }) => {
   // Separate data for User and Admin Feedback
 
   const [isModalOpen, setIsModalOpen] = useState(false);

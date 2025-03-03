@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoMdTrash } from "react-icons/io";
+
 import { bin } from "../../assets/export";
 
 const UpcomingTable = ({ stories, handleToggleStatus }) => {

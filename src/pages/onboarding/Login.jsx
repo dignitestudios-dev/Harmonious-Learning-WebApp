@@ -62,11 +62,11 @@ const Login = () => {
           type="email"
           id="email"
           name="email"
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors?.email}
-          touched={touched?.email}
+          // value={values.email}
+          // onChange={handleChange}
+          // onBlur={handleBlur}
+          // error={errors?.email}
+          // touched={touched?.email}
         />
 
         {/* Password Input */}
@@ -75,11 +75,11 @@ const Login = () => {
           type="password"
           id="password"
           name="password"
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors?.password}
-          touched={touched?.password}
+          // value={values.password}
+          // onChange={handleChange}
+          // onBlur={handleBlur}
+          // error={errors?.password}
+          // touched={touched?.password}
         />
 
         {/* Submit Button */}

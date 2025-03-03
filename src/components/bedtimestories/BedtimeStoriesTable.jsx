@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { IoMdTrash } from "react-icons/io";
 
-import { FaChevronRight } from "react-icons/fa";
 import { bin, right } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +19,7 @@ const BedtimeStoriesTable = ({ stories, handleToggleStatus }) => {
         <div className="col-span-1 py-4 px-4 text-center">Action</div>
       </div>
 
-      {stories.map((story, index) => (
+      {stories?.map((story, index) => (
         <div
           key={story.id}
           className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
@@ -54,7 +52,11 @@ const BedtimeStoriesTable = ({ stories, handleToggleStatus }) => {
           </div>
           <div className="col-span-1 py-4 px-2 flex items-center justify-center gap-2">
             <img src={bin} />
-            <button onClick={() => navigate("/bedtime-stories-details/1")}>
+            <button
+              onClick={() =>
+                navigate("/bedtime-stories/bedtime-stories-details/1")
+              }
+            >
               <img src={right} />
             </button>
           </div>

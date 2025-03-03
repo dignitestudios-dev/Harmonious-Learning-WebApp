@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { background, playSymbol } from "../../assets/export";
+
 import { IoMdClose } from "react-icons/io";
-import { subscriptionData } from "../../static/dummyData";
 
 const FeedbackDetailModal = ({ isOpen, onClose, setReplyModalOpen }) => {
   const [isMonthly, setIsMonthly] = useState(true);

@@ -1,5 +1,5 @@
 import React from "react";
-import { IoMdSearch } from "react-icons/io";
+
 import { useNavigate } from "react-router-dom";
 import PromoCodeUsersTable from "../../components/promocodes/PromoCodeUsersTable";
 import { CiSearch } from "react-icons/ci";

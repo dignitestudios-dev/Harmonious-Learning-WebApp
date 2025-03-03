@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { IoMdTrash } from "react-icons/io";
-import { background } from "../../assets/export"; // Assuming you are importing the image from assets
-import { FaChevronRight } from "react-icons/fa";
+
 import { FaPen } from "react-icons/fa";
 import CreateSubjectModal from "./CreateSubjectModal";
 
-const SubjectsTable = ({ stories, handleToggleStatus }) => {
+const SubjectsTable = ({ stories }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

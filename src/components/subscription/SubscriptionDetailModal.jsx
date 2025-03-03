@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { background, playSymbol } from "../../assets/export";
+import { playSymbol } from "../../assets/export";
 import { IoMdClose } from "react-icons/io";
 import { subscriptionData } from "../../static/dummyData";
 
 const SubscriptionDetailModal = ({ isOpen, onClose }) => {
   const [isMonthly, setIsMonthly] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [subscriptionType, setSubscriptionType] = useState(null);
-  const [description, setDescription] = useState("");
 
   const handleToggleType = (isMonthlySelected) => {
     setIsMonthly(isMonthlySelected);

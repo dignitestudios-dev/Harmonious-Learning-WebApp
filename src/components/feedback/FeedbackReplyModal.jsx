@@ -1,5 +1,5 @@
 import React from "react";
-import { background } from "../../assets/export";
+
 import { IoMdClose } from "react-icons/io";
 import SaveButton from "../global/SaveButton";
 

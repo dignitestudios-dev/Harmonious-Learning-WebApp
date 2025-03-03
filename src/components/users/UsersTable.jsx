@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { background, right } from "../../assets/export";
+import { right } from "../../assets/export";
 
 import { useNavigate } from "react-router-dom";
 
@@ -57,7 +57,7 @@ const UsersTable = ({ stories, handleToggleStatus }) => {
             </label>
           </div>
           <div
-            onClick={() => navigate(`/user-detail/${story.id}`)}
+            onClick={() => navigate(`/users/user-detail/${story.id}`)}
             className="col-span-1 py-4 px-4 flex items-center justify-center gap-4 "
           >
             <img src={right} alt="right" className="cursor-pointer" />

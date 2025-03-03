@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { background, deactivate, uploadImg } from "../../assets/export";
+import { uploadImg } from "../../assets/export";
 import TracksInput from "../global/TracksInput";
 import { RxCross2 } from "react-icons/rx";
 import SaveButton from "../global/SaveButton";
@@ -7,7 +7,7 @@ import SaveButton from "../global/SaveButton";
 const BackgroundMusicModal = ({
   isOpen,
   onClose,
-  onConfirm,
+
   handleAudioUpload,
 }) => {
   const [backgroundMusic, setBackgroundMusic] = useState([]);

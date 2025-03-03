@@ -95,7 +95,7 @@ const BedtimeStoriesDetail = () => {
       <div className="flex justify-between items-center ">
         <h1 className="text-[36px] font-bold mb-6">Story Name</h1>
         <button
-          onClick={() => navigate("/bedtime-stories-edit/1")}
+          onClick={() => navigate("/bedtime-stories/bedtime-stories-edit/1")}
           className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] flex justify-center items-center
           lg:w-[121px] lg:h-[49px] text-white py-2 px-6 rounded-full shadow-md hover:bg-purple-700 transition duration-300"
         >

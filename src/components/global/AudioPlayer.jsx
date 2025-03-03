@@ -1,16 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { background, bedtime, instructionSymbol } from "../../assets/export";
+import { bedtime } from "../../assets/export";
 import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import { FaPlay, FaStop } from "react-icons/fa";
 
 const AudioPlayer = ({
-  playlist,
   audioFile,
-  srtFile,
-  currentLyric,
-  currentSongIndex,
+
   lyrics,
-  setLyrics,
 }) => {
   const audioRef = useRef(null);
   const currentLyricRef = useRef(null);
@@ -118,7 +114,7 @@ const AudioPlayer = ({
         {/* {playlist[currentSongIndex].title} */}
       </h2>
 
-      <div className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4">
+      <div className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4 relative">
         {lyrics.map((lyric, index) => (
           <p
             key={index}
@@ -136,6 +132,18 @@ const AudioPlayer = ({
             {lyric.text}
           </p>
         ))}
+
+        <div
+          className="w-full h-[100%]"
+          style={{
+            content: '""',
+            position: "absolute",
+
+            right: 0,
+            bottom: 0,
+            background: "linear-gradient(to top, transparent, #001229)",
+          }}
+        />
       </div>
 
       <div className="flex justify-center gap-8 mt-6">

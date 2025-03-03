@@ -108,7 +108,7 @@ const MeditationDetails = () => {
         </div> */}
 
         <button
-          onClick={() => navigate("/meditation-edit/1")}
+          onClick={() => navigate("/meditation/meditation-edit/1")}
           className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] flex justify-center items-center
           lg:w-[121px] lg:h-[49px] text-white py-2 px-6 rounded-full shadow-md hover:bg-purple-700 transition duration-300"
         >

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Logo } from "../../src/assets/export"; // Assuming Logo is an image component
-import { RiLogoutCircleLine, RiMenuLine, RiCloseLine } from "react-icons/ri";
+import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { sidebarArr } from "../static/sideBarArr";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   // State for controlling the drawer visibility
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -45,37 +47,52 @@ const Sidebar = () => {
         {/* Logo */}
         <div className="flex justify-left items-left w-full">
           <Link to="/">
-            <img src={Logo} alt="perfectboat_logo" className="h-[100px] ml-8" />
+            <img src={Logo} alt="the_logo" className="h-[100px] ml-8" />
           </Link>
         </div>
 
         {/* Navigation Links */}
         <div className="w-full flex-grow mt-4 overflow-auto hide-scrollbar">
           <ul className="w-full space-y-4">
-            {sidebarArr.map((link, index) => (
-              <li
-                key={index}
-                className="w-full flex justify-start items-center gap-3"
-              >
-                <NavLink
-                  to={link.url}
-                  onClick={() => handleLinkClick(link.url)} // Set active on click
-                  className={({ isActive }) =>
-                    `flex ml-4 items-end w-[calc(100%-1.9rem)] gap-2 px-8 py-4 rounded-full transition-all relative ${
-                      isActive
-                        ? "bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white" // Active background color
-                        : " hover:bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white hover:text-white" // Hover background color
-                    }`
-                  }
+            {sidebarArr.map((link, index) => {
+              return (
+                <li
+                  key={index}
+                  className="w-full flex justify-start items-center gap-3"
                 >
-                  <img src={link.icon} alt="abc" className="mb-0.5" />
-                  <span className="text-sm font-medium">{link.title}</span>
+                  <NavLink
+                    to={link.url}
+                    onClick={() => handleLinkClick(link.url)} // Set active on click
+                    className={({ isActive }) =>
+                      `flex ml-4 items-end w-[calc(100%-1.9rem)] gap-2 px-8 py-4 rounded-full transition-all relative ${
+                        isActive
+                          ? "bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white" // Active background color
+                          : " hover:bg-gradient-to-r from-[#000086] to-[#CEA3D8] text-white hover:text-white" // Hover background color
+                      }`
+                    }
+                  >
+                    <img src={link.icon} alt="abc" className="mb-0.5" />
+                    <span className="text-sm font-medium">{link.title}</span>
 
-                  {/* Modern hover effect: underline */}
-                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
-                </NavLink>
-              </li>
-            ))}
+                    {/* Modern hover effect: underline */}
+                    <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
+                  </NavLink>
+                </li>
+              );
+            })}
+            <li className="w-full flex justify-start items-center gap-3">
+              <div
+                onClick={() => navigate("auth/login")}
+                className={`flex ml-4 items-end w-[calc(100%-1.9rem)] gap-2 px-8 py-4 rounded-full transition-all relative 
+                text-white cursor-pointer  hover:bg-gradient-to-r from-[#CEA3D8] to-[#000086] hover:text-white`}
+              >
+                <FaSignOutAlt className="mr-2" />
+                <span className="text-sm font-medium">Logout</span>
+
+                {/* Modern hover effect: underline */}
+                <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white transition-all group-hover:w-full"></span>
+              </div>
+            </li>
           </ul>
         </div>
 

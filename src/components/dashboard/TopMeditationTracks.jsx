@@ -1,16 +1,34 @@
-import React from "react";
-import { FaCalendarAlt } from "react-icons/fa";
+import React, { useState } from "react";
 import { graph } from "../../assets/export";
+import CalendarField from "../calendar/CalendarField";
 
 const TopMeditationTracks = ({ title, tracks }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedDate, setSelectedDate] = useState("Nov, 15 2024");
+
+  // Function to toggle first modal
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+    // setIsModalOpenSecond(false);
+  };
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+    setIsModalOpen(false);
+  };
   return (
     <div className="bg-[#00000082] border-[#000] shadow-lg rounded-[25px] p-5 w-full mx-auto">
       <div className="flex items-center justify-between  border-b border-[#ffffff30] pb-4 -mx-5 ">
         <h2 className="text-white text-lg font-bold px-5">{title}</h2>
-        <div className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] rounded-full mr-6 ">
-          <button className="text-white transition p-2">
-            <FaCalendarAlt size={16} />
-          </button>
+        <div className="relative w-[160px]">
+          <CalendarField
+            toggleModal={toggleModal}
+            selectedDate={selectedDate}
+            isModalOpen={isModalOpen}
+            handleDateClick={handleDateClick}
+            // right={true}
+          />
         </div>
       </div>
       <div>

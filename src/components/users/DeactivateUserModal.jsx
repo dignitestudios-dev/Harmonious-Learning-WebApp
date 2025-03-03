@@ -1,5 +1,5 @@
 import React from "react";
-import { background, deactivate } from "../../assets/export";
+import { deactivate } from "../../assets/export";
 
 const DeactivateUserModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
