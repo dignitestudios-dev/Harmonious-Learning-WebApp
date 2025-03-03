@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Logo } from "../../src/assets/export"; // Assuming Logo is an image component
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
-import { sidebarArr } from "../static/sideBarArr";
+import { sidebarArr } from "../static/sidebarArr";
 import { FaSignOutAlt } from "react-icons/fa";
 
 const Sidebar = () => {
