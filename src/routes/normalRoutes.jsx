@@ -9,7 +9,7 @@ import MeditationUpload from "../pages/meditation/MeditationUpload";
 
 import UserDetail from "../pages/users/UserDetail";
 import Meditation from "../pages/meditation/Meditation";
-import BedtimeStories from "../pages/bedtimeStories/bedtimeStories";
+import BedtimeStories from "../pages/bedtimeStories/BedtimeStories";
 import UpcomingStories from "../pages/upcomingStories/UpcomingStories";
 import Subscription from "../pages/subscription/Subscription";
 import Subject from "../pages/subject/Subject";
@@ -20,7 +20,7 @@ import MeditationEdit from "../pages/meditation/MeditationEdit";
 import BedtimeStoriesDetail from "../pages/bedtimeStories/BedtimeStoriesDetail";
 import BedtimeStoriesUpload from "../pages/bedtimeStories/BedtimeStoriesUpload";
 import BedtimeStoriesEdit from "../pages/bedtimeStories/BedtimeStoriesEdit";
-import PromoCodeDetails from "../pages/promocodes/PromoCodeDetails";
+import PromoCodeDetails from "../pages/promocodes/PromoCodes";
 
 export const normalRoutes = [
   {
