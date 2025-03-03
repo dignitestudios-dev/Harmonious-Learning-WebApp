@@ -8,7 +8,7 @@ import AuthLayout from "./layouts/AuthLayout";
 function App() {
   return (
     <Routes>
-      <Route path="" element={<GlobalLayout />}>
+      <Route element={<GlobalLayout />}>
         {normalRoutes.map((route) => {
           return (
             <Route path={route?.url} element={route?.page} key={route?.title} />
@@ -16,7 +16,7 @@ function App() {
         })}
       </Route>
 
-      <Route path="auth" element={<AuthLayout />}>
+      <Route element={<AuthLayout />}>
         {AuthenticationRoutes.map((route) => {
           return (
             <Route path={route?.url} element={route?.page} key={route?.title} />

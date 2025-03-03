@@ -34,7 +34,7 @@ const Sidebar = () => {
   const handleDeactivate = () => {
     console.log("User deactivated");
     setModalOpen(false);
-    navigate("auth/login");
+    navigate("/login");
   };
 
   return (
