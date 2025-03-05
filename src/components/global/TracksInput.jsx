@@ -37,7 +37,7 @@ const TracksInput = ({
           <input
             id={id}
             type="file"
-            accept="audio/*,video/*"
+            accept="audio/*,video/*,.srt"
             className="hidden"
             onChange={(e) => handleFileUpload(e)}
           />

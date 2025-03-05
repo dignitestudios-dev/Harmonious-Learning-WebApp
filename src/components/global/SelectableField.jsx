@@ -29,6 +29,7 @@ const SelectableField = ({
           }`}
       >
         <button
+          type="button"
           className="px-5 text-sm w-full flex justify-between items-center"
           onClick={() => setDropdownVisible((prev) => !prev)}
         >

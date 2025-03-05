@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UpcomingStoryModal from "../../components/upcoming/UpcomingStoryModal";
 import UpcomingTable from "../../components/upcoming/UpcomingTable";
 import { bedtimeData, meditationData } from "../../static/dummyData";
+import { useUsers } from "../../hooks/api/Get";
 
 const UpcomingStories = () => {
   // State for stories, and whether it's Meditation or Bedtime Stories
-  const [stories, setStories] = useState(meditationData);
+  const [stories, setStories] = useState([]);
+
   const [isMeditation, setIsMeditation] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,8 +21,23 @@ const UpcomingStories = () => {
   // Handle switching between Meditation and Bedtime Stories
   const handleToggleType = (isMeditationSelected) => {
     setIsMeditation(isMeditationSelected);
-    setStories(isMeditationSelected ? meditationData : bedtimeData);
   };
+
+  const { data, loading, pagination } = useUsers("/user/getUpcomingStories", 1);
+
+  useEffect(() => {
+    if (data?.length > 0) {
+      if (isMeditation) {
+        setStories(
+          data?.filter((item) => item.upcomingStoryType === "Meditation")
+        );
+      } else {
+        setStories(
+          data?.filter((item) => item.upcomingStoryType === "Bedtime")
+        );
+      }
+    }
+  }, [isMeditation, data]);
 
   return (
     <div className="w-full min-h-screen p-8">
@@ -63,6 +80,7 @@ const UpcomingStories = () => {
           </div>
         </div>
         <UpcomingTable
+          loading={loading}
           stories={stories}
           handleToggleStatus={handleToggleStatus}
         />

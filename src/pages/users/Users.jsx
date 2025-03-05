@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UsersTable from "../../components/users/UsersTable";
 import { getStories } from "../../static/dummyData";
+import { useUsers } from "../../hooks/api/Get";
 
 const Users = () => {
   const [stories, setStories] = useState(getStories);
@@ -10,6 +11,9 @@ const Users = () => {
     updatedStories[index].status = !updatedStories[index].status;
     setStories(updatedStories);
   };
+
+  const { data, loading, pagination } = useUsers("/user/all", 1);
+
   return (
     <div className="w-full min-h-screen p-8 ">
       <div className="w-full min-h-screen ">
@@ -19,7 +23,11 @@ const Users = () => {
       + Add New Story
     </button> */}
         </div>
-        <UsersTable stories={stories} handleToggleStatus={handleToggleStatus} />
+        <UsersTable
+          stories={data}
+          handleToggleStatus={handleToggleStatus}
+          loading={loading}
+        />
       </div>
     </div>
   );

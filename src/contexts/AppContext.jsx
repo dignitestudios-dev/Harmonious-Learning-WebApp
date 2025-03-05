@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 // import { useEffect } from "react";
 // import { onMessageListener } from "../firebase/messages";
 // import getFCMToken from "../firebase/getFcmToken";
-// import Cookies from "js-cookie";
 // import axios from "../axios";
 
 export const AppContext = createContext();
@@ -61,12 +62,37 @@ export const AppContextProvider = ({ children }) => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-  const dummyVar = null;
+  const navigate = useNavigate();
+
+  const [token, setToken] = useState(() => Cookies.get("token"));
+  const [userData, setUserData] = useState(Cookies.get("name"));
+
+  const loginAuth = (data) => {
+    console.log("🚀 ~ login ~ data:", data);
+    if (data) {
+      Cookies.set("token", data?.token);
+      Cookies.set("name", JSON.stringify(data?.data));
+
+      setToken(data?.token);
+      setUserData(data?.data);
+    }
+  };
+
+  const logoutAuth = () => {
+    Cookies.remove("token");
+    Cookies.remove("name");
+    setToken(null);
+    setUserData(null);
+    navigate("/login");
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        dummyVar,
+        loginAuth,
+        logoutAuth,
+        token,
+        userData,
       }}
     >
       {children}

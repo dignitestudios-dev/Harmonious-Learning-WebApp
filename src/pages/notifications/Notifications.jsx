@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NotificationsTable from "../../components/notifications/NotificationsTable";
 import NotificationsModal from "../../components/notifications/NotificationsModal";
+import { useUsers } from "../../hooks/api/Get";
 
 const Notifications = () => {
   const initialData = [
@@ -49,6 +50,9 @@ const Notifications = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false); // Close the modal
   };
+
+  const { data, loading, pagination } = useUsers("/admin/notifications", 1);
+
   return (
     <div className="w-full min-h-screen p-8 ">
       <div className="w-full min-h-screen relative">
@@ -63,8 +67,9 @@ const Notifications = () => {
         </div>
 
         <NotificationsTable
-          stories={stories}
+          notification={data}
           handleToggleStatus={handleToggleStatus}
+          loading={loading}
         />
       </div>
 

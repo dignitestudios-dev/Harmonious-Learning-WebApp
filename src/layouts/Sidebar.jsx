@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Logo } from "../../src/assets/export"; // Assuming Logo is an image component
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { sidebarArr } from "../static/sidebarArr";
 import { FaSignOutAlt } from "react-icons/fa";
 import LogoutModal from "../components/dashboard/LogoutModal";
+import { AuthContext } from "../contexts/AppContext";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
+  const { logoutAuth } = useContext(AuthContext);
+
   // State for controlling the drawer visibility
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -31,10 +33,9 @@ const Sidebar = () => {
     setActiveLink(url);
   };
 
-  const handleDeactivate = () => {
-    console.log("User deactivated");
+  const handleLogout = () => {
     setModalOpen(false);
-    navigate("/login");
+    logoutAuth();
   };
 
   return (
@@ -147,7 +148,7 @@ const Sidebar = () => {
       <LogoutModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={handleDeactivate}
+        onConfirm={handleLogout}
       />
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MeditationTable from "../../components/meditation/MeditationTable";
 import { useNavigate } from "react-router-dom";
 import { meditationData } from "../../static/dummyData";
+import { useUsers } from "../../hooks/api/Get";
 
 const Meditation = () => {
   const navigate = useNavigate();
@@ -13,6 +14,12 @@ const Meditation = () => {
     updatedStories[index].status = !updatedStories[index].status;
     setMeditation(updatedStories);
   };
+
+  const { data, loading, pagination } = useUsers(
+    "/user/getMeditationStories",
+    1
+  );
+
   return (
     <div className="w-full min-h-screen p-8 relative">
       <div className="w-full min-h-screen relative">
@@ -27,7 +34,8 @@ const Meditation = () => {
           </button>
         </div>
         <MeditationTable
-          meditation={meditation}
+          loading={loading}
+          meditation={data}
           handleToggleStatus={handleToggleStatus}
         />
       </div>

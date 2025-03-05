@@ -13,7 +13,6 @@ const AuthInput = ({
   error,
   touched,
 }) => {
-  console.log("🚀 ~ error:", error);
   const [isPassVisible, setIsPassVisible] = useState(false);
 
   return (

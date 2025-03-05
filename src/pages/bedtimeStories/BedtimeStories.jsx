@@ -3,6 +3,7 @@ import BedtimeStoriesTable from "../../components/bedtimestories/BedtimeStoriesT
 
 import { useNavigate } from "react-router-dom";
 import { bedtimeData } from "../../static/dummyData";
+import { useUsers } from "../../hooks/api/Get";
 
 const BedtimeStories = () => {
   const navigate = useNavigate();
@@ -14,6 +15,11 @@ const BedtimeStories = () => {
     updatedStories[index].status = !updatedStories[index].status;
     setStories(updatedStories);
   };
+
+  const { data, loading, pagination } = useUsers("/user/getBedTimeStories", 1);
+  console.log("🚀 ~ BedtimeStories ~ loading:", loading);
+  console.log("🚀 ~ BedtimeStories ~ data:", data);
+
   return (
     <div className="w-full min-h-screen p-8 ">
       <div className="w-full min-h-screen ">
@@ -27,7 +33,8 @@ const BedtimeStories = () => {
           </button>
         </div>
         <BedtimeStoriesTable
-          stories={stories}
+          stories={data}
+          loading={loading}
           handleToggleStatus={handleToggleStatus}
         />
       </div>
