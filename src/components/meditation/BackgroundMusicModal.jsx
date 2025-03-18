@@ -3,13 +3,12 @@ import { uploadImg } from "../../assets/export";
 import TracksInput from "../global/TracksInput";
 import { RxCross2 } from "react-icons/rx";
 import SaveButton from "../global/SaveButton";
+import { useUpload } from "../../hooks/api/Post";
+import { processUpload } from "../../lib/utils";
 
-const BackgroundMusicModal = ({
-  isOpen,
-  onClose,
+const BackgroundMusicModal = ({ isOpen, onClose, id }) => {
+  const { loading, postData } = useUpload();
 
-  handleAudioUpload,
-}) => {
   const [backgroundMusic, setBackgroundMusic] = useState([]);
 
   const handleFileUpload = (e) => {
@@ -18,6 +17,20 @@ const BackgroundMusicModal = ({
       setBackgroundMusic((prev) => [...prev, { file }]);
       return;
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append("storyId", id);
+
+    if (backgroundMusic && backgroundMusic.length > 0) {
+      backgroundMusic.forEach((music, index) => {
+        formData.append(`bgMusicFile`, music.file);
+      });
+    }
+    postData("/admin/updateStories", true, formData, null, processUpload);
   };
 
   if (!isOpen) return null;
@@ -43,21 +56,20 @@ const BackgroundMusicModal = ({
             Add New Background Music
           </h2>
 
-          <TracksInput
-            id="music"
-            label="Background Music"
-            placeholder="Choose Background Music File to Upload"
-            setFile={setBackgroundMusic}
-            icon={uploadImg}
-            file={backgroundMusic}
-            handleFileUpload={(e) => {
-              handleAudioUpload(e);
-              handleFileUpload(e);
-            }}
-          />
-          <div className="w-full flex space-x-4 mt-6">
-            <SaveButton title="Save" />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <TracksInput
+              id="music"
+              label="Background Music"
+              placeholder="Choose Background Music File to Upload"
+              setFile={setBackgroundMusic}
+              icon={uploadImg}
+              file={backgroundMusic}
+              handleFileUpload={handleFileUpload}
+            />
+            <div className="w-full flex space-x-4 mt-6">
+              <SaveButton title="Save" loading={loading} />
+            </div>
+          </form>
         </div>
       </div>
     </div>

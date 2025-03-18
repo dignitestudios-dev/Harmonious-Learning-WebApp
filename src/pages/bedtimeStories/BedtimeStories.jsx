@@ -3,10 +3,11 @@ import BedtimeStoriesTable from "../../components/bedtimestories/BedtimeStoriesT
 
 import { useNavigate } from "react-router-dom";
 import { bedtimeData } from "../../static/dummyData";
-import { useUsers } from "../../hooks/api/Get";
+import { useStories } from "../../hooks/api/Get";
 
 const BedtimeStories = () => {
   const navigate = useNavigate();
+  const [update, setUpdate] = useState(false);
 
   const [stories, setStories] = useState(bedtimeData);
 
@@ -16,13 +17,15 @@ const BedtimeStories = () => {
     setStories(updatedStories);
   };
 
-  const { data, loading, pagination } = useUsers("/user/getBedTimeStories", 1);
-  console.log("🚀 ~ BedtimeStories ~ loading:", loading);
-  console.log("🚀 ~ BedtimeStories ~ data:", data);
+  const { data, loading, pagination } = useStories(
+    "/admin/getBedTimeStories",
+    1,
+    update
+  );
 
   return (
-    <div className="w-full min-h-screen p-8 ">
-      <div className="w-full min-h-screen ">
+    <div className="w-full min-h-screen overflow-auto p-8 ">
+      <div className="w-full min-h-screen pb-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-[36px] font-bold text-white">Bed Time Stories</h3>
           <button
@@ -34,8 +37,9 @@ const BedtimeStories = () => {
         </div>
         <BedtimeStoriesTable
           stories={data}
-          loading={loading}
+          loader={loading}
           handleToggleStatus={handleToggleStatus}
+          setUpdate={setUpdate}
         />
       </div>
     </div>

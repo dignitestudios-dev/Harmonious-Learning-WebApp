@@ -53,11 +53,11 @@ export const sidebarArr = [
     icon: window,
   },
 
-  {
-    title: "Promo Codes",
-    url: "/promo-codes",
-    icon: sticker,
-  },
+  // {
+  //   title: "Promo Codes",
+  //   url: "/promo-codes",
+  //   icon: sticker,
+  // },
 
   {
     title: "Feedback",

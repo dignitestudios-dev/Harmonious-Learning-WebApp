@@ -8,6 +8,7 @@ const UploadDateField = ({
   handleDateClick,
   label,
   top = false,
+  error = null,
 }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
@@ -57,7 +58,12 @@ const UploadDateField = ({
   return (
     <div className="relative">
       <label className="block text-sm mb-1">{label ? label : null}</label>
-      <div className=" w-full h-[50px] flex justify-between items-center border pl-5 pr-2 border-white/40 rounded-full text-white">
+      <div
+        className={` w-full h-[50px] flex justify-between items-center border pl-5 pr-2  
+        ${
+          error ? "border-red-600" : "border-white/40"
+        } rounded-full text-white`}
+      >
         <span className="text-sm">{selectedDate}</span>
         <div className=" bg-gradient-to-r from-[#000086] to-[#CEA3D8] rounded-full px-2 py-1">
           <button

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 import { bin } from "../../assets/export";
+import { getDateFormat, getTimeFormat } from "../../lib/helpers";
 
 const NotificationsTable = ({ notification, loading }) => {
   return (
-    <div className="bg-[#00000044] border-[#000] rounded-[25px] overflow-hidden p-2">
+    <div className="bg-[#00000044] border-[#000] rounded-[25px] mb-6 p-2">
       <div
         className="grid grid-cols-12 text-[14px] leading-[19px] text-white rounded-[14px]
            border-[1.5px] border-white/30 font-light mb-2"
@@ -60,8 +61,10 @@ const NotificationsTable = ({ notification, loading }) => {
               <div className="col-span-4 py-4 px-4 truncate">
                 {notify?.message}
               </div>
-              <div className="col-span-1 py-4 px-4">{notify?.createdAt}</div>
-              <div className="col-span-1 py-4 px-4">{notify?.createdAt}</div>
+              <div className="col-span-1 py-4 px-4">
+                {getDateFormat(notify?.createdAt)}
+              </div>
+              <div className="col-span-1 py-4 px-4">{getTimeFormat(notify?.createdAt)}</div>
               <div className="col-span-1 py-4 px-4 text-center">
                 <p
                   className={`text-[14px] font-medium ${

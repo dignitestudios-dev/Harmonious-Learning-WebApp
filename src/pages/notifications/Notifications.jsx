@@ -2,40 +2,13 @@ import React, { useState } from "react";
 import NotificationsTable from "../../components/notifications/NotificationsTable";
 import NotificationsModal from "../../components/notifications/NotificationsModal";
 import { useUsers } from "../../hooks/api/Get";
+import Pagination from "../../components/pagination/Pagination";
 
 const Notifications = () => {
-  const initialData = [
-    {
-      id: 1,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      time: "10:30am",
-      status: "Delivered",
-    },
-    {
-      id: 2,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      time: "11:00pm",
-      status: "Delivered",
-    },
-    {
-      id: 3,
-      name: "Story Name",
-      transcription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...",
-      date: "18/12/2024",
-      time: "01:15pm",
-      status: "Scheduled",
-    },
-  ];
-
-  const [stories, setStories] = useState(initialData);
+  const [update, setUpdate] = useState(false);
+  const [stories, setStories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal visibility
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleToggleStatus = (index) => {
     const updatedStories = [...stories];
@@ -51,11 +24,15 @@ const Notifications = () => {
     setIsModalOpen(false); // Close the modal
   };
 
-  const { data, loading, pagination } = useUsers("/admin/notifications", 1);
+  const { data, loading, pagination } = useUsers(
+    `/admin/notifications?page=${currentPage}&limit=5`,
+    1,
+    update
+  );
 
   return (
-    <div className="w-full min-h-screen p-8 ">
-      <div className="w-full min-h-screen relative">
+    <div className="w-full min-h-screen p-8 overflow-auto ">
+      <div className="w-full min-h-screen relative pb-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-4xl font-bold text-white">Push Notifications</h3>
           <button
@@ -71,10 +48,20 @@ const Notifications = () => {
           handleToggleStatus={handleToggleStatus}
           loading={loading}
         />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={pagination || ""}
+          setUpdate={setUpdate}
+        />
       </div>
 
       {/* Notifications Modal */}
-      <NotificationsModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <NotificationsModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        setUpdate={setUpdate}
+      />
     </div>
   );
 };

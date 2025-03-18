@@ -38,7 +38,11 @@ const AuthInput = ({
             className={`w-full outline-none bg-transparent rounded-full
               ${
                 type == "password"
-                  ? "text-[18px] font-verdana tracking-wider"
+                  ? ` text-[14px]  ${
+                      isPassVisible
+                        ? "font-medium tracking-wide"
+                        : "font-verdana tracking-wider text-[18px]"
+                    }`
                   : "text-[14px] font-medium tracking-wide"
               } h-full px-4`}
             value={value}

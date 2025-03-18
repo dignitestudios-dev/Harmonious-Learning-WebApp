@@ -1,33 +1,46 @@
-import React from "react";
 import { IoMdClose } from "react-icons/io";
 import SaveButton from "../global/SaveButton";
 import { useCreateSubject } from "../../hooks/api/Post";
 import { useFormik } from "formik";
-import { subjectValues } from "../../init/app/subjectValues";
 import { subjectSchema } from "../../schema/SubjectSchema";
 import { processSubject } from "../../lib/utils";
-import { useAllSubject } from "../../hooks/api/Get";
+import { useEffect } from "react";
 
-const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
+const EditSubjectModal = ({
+  isOpen,
+  onClose,
+  setUpdate,
+  subjectId,
+  subject,
+}) => {
   if (!isOpen) return null;
-
+  console.log(subject, "subject");
   const { loading, postData } = useCreateSubject(onClose, setUpdate);
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: subjectValues,
-      validationSchema: subjectSchema,
-      validateOnChange: true,
-      validateOnBlur: true,
-      onSubmit: async (values, action) => {
-        postData(
-          "/admin/createSubjects",
-          true,
-          { subject: values.subjectname },
-          null,
-          processSubject
-        );
-      },
-    });
+
+  const formik = useFormik({
+    initialValues: { subjectname: "" },
+    validationSchema: subjectSchema,
+    onSubmit: async (values) => {
+      const subjectsArray = values.subjectname
+        .split(",")
+        .map((subject) => subject.trim());
+      postData(
+        `/admin/updateSubjects/${subjectId}`,
+        true,
+        { subject: subjectsArray },
+        null,
+        processSubject
+      );
+    },
+  });
+
+  // Set the subject value when the modal opens
+  useEffect(() => {
+    if (subject) {
+      formik.setValues({ subjectname: subject });
+    }
+  }, [subject]);
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">
       <div className="bg-black bg-opacity-30 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[249px] relative">
@@ -39,9 +52,9 @@ const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
         >
           <IoMdClose />
         </button>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <h2 className="text-[18px] font-semibold mb-4 text-left mt-2">
-            Add New Subject
+            Edit Subject
           </h2>
           <div className="flex flex-col items-start text-center ">
             <label className="block text-[16px] mb-2">Subject</label>
@@ -50,14 +63,14 @@ const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
               name="subjectname"
               type="text"
               placeholder="Name"
-              value={values.subjectname}
-              onChange={handleChange}
+              value={formik.values.subjectname}
+              onChange={formik.handleChange}
               className="w-full bg-transparent border border-white/30 text-white px-5 py-3 
-              rounded-full placeholder:text-white placeholder:text-sm "
+              rounded-full placeholder:text-white placeholder:text-sm"
             />
-            {errors.subjectname && touched.subjectname ? (
+            {formik.errors.subjectname && formik.touched.subjectname ? (
               <span className="text-red-700 text-sm font-medium">
-                {errors.subjectname}
+                {formik.errors.subjectname}
               </span>
             ) : null}
             <div className="w-full flex space-x-4 mt-6">
@@ -70,4 +83,4 @@ const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
   );
 };
 
-export default CreateSubjectModal;
+export default EditSubjectModal;

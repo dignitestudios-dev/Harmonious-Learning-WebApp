@@ -1,30 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPen, FaPlay } from "react-icons/fa";
 import AudioPlayer from "../../components/global/AudioPlayer";
 import { musicSymbol } from "../../assets/export";
 import BackgroundMusicModal from "../../components/meditation/BackgroundMusicModal";
-import { useNavigate } from "react-router-dom";
-
-const playlist = [
-  {
-    title: "Song 1",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    lyrics: "https://example.com/lyrics1.json",
-  },
-  {
-    title: "Song 2",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    lyrics: "https://example.com/lyrics2.json",
-  },
-  {
-    title: "Song 3",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    lyrics: "https://example.com/lyrics3.json",
-  },
-];
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "../../axios";
 
 const BedtimeStoriesDetail = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { story } = location.state || {};
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [lyrics, setLyrics] = useState([]);
@@ -34,30 +20,36 @@ const BedtimeStoriesDetail = () => {
   const [srtFile, setSrtFile] = useState(null);
 
   const [audioFile, setAudioFile] = useState(null);
+
   const handleDeactivate = () => {
     console.log("User deactivated");
     setModalOpen(false);
   };
 
-  // Handle audio file upload
-  const handleAudioUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setAudioFile(URL.createObjectURL(file));
-    }
-  };
-
   // Handle SRT file upload and parse it
-  const handleSrtUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const srtContent = e.target.result;
-        const parsedLyrics = parseSrt(srtContent);
-        setLyrics(parsedLyrics);
-      };
-      reader.readAsText(file);
+  // const handleSrtUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       const srtContent = e.target.result;
+  //       const parsedLyrics = parseSrt(srtContent);
+  //       setLyrics(parsedLyrics);
+  //     };
+  //     reader.readAsText(file);
+  //   }
+  // };
+
+  const fetchAndParseSrt = async (srtUrl) => {
+    try {
+      const response = await axios.get(srtUrl);
+      if (!response.ok) throw new Error("Failed to fetch SRT file");
+
+      const srtContent = await response.text(); // Read file as text
+      const parsedLyrics = parseSrt(srtContent); // Parse SRT content
+      setLyrics(parsedLyrics); // Store parsed lyrics
+    } catch (error) {
+      console.error("Error fetching SRT:", error);
     }
   };
 
@@ -83,6 +75,11 @@ const BedtimeStoriesDetail = () => {
       .filter((line) => line !== null);
   };
 
+  useEffect(() => {
+    fetchAndParseSrt(story?.mp3SrtFile);
+    setAudioFile(story?.mp3File);
+  }, []);
+
   return (
     <div className="w-full min-h-screen overflow-auto text-white p-10 ">
       <button
@@ -93,9 +90,13 @@ const BedtimeStoriesDetail = () => {
       </button>
 
       <div className="flex justify-between items-center ">
-        <h1 className="text-[36px] font-bold mb-6">Story Name</h1>
+        <h1 className="text-[36px] font-bold mb-6">{story?.title}</h1>
         <button
-          onClick={() => navigate("/bedtime-stories/bedtime-stories-edit/1")}
+          onClick={() =>
+            navigate(`/bedtime-stories/bedtime-stories-edit/${story?._id}`, {
+              state: { story },
+            })
+          }
           className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] flex justify-center items-center
           lg:w-[121px] lg:h-[49px] text-white py-2 px-6 rounded-full shadow-md hover:bg-purple-700 transition duration-300"
         >
@@ -113,9 +114,8 @@ const BedtimeStoriesDetail = () => {
 
         <div className="bg-white/5 w-[686px] h-[668px] backdrop-blur-md rounded-xl p-6 flex-1">
           <AudioPlayer
-            playlist={playlist}
+            story={story}
             audioFile={audioFile}
-            srtFile={srtFile}
             currentLyric={currentLyric}
             currentSongIndex={currentSongIndex}
             lyrics={lyrics}
@@ -126,13 +126,14 @@ const BedtimeStoriesDetail = () => {
         {/* Right Section */}
         <div className="bg-[#00000044] border-[#000] h-[668px] rounded-[26px] px-6 pt-2 w-[363px]">
           <div className="flex justify-between items-center  pb-4">
-            <h3 className="text-[20px] font-medium ">
-              Background Music{" "}
-              <span className="text-white text-[11px] font-extralight">
-                (Optional)
-              </span>
-            </h3>
-
+            <div>
+              <h3 className="text-[20px] font-medium ">
+                Background Music{" "}
+                <span className="text-white text-[11px] font-extralight">
+                  (Optional)
+                </span>
+              </h3>
+            </div>
             <button
               onClick={() => setModalOpen(true)}
               className="text-[12px] text-[#8900FF] font-medium"
@@ -141,31 +142,34 @@ const BedtimeStoriesDetail = () => {
             </button>
           </div>
           <hr className="border-b-[0.5px] border-white/30" />
-          <ul className="space-y-4">
-            {[...Array(10)].map((_, i) => (
-              <li
-                key={i}
-                className="flex items-center justify-between bg-black/15 transition border-b-[1px] border-b-white/30"
-              >
-                <div className="flex items-center my-1">
-                  <img src={musicSymbol} alt="music" className="w-8 mt-2" />
-                  <span className="text-[16px] font-extralight">
-                    Background Music Title
-                  </span>
-                </div>
-                <button className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] p-2 rounded-full">
-                  <FaPlay size={10} />
-                </button>{" "}
-              </li>
-            ))}
-          </ul>
+          {story?.bgMusicFile?.length > 0 ? (
+            <ul className="space-y-4">
+              {story?.bgMusicFile?.map((_, i) => (
+                <li
+                  key={i}
+                  className="flex items-center justify-between bg-black/15 transition border-b-[1px] border-b-white/30"
+                >
+                  <div className="flex items-center my-1">
+                    <img src={musicSymbol} alt="music" className="w-8 mt-2" />
+                    <span className="text-[16px] font-extralight">
+                      {_.split("/").pop()}
+                    </span>
+                  </div>
+                  <button className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] p-2 rounded-full">
+                    <FaPlay size={10} />
+                  </button>{" "}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="space-y-4">No Record Found</ul>
+          )}
         </div>
       </div>
       <BackgroundMusicModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={handleDeactivate}
-        handleAudioUpload={handleAudioUpload}
+        id={story?._id}
       />
     </div>
   );

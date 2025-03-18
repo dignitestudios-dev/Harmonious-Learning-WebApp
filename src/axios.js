@@ -52,12 +52,15 @@ instance.interceptors.response.use(
       ErrorToast("Your internet connection is slow. Please try again.");
     }
 
-    if (error.response && error.response.status === 401) {
+    if (
+      (error.response && error.response.status === 401) ||
+      error.response.status === 403
+    ) {
       // Unauthorized error
       Cookies.remove("token");
       Cookies.remove("user");
       ErrorToast("Session expired. Please relogin");
-      // window.location.href = "/login";
+      window.location.href = "/login";
     }
 
     return Promise.reject(error);

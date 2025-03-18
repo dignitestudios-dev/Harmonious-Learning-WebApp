@@ -8,7 +8,7 @@ const SubscriptionTable = ({ subscription, handleToggleStatus }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="bg-[#00000044] border-[#000] rounded-[25px] overflow-hidden p-2">
+    <div className="bg-[#00000044] border-[#000] rounded-[25px] mb-6 p-2">
       <div
         className="grid grid-cols-12 text-[14px] leading-[19px] text-white rounded-[14px]
            border-[1.5px] border-white/30 font-light mb-2"

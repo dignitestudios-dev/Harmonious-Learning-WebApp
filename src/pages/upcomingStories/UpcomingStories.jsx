@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import UpcomingStoryModal from "../../components/upcoming/UpcomingStoryModal";
+import { useEffect, useState } from "react";
 import UpcomingTable from "../../components/upcoming/UpcomingTable";
-import { bedtimeData, meditationData } from "../../static/dummyData";
-import { useUsers } from "../../hooks/api/Get";
+import { useStories } from "../../hooks/api/Get";
 
 const UpcomingStories = () => {
-  // State for stories, and whether it's Meditation or Bedtime Stories
   const [stories, setStories] = useState([]);
-
+  const [update, setUpdate] = useState(false);
   const [isMeditation, setIsMeditation] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Handle toggling the status of a story
   const handleToggleStatus = (index) => {
     const updatedStories = [...stories];
     updatedStories[index].status = !updatedStories[index].status;
     setStories(updatedStories);
   };
 
-  // Handle switching between Meditation and Bedtime Stories
   const handleToggleType = (isMeditationSelected) => {
     setIsMeditation(isMeditationSelected);
   };
 
-  const { data, loading, pagination } = useUsers("/user/getUpcomingStories", 1);
+  const { data, loading, pagination } = useStories(
+    "/admin/getUpcomingStories",
+    1,
+    update
+  );
+  console.log("🚀 ~ UpcomingStories ~ data:", data);
 
   useEffect(() => {
     if (data?.length > 0) {
@@ -37,11 +36,11 @@ const UpcomingStories = () => {
         );
       }
     }
-  }, [isMeditation, data]);
+  }, [isMeditation, data, update]);
 
   return (
-    <div className="w-full min-h-screen p-8">
-      <div className="w-full min-h-screen ">
+    <div className="w-full min-h-screen overflow-auto p-8">
+      <div className="w-full min-h-screen pb-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-[36px] font-bold text-white">Upcoming</h3>
 
@@ -71,24 +70,25 @@ const UpcomingStories = () => {
               </button>
             </div>
 
-            <button
+            {/* <button
               onClick={() => setIsModalOpen(true)}
               className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] lg:w-[151px] lg:h-[49px] text-white py-2 px-6 rounded-full shadow-md hover:bg-purple-700 transition duration-300"
             >
               Add New
-            </button>
+            </button> */}
           </div>
         </div>
         <UpcomingTable
-          loading={loading}
+          loader={loading}
           stories={stories}
           handleToggleStatus={handleToggleStatus}
+          setUpdate={setUpdate}
         />
       </div>
-      <UpcomingStoryModal
+      {/* <UpcomingStoryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-      />
+      /> */}
     </div>
   );
 };

@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 const PromoCodes = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <div className="w-full min-h-screen p-8 ">
-      <div className="w-full min-h-screen ">
+    <div className="w-full min-h-screen p-8 overflow-auto">
+      <div className="w-full min-h-screen pb-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-[36px] font-semibold text-white ">Promo Codes</h3>
           <button

@@ -9,6 +9,7 @@ const SelectableField = ({
   value,
   options,
   error,
+  loader,
 }) => {
   const dropdownRef = useRef(null);
 
@@ -22,15 +23,17 @@ const SelectableField = ({
 
       <div
         className={`w-full h-[49px] focus-within:border-[1px] border rounded-full bg-transparent shadow-sm
-          flex items-center justify-start relative ${
+          flex items-center justify-start relative focus:ring-0 focus:outline-none ${
             error
-              ? "focus-within:border-[#FF453A]"
-              : "focus-within: border-white/30"
+              ? "focus-within:border-[#FF453A] border-red-600"
+              : "focus-within:border-white/30 border-white/50"
           }`}
       >
         <button
           type="button"
-          className="px-5 text-sm w-full flex justify-between items-center"
+          className={`px-5 text-sm w-full flex justify-between items-center ${
+            value ? "text-white" : "text-white/70"
+          }`}
           onClick={() => setDropdownVisible((prev) => !prev)}
         >
           {value ? value : placeholder}
@@ -47,30 +50,37 @@ const SelectableField = ({
             </div> */}
 
             <span>
-              {options.map((option, index) => (
-                <div
-                  key={index}
-                  className=" p-2 cursor-pointer border-b-[1px] border-white/30 hover:bg-gradient-to-l from-[#1d1d36] to-[#580c4a] "
-                >
-                  <button
-                    type="button"
-                    value={value}
-                    onClick={() => {
-                      handleChange(option);
-                      setDropdownVisible(false);
-                    }}
-                    className={` text-sm w-full flex flex-1 ${
-                      value ? "text-white/90" : "text-white"
-                    }   placeholder:font-normal font-normal rounded-xl outline-none bg-transparent cursor-pointer `}
+              {loader ? (
+                <div className="text-center">Loading....</div>
+              ) : (
+                options.map((option, index) => (
+                  <div
+                    key={index}
+                    className=" p-2 cursor-pointer border-b-[1px] border-white/30 hover:bg-gradient-to-l from-[#1d1d36] to-[#580c4a] "
                   >
-                    {option}
-                  </button>
-                </div>
-              ))}
+                    <button
+                      type="button"
+                      value={value}
+                      onClick={() => {
+                        handleChange(option);
+                        setDropdownVisible(false);
+                      }}
+                      className={` text-sm w-full flex flex-1 ${
+                        value ? "text-white/90" : "text-white"
+                      }   placeholder:font-normal font-normal rounded-xl outline-none bg-transparent cursor-pointer `}
+                    >
+                      {option}
+                    </button>
+                  </div>
+                ))
+              )}
             </span>
           </div>
         )}
       </div>
+      {error ? (
+        <p className="text-red-600 text-sm font-light">{error}</p>
+      ) : null}
     </div>
   );
 };

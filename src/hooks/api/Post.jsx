@@ -62,4 +62,95 @@ const useUpload = () => {
 
   return { loading, postData };
 };
-export { useLogin, useUpload };
+
+const useFeedBackReply = (onClose, setUpdate) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const postData = async (
+    url,
+    isFormData = false,
+    formdata = null,
+    data = null,
+    callback
+  ) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, isFormData ? formdata : data);
+      if (typeof callback === "function") {
+        callback(response?.data, onClose, setUpdate);
+      }
+      return response?.data;
+    } catch (error) {
+      console.log("🚀 ~ useUpload ~ error:", error);
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
+const useCreateSubject = (onClose, setUpdate) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const postData = async (
+    url,
+    isFormData = false,
+    formdata = null,
+    data = null,
+    callback
+  ) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, isFormData ? formdata : data);
+      if (typeof callback === "function") {
+        callback(response?.data, onClose, setUpdate);
+      }
+      return response?.data;
+    } catch (error) {
+      console.log("🚀 ~ useUpload ~ error:", error);
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
+const useCreateNotification = (onClose, setUpdate) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const postData = async (
+    url,
+    isFormData = false,
+    formdata = null,
+    data = null,
+    callback
+  ) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(url, isFormData ? formdata : data);
+      if (typeof callback === "function") {
+        callback(response?.data, onClose, setUpdate);
+      }
+      return response?.data;
+    } catch (error) {
+      console.log("🚀 ~ useUpload ~ error:", error);
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, postData };
+};
+export {
+  useLogin,
+  useUpload,
+  useFeedBackReply,
+  useCreateSubject,
+  useCreateNotification,
+};

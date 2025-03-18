@@ -1,4 +1,4 @@
-import { ErrorToast } from "../components/global/Toaster";
+import { ErrorToast, SuccessToast } from "../components/global/Toaster";
 
 export const processSignup = (data, navigate) => {
   if (data?.success) {
@@ -17,8 +17,40 @@ export const processLogin = (data, navigate, loginAuth) => {
 
 export const processUpload = (data, navigate) => {
   if (data?.success) {
-    // loginAuth(data);
-    // navigate("/meditation");
+    navigate("/meditation");
+    return;
+  }
+};
+export const processFeedback = (data, onClose, setUpdate) => {
+  if (data?.success) {
+    SuccessToast("Feedback Reply send successfully");
+    onClose();
+    setUpdate((prev) => !prev);
+    return;
+  }
+};
+
+export const processSubject = (data, onClose, setUpdate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    onClose();
+    setUpdate((prev) => !prev);
+    return;
+  }
+};
+export const processPushNotification = (data, onClose, setUpdate) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    onClose();
+    setUpdate((prev) => !prev);
+    return;
+  }
+};
+export const processDeleteStory = (data, setUpdate, onClose) => {
+  if (data?.success) {
+    SuccessToast(data?.message);
+    onClose();
+    setUpdate((prev) => !prev);
     return;
   }
 };

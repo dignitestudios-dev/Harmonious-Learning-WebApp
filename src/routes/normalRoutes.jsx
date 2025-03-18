@@ -13,7 +13,6 @@ import BedtimeStories from "../pages/bedtimeStories/BedtimeStories";
 import UpcomingStories from "../pages/upcomingStories/UpcomingStories";
 import Subscription from "../pages/subscription/Subscription";
 import Subject from "../pages/subject/Subject";
-
 import PromoCodes from "../pages/promocodes/PromoCodes";
 import Feedback from "../pages/feedback/Feedback";
 import MeditationEdit from "../pages/meditation/MeditationEdit";
@@ -105,17 +104,17 @@ export const normalRoutes = [
     page: <Subject />,
   },
 
-  {
-    title: "Promo Codes",
-    url: "promo-codes",
-    page: <PromoCodes />,
-  },
+  // {
+  //   title: "Promo Codes",
+  //   url: "promo-codes",
+  //   page: <PromoCodes />,
+  // },
 
-  {
-    title: "promo-code-details",
-    url: "promo-codes/promo-code-details",
-    page: <PromoCodeDetails />,
-  },
+  // {
+  //   title: "promo-code-details",
+  //   url: "promo-codes/promo-code-details",
+  //   page: <PromoCodeDetails />,
+  // },
 
   {
     title: "Feedback",

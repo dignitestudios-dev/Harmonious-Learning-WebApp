@@ -3,11 +3,8 @@ import { bedtime } from "../../assets/export";
 import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import { FaPlay, FaStop } from "react-icons/fa";
 
-const AudioPlayer = ({
-  audioFile,
-
-  lyrics,
-}) => {
+const AudioPlayer = ({ audioFile, lyrics, story }) => {
+  console.log("🚀 ~ AudioPlayer ~ lyrics:", lyrics);
   const audioRef = useRef(null);
   const currentLyricRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -102,7 +99,7 @@ const AudioPlayer = ({
         />
         <div className="w-full flex justify-between items-center absolute top-0 pt-4 pr-8 pl-5">
           <span className=" bg-white/10 text-white w-[124px] h-[46px] text-center pt-[11px] rounded-full">
-            Math
+            {story?.tags}
           </span>
           {/* <div>
             <img src={instructionSymbol} alt="instruction" />
@@ -111,11 +108,11 @@ const AudioPlayer = ({
       </div>
 
       <h2 className="text-2xl font-semibold text-center mb-4">
-        {/* {playlist[currentSongIndex].title} */}
+        {story?.title}
       </h2>
 
       <div className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4 relative">
-        {lyrics.map((lyric, index) => (
+        {lyrics?.map((lyric, index) => (
           <p
             key={index}
             ref={
@@ -138,7 +135,6 @@ const AudioPlayer = ({
           style={{
             content: '""',
             position: "absolute",
-
             right: 0,
             bottom: 0,
             background: "linear-gradient(to top, transparent, #001229)",

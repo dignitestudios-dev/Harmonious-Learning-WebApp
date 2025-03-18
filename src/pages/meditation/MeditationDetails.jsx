@@ -1,30 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPen, FaPlay } from "react-icons/fa";
 import AudioPlayer from "../../components/global/AudioPlayer";
 import { musicSymbol } from "../../assets/export";
 import BackgroundMusicModal from "../../components/meditation/BackgroundMusicModal";
-import { useNavigate } from "react-router-dom";
-
-const playlist = [
-  {
-    title: "Song 1",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    lyrics: "https://example.com/lyrics1.json",
-  },
-  {
-    title: "Song 2",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    lyrics: "https://example.com/lyrics2.json",
-  },
-  {
-    title: "Song 3",
-    audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    lyrics: "https://example.com/lyrics3.json",
-  },
-];
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "../../axios";
 
 const MeditationDetails = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { meditation } = location.state || {};
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [lyrics, setLyrics] = useState([]);
@@ -40,12 +25,12 @@ const MeditationDetails = () => {
   };
 
   // Handle audio file upload
-  const handleAudioUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setAudioFile(URL.createObjectURL(file));
-    }
-  };
+  // const handleAudioUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     setAudioFile(URL.createObjectURL(file));
+  //   }
+  // };
 
   // Handle SRT file upload and parse it
   const handleSrtUpload = (event) => {
@@ -62,6 +47,39 @@ const MeditationDetails = () => {
   };
 
   // Parse SRT file content
+  // const parseSrt = (srtContent) => {
+  //   const lines = srtContent.split("\n\n");
+  //   return lines
+  //     .map((line) => {
+  //       const [index, time, ...text] = line.split("\n");
+  //       if (!time) return null;
+  //       const [start, end] = time.split(" --> ").map((t) => {
+  //         const [h, m, s] = t.split(":");
+  //         const [sec, ms] = s.split(",");
+  //         return (
+  //           parseFloat(h) * 3600 +
+  //           parseFloat(m) * 60 +
+  //           parseFloat(sec) +
+  //           parseFloat(ms) / 1000
+  //         );
+  //       });
+  //       return { start, end, text: text.join("\n") };
+  //     })
+  //     .filter((line) => line !== null);
+  // };
+  const fetchAndParseSrt = async (srtUrl) => {
+    try {
+      const response = await axios.get(srtUrl);
+      if (!response.ok) throw new Error("Failed to fetch SRT file");
+
+      const srtContent = await response.text(); // Read file as text
+      const parsedLyrics = parseSrt(srtContent); // Parse SRT content
+      setLyrics(parsedLyrics); // Store parsed lyrics
+    } catch (error) {
+      console.error("Error fetching SRT:", error);
+    }
+  };
+
   const parseSrt = (srtContent) => {
     const lines = srtContent.split("\n\n");
     return lines
@@ -83,6 +101,11 @@ const MeditationDetails = () => {
       .filter((line) => line !== null);
   };
 
+  useEffect(() => {
+    fetchAndParseSrt(meditation?.mp3SrtFile);
+    setAudioFile(meditation?.mp3File);
+  }, []);
+
   return (
     <div className="w-full min-h-screen overflow-auto text-white p-10 ">
       <button
@@ -93,7 +116,7 @@ const MeditationDetails = () => {
       </button>
 
       <div className="flex justify-between items-center ">
-        <h1 className="text-[36px] font-bold mb-6">Track Name</h1>
+        <h1 className="text-[36px] font-bold mb-6">{meditation?.title}</h1>
         {/* Audio and File upload */}
         {/* <div className="mb-4">
           <label className="block mb-2">
@@ -108,7 +131,11 @@ const MeditationDetails = () => {
         </div> */}
 
         <button
-          onClick={() => navigate("/meditation/meditation-edit/1")}
+          onClick={() =>
+            navigate(`/meditation/meditation-edit/${meditation?._id}`, {
+              state: { meditation },
+            })
+          }
           className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] flex justify-center items-center
           lg:w-[121px] lg:h-[49px] text-white py-2 px-6 rounded-full shadow-md hover:bg-purple-700 transition duration-300"
         >
@@ -126,9 +153,8 @@ const MeditationDetails = () => {
 
         <div className="bg-gray-800 w-[686px] h-[668px] backdrop-blur-md rounded-xl p-6 flex-1">
           <AudioPlayer
-            playlist={playlist}
+            story={meditation}
             audioFile={audioFile}
-            srtFile={srtFile}
             currentLyric={currentLyric}
             currentSongIndex={currentSongIndex}
             lyrics={lyrics}
@@ -154,31 +180,34 @@ const MeditationDetails = () => {
             </button>
           </div>
           <hr className="border-b-[0.5px] border-white/30" />
-          <ul className="space-y-4">
-            {[...Array(10)].map((_, i) => (
-              <li
-                key={i}
-                className="flex items-center justify-between bg-black/15 transition border-b-[1px] border-b-white/30"
-              >
-                <div className="flex items-center my-1">
-                  <img src={musicSymbol} alt="music" className="w-8 mt-2" />
-                  <span className="text-[16px] font-extralight">
-                    Background Music Title
-                  </span>
-                </div>
-                <button className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] p-2 rounded-full">
-                  <FaPlay size={10} />
-                </button>{" "}
-              </li>
-            ))}
-          </ul>
+          {meditation?.bgMusicFile?.length > 0 ? (
+            <ul className="space-y-4">
+              {meditation?.bgMusicFile?.map((_, i) => (
+                <li
+                  key={i}
+                  className="flex items-center justify-between bg-black/15 transition border-b-[1px] border-b-white/30"
+                >
+                  <div className="flex items-center my-1">
+                    <img src={musicSymbol} alt="music" className="w-8 mt-2" />
+                    <span className="text-[16px] font-extralight">
+                      {_.split("/").pop()}
+                    </span>
+                  </div>
+                  <button className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] p-2 rounded-full">
+                    <FaPlay size={10} />
+                  </button>{" "}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="space-y-4">No Record Found</ul>
+          )}
         </div>
       </div>
       <BackgroundMusicModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onConfirm={handleDeactivate}
-        handleAudioUpload={handleAudioUpload}
       />
     </div>
   );

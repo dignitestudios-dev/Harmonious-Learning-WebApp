@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 
 import { IoMdClose } from "react-icons/io";
+import { getDateFormat } from "../../lib/helpers";
 
-const FeedbackDetailModal = ({ isOpen, onClose, setReplyModalOpen }) => {
+const FeedbackDetailModal = ({
+  isOpen,
+  onClose,
+  setReplyModalOpen,
+  feedbackdetail,
+}) => {
+  console.log(feedbackdetail, "feedbackId");
   const [isMonthly, setIsMonthly] = useState(true);
 
   if (!isOpen) return null;
@@ -37,25 +44,18 @@ const FeedbackDetailModal = ({ isOpen, onClose, setReplyModalOpen }) => {
             <span className="text-[14px] font-light">Olivia James</span>
           </div>
           <div className="w-[48%]">
-            <p className="text-[14px] font-light">12/Dec/2024</p>
+            <p className="text-[14px] font-light">
+              {getDateFormat(feedbackdetail?.createdAt)}
+            </p>
           </div>
         </div>
 
         <hr className="border-b border-white/10 my-6" />
 
-        <div className="space-y-4">
+        <div className="space-y-4 h-[250px] overflow-y-auto ">
           <p className="text-[16px]  mt-4">Description</p>
           <p className="text-[14px] font-light mt-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquia.
+            {feedbackdetail?.message}
           </p>
         </div>
         <button

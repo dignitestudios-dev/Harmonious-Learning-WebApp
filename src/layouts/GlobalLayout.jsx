@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import { Logo } from "../assets/export";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { background } from "../assets/export";
 import NoInternetModal from "../components/global/NoInternetModal";
+import { AuthContext } from "../contexts/AppContext";
 
 const GlobalLayout = () => {
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [openNoInternet, setOpenNoInternet] = useState(false);
 
   useEffect(() => {
@@ -15,6 +18,13 @@ const GlobalLayout = () => {
       setOpenNoInternet(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
+
   return (
     <div
       className="w-full h-screen font-m"
