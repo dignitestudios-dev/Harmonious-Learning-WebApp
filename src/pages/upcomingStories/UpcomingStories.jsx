@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import UpcomingTable from "../../components/upcoming/UpcomingTable";
 import { useStories } from "../../hooks/api/Get";
+import Pagination from "../../components/pagination/Pagination";
 
 const UpcomingStories = () => {
   const [stories, setStories] = useState([]);
   const [update, setUpdate] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [isMeditation, setIsMeditation] = useState(true);
 
   const handleToggleStatus = (index) => {
@@ -19,7 +22,7 @@ const UpcomingStories = () => {
 
   const { data, loading, pagination } = useStories(
     "/admin/getUpcomingStories",
-    1,
+    currentPage,
     update
   );
   console.log("🚀 ~ UpcomingStories ~ data:", data);
@@ -40,7 +43,7 @@ const UpcomingStories = () => {
 
   return (
     <div className="w-full min-h-screen overflow-auto p-8">
-      <div className="w-full min-h-screen pb-6">
+      <div className="w-full min-h-screen pb-12">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-[36px] font-bold text-white">Upcoming</h3>
 
@@ -83,6 +86,11 @@ const UpcomingStories = () => {
           stories={stories}
           handleToggleStatus={handleToggleStatus}
           setUpdate={setUpdate}
+        />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={pagination}
         />
       </div>
       {/* <UpcomingStoryModal

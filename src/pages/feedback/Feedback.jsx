@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
 import FeedbackTable from "../../components/feedback/FeedbackTable";
 import { useFeedBack } from "../../hooks/api/Get";
+import Pagination from "../../components/pagination/Pagination";
 
 const Feedback = () => {
   const [update, setUpdate] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, loading } = useFeedBack("/admin/getFeedback", 1, update);
+  const { data, loading, pagination } = useFeedBack(
+    "/admin/getFeedback",
+    currentPage,
+    update
+  );
+  console.log("🚀 ~ Feedback ~ data:", data);
 
   const [feedback, setFeedback] = useState([]);
   const [isUserFeedback, setIsUserFeedback] = useState(true);
@@ -31,7 +38,7 @@ const Feedback = () => {
 
   return (
     <div className="w-full min-h-screen p-8 relative overflow-auto">
-      <div className="w-full min-h-screen relative pb-6">
+      <div className="w-full min-h-screen relative pb-12">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-4xl font-bold text-white">Feedback</h3>
 
@@ -68,6 +75,11 @@ const Feedback = () => {
           loading={loading}
           handleToggleStatus={handleToggleStatus}
           setUpdate={setUpdate}
+        />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={pagination}
         />
       </div>
     </div>

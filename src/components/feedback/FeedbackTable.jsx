@@ -4,8 +4,10 @@ import FeedbackDetailModal from "./FeedbackDetailModal";
 import FeedbackReplyModal from "./FeedbackReplyModal";
 import UsersLoader from "../users/UsersLoader";
 import { getDateFormat, getTimeFormat } from "../../lib/helpers";
+import { useDelete } from "../../hooks/api/Delete";
+import { processDelete } from "../../lib/utils";
 
-const FeedbackTable = ({ feedback, loading, isUserFeedback ,setUpdate}) => {
+const FeedbackTable = ({ feedback, loading, isUserFeedback, setUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [replyModalOpen, setReplyModalOpen] = useState(false);
   const [selectedFeedbackId, setSelectedFeedbackId] = useState(null);
@@ -13,6 +15,11 @@ const FeedbackTable = ({ feedback, loading, isUserFeedback ,setUpdate}) => {
     setSelectedFeedbackId(id);
     setIsModalOpen(true);
   };
+  // const { loading: loader, deleteData } = useDelete(setUpdate);
+
+  // const handleDelete = async (storyId) => {
+  //   deleteData("/admin/deleteStories", storyId, processDelete);
+  // };
   return (
     <div className="bg-[#00000044] border-[#000] rounded-[25px] mb-6 p-2">
       <div
@@ -38,7 +45,7 @@ const FeedbackTable = ({ feedback, loading, isUserFeedback ,setUpdate}) => {
               hover:bg-opacity-60 transition duration-300"
             >
               <div className="col-span-1 py-4 px-4 text-center pt-7">
-                {index}
+                {index + 1}
               </div>
               <div className="col-span-2 flex items-center gap-4">
                 <img
@@ -58,7 +65,17 @@ const FeedbackTable = ({ feedback, loading, isUserFeedback ,setUpdate}) => {
                 {getTimeFormat(item?.createdAt)}
               </div>
               <div className="col-span-2 py-4 px-4 flex items-center justify-center gap-4">
-                <img src={bin} alt="bin" className="cursor-pointer" />
+                <div
+                  className="cursor-pointer"
+                  // onClick={() => handleDelete(item?._id)}
+                >
+                  {loading ? (
+                    <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                  ) : (
+                    <img src={bin} alt="Delete" />
+                  )}
+                </div>
+
                 {isUserFeedback && (
                   <div onClick={() => openDetailModal(item)}>
                     <img src={right} alt="right" className="cursor-pointer" />

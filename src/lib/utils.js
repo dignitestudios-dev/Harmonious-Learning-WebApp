@@ -15,9 +15,20 @@ export const processLogin = (data, navigate, loginAuth) => {
   }
 };
 
-export const processUpload = (data, navigate) => {
+export const processUpload = (
+  data,
+  navigate,
+  setUpdate,
+  isUpdate = false,
+  onClose
+) => {
   if (data?.success) {
-    navigate("/meditation");
+    if (isUpdate) {
+      setUpdate((prev) => !prev);
+      onClose();
+    } else {
+      navigate("/meditation");
+    }
     return;
   }
 };
@@ -46,7 +57,7 @@ export const processPushNotification = (data, onClose, setUpdate) => {
     return;
   }
 };
-export const processDeleteStory = (data, setUpdate, onClose) => {
+export const processDelete = (data, setUpdate, onClose) => {
   if (data?.success) {
     SuccessToast(data?.message);
     onClose();

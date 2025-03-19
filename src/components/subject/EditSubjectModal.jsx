@@ -12,22 +12,18 @@ const EditSubjectModal = ({
   setUpdate,
   subjectId,
   subject,
+  id,
 }) => {
-  if (!isOpen) return null;
-  console.log(subject, "subject");
   const { loading, postData } = useCreateSubject(onClose, setUpdate);
 
   const formik = useFormik({
     initialValues: { subjectname: "" },
     validationSchema: subjectSchema,
     onSubmit: async (values) => {
-      const subjectsArray = values.subjectname
-        .split(",")
-        .map((subject) => subject.trim());
       postData(
-        `/admin/updateSubjects/${subjectId}`,
+        `/admin/updateSubjects/${id}/${subjectId}`,
         true,
-        { subject: subjectsArray },
+        { subject: values?.subjectname },
         null,
         processSubject
       );
@@ -41,6 +37,7 @@ const EditSubjectModal = ({
     }
   }, [subject]);
 
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">
       <div className="bg-black bg-opacity-30 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[249px] relative">

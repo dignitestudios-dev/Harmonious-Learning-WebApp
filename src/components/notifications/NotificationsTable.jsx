@@ -54,7 +54,9 @@ const NotificationsTable = ({ notification, loading }) => {
               className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
                     hover:bg-opacity-60 transition duration-300"
             >
-              <div className="col-span-1 py-4 px-4 text-center">{index}</div>
+              <div className="col-span-1 py-4 px-4 text-center">
+                {index + 1}
+              </div>
               <div className="col-span-2 py-4 px-4 flex items-center gap-4">
                 <span>{notify?.title}</span>
               </div>
@@ -64,7 +66,9 @@ const NotificationsTable = ({ notification, loading }) => {
               <div className="col-span-1 py-4 px-4">
                 {getDateFormat(notify?.createdAt)}
               </div>
-              <div className="col-span-1 py-4 px-4">{getTimeFormat(notify?.createdAt)}</div>
+              <div className="col-span-1 py-4 px-4">
+                {getTimeFormat(notify?.createdAt)}
+              </div>
               <div className="col-span-1 py-4 px-4 text-center">
                 <p
                   className={`text-[14px] font-medium ${

@@ -3,14 +3,14 @@ import { background, bin, right } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
 import StoriesLoader from "../bedtimestories/StoriesLoader";
 import { useDelete } from "../../hooks/api/Delete";
-import { processDeleteStory } from "../../lib/utils";
+import { processDelete } from "../../lib/utils";
 
 const MeditationTable = ({ meditation, loader, setUpdate }) => {
   const navigate = useNavigate();
   const { loading, deleteData } = useDelete(setUpdate);
 
   const handleDelete = async (storyId) => {
-    deleteData("/admin/deleteStories", storyId, processDeleteStory);
+    deleteData("/admin/deleteStories", storyId, processDelete);
   };
 
   return (

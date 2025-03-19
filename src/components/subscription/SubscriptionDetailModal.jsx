@@ -55,12 +55,12 @@ const SubscriptionDetailModal = ({ isOpen, onClose }) => {
             </div>
           ))}
         </div>
-        <button
+        {/* <button
           onClick={() => onClose()}
           className="w-full h-[49px] py-2 px-4 mt-6 bg-[#EE3131] text-white font-semibold rounded-full shadow-md hover:opacity-90 transition"
         >
           Delete Subscription
-        </button>
+        </button> */}
       </div>
     </div>
   );

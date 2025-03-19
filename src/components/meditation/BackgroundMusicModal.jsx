@@ -6,8 +6,8 @@ import SaveButton from "../global/SaveButton";
 import { useUpload } from "../../hooks/api/Post";
 import { processUpload } from "../../lib/utils";
 
-const BackgroundMusicModal = ({ isOpen, onClose, id }) => {
-  const { loading, postData } = useUpload();
+const BackgroundMusicModal = ({ isOpen, onClose, id, setUpdate }) => {
+  const { loading, postData } = useUpload(setUpdate, true, onClose);
 
   const [backgroundMusic, setBackgroundMusic] = useState([]);
 

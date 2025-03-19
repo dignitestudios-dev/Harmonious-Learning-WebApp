@@ -1,12 +1,12 @@
 import { deactivate } from "../../assets/export";
 import { useDelete } from "../../hooks/api/Delete";
-import { processDeleteStory } from "../../lib/utils";
+import { processDelete } from "../../lib/utils";
 
 const DeleteModal = ({ isOpen, onClose, onConfirm, storyId, setUpdate }) => {
   if (!isOpen) return null;
-  const { loading, deleteData } = useDelete(onClose, setUpdate);
+  const { loading, deleteData } = useDelete(setUpdate, onClose);
   const handleDelete = async () => {
-    deleteData("/admin/deleteStories", storyId, processDeleteStory);
+    deleteData("/admin/deleteStories", storyId, processDelete);
   };
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">

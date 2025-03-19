@@ -3,15 +3,11 @@ import SubjectsTable from "../../components/subject/SubjectsTable";
 import CreateSubjectModal from "../../components/subject/CreateSubjectModal";
 import { storyData } from "../../static/dummyData";
 import { useAllSubject } from "../../hooks/api/Get";
-import Pagination from "../../components/pagination/Pagination";
 
 const Subject = () => {
   const [update, setUpdate] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data, loading } = useAllSubject(
-    `/user/getAllSubjects?page=${currentPage}&limit=5`,
-    1,
+  const { loading, data, subjectId } = useAllSubject(
+    `/user/getAllSubjects`,
     update
   );
 
@@ -27,7 +23,7 @@ const Subject = () => {
 
   return (
     <div className="w-full min-h-screen p-8 overflow-auto">
-      <div className="w-full min-h-screen pb-6">
+      <div className="w-full min-h-screen pb-12">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-[36px] font-bold text-white">Subjects</h3>
 
@@ -42,15 +38,11 @@ const Subject = () => {
           </div>
         </div>
         <SubjectsTable
+          id={subjectId}
           stories={data}
           handleToggleStatus={handleToggleStatus}
           loading={loading}
           setUpdate={setUpdate}
-        />
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
         />
       </div>
       <CreateSubjectModal

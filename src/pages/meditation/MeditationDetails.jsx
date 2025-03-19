@@ -5,11 +5,13 @@ import { musicSymbol } from "../../assets/export";
 import BackgroundMusicModal from "../../components/meditation/BackgroundMusicModal";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../axios";
+import { useStoriesDetail } from "../../hooks/api/Get";
 
 const MeditationDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { meditation } = location.state || {};
+  const [update, setUpdate] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [lyrics, setLyrics] = useState([]);
@@ -100,6 +102,12 @@ const MeditationDetails = () => {
       })
       .filter((line) => line !== null);
   };
+
+  const { data, loading } = useStoriesDetail(
+    `/admin/getStoryById?storyId=${meditation?._id}`,
+    update
+  );
+  console.log("🚀 ~ MeditationDetails ~ data:", data);
 
   useEffect(() => {
     fetchAndParseSrt(meditation?.mp3SrtFile);
@@ -208,6 +216,8 @@ const MeditationDetails = () => {
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onConfirm={handleDeactivate}
+        setUpdate={setUpdate}
+        id={meditation?._id}
       />
     </div>
   );

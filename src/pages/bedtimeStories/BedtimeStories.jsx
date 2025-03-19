@@ -4,11 +4,12 @@ import BedtimeStoriesTable from "../../components/bedtimestories/BedtimeStoriesT
 import { useNavigate } from "react-router-dom";
 import { bedtimeData } from "../../static/dummyData";
 import { useStories } from "../../hooks/api/Get";
+import Pagination from "../../components/pagination/Pagination";
 
 const BedtimeStories = () => {
   const navigate = useNavigate();
   const [update, setUpdate] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
   const [stories, setStories] = useState(bedtimeData);
 
   const handleToggleStatus = (index) => {
@@ -19,13 +20,13 @@ const BedtimeStories = () => {
 
   const { data, loading, pagination } = useStories(
     "/admin/getBedTimeStories",
-    1,
+    currentPage,
     update
   );
 
   return (
     <div className="w-full min-h-screen overflow-auto p-8 ">
-      <div className="w-full min-h-screen pb-6">
+      <div className="w-full min-h-screen pb-12">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-[36px] font-bold text-white">Bed Time Stories</h3>
           <button
@@ -40,6 +41,11 @@ const BedtimeStories = () => {
           loader={loading}
           handleToggleStatus={handleToggleStatus}
           setUpdate={setUpdate}
+        />
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={pagination}
         />
       </div>
     </div>

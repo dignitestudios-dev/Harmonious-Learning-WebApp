@@ -25,14 +25,14 @@ const Notifications = () => {
   };
 
   const { data, loading, pagination } = useUsers(
-    `/admin/notifications?page=${currentPage}&limit=5`,
-    1,
+    `/admin/notifications`,
+    currentPage,
     update
   );
 
   return (
     <div className="w-full min-h-screen p-8 overflow-auto ">
-      <div className="w-full min-h-screen relative pb-6">
+      <div className="w-full min-h-screen relative mb-12">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-4xl font-bold text-white">Push Notifications</h3>
           <button
@@ -52,7 +52,6 @@ const Notifications = () => {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           totalPages={pagination || ""}
-          setUpdate={setUpdate}
         />
       </div>
 

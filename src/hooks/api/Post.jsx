@@ -24,7 +24,6 @@ const useLogin = () => {
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ useLogin ~ error:", error);
       processError(error);
     } finally {
       setLoading(false);
@@ -34,7 +33,7 @@ const useLogin = () => {
   return { loading, postData };
 };
 
-const useUpload = () => {
+const useUpload = (setUpdate, isUpdate = false, onClose) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -49,11 +48,10 @@ const useUpload = () => {
       setLoading(true);
       const response = await axios.post(url, isFormData ? formdata : data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate);
+        callback(response?.data, navigate, setUpdate, isUpdate, onClose);
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ useUpload ~ error:", error);
       processError(error);
     } finally {
       setLoading(false);
@@ -82,7 +80,6 @@ const useFeedBackReply = (onClose, setUpdate) => {
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ useUpload ~ error:", error);
       processError(error);
     } finally {
       setLoading(false);
@@ -91,6 +88,7 @@ const useFeedBackReply = (onClose, setUpdate) => {
 
   return { loading, postData };
 };
+
 const useCreateSubject = (onClose, setUpdate) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -110,7 +108,6 @@ const useCreateSubject = (onClose, setUpdate) => {
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ useUpload ~ error:", error);
       processError(error);
     } finally {
       setLoading(false);
@@ -119,6 +116,7 @@ const useCreateSubject = (onClose, setUpdate) => {
 
   return { loading, postData };
 };
+
 const useCreateNotification = (onClose, setUpdate) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -138,7 +136,6 @@ const useCreateNotification = (onClose, setUpdate) => {
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ useUpload ~ error:", error);
       processError(error);
     } finally {
       setLoading(false);

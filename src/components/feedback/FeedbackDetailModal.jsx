@@ -37,11 +37,13 @@ const FeedbackDetailModal = ({
         <div className="flex justify-between items-center text-left w-full mt-4">
           <div className="flex items-center space-x-2 w-[48%] ">
             <img
-              src={`https://i.pravatar.cc/40?img=1`}
+              src={`${feedbackdetail?.userId?.profilePicture}`}
               alt="Profile"
               className="w-10 h-10 rounded-full border-2 border-purple-600"
             />
-            <span className="text-[14px] font-light">Olivia James</span>
+            <span className="text-[14px] font-light">
+              {feedbackdetail?.userId?.name}
+            </span>
           </div>
           <div className="w-[48%]">
             <p className="text-[14px] font-light">
