@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { graph } from "../../assets/export";
 import CalendarField from "../calendar/CalendarField";
+import { getDateFormat } from "../../lib/helpers";
 
-const TopMeditationTracks = ({ title, tracks }) => {
+const TopMeditationTracks = ({ loading, title, tracks }) => {
+  console.log("🚀 ~ TopMeditationTracks ~ tracks:", tracks);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState("Nov, 15 2024");
@@ -32,34 +34,52 @@ const TopMeditationTracks = ({ title, tracks }) => {
         </div>
       </div>
       <div>
-        {tracks.map((track, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between  last:mb-0 border-b border-[#ffffff30] pt-2 pb-4"
-          >
-            <div className="flex items-center">
-              <img
-                src={track.image}
-                alt="Track"
-                className="w-11 h-11 rounded-full mr-4 border-2 border-[#CEA3D8]"
-              />
-              <div>
-                <p className="text-white text-[16px] leading-[28px]">
-                  {track.title}
-                </p>
-                <p className="text-white/45 text-[12px] leading-[20px]">
-                  {track.date}
-                </p>
+        {loading
+          ? Array.from({ length: 5 })?.map((_, index) => (
+              <div
+                key={index}
+                className="grid grid-cols-12 animate-pulse text-white text-[14px] font-extralight leading-[19px]
+             bg-opacity-40 hover:bg-opacity-60 transition duration-300"
+              >
+                <div className="col-span-2 pb-4 pt-7 pl-5">
+                  <div className="h-4 w-6 bg-gray-600 rounded"></div>
+                </div>
+                <div className="col-span-8 pb-4 pt-7 pl-5">
+                  <div className="h-4 w-32 bg-gray-600 rounded"></div>
+                </div>
+                <div className="col-span-2 pb-4 pt-7 pl-5">
+                  <div className="h-4 w-12 bg-gray-600 rounded"></div>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <img src={graph} />
-              <p className="text-[#f8e6ee] text-[16px] leading-[20px]">
-                {track.views}
-              </p>
-            </div>
-          </div>
-        ))}
+            ))
+          : tracks?.slice(0, 5)?.map((track, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between  last:mb-0 border-b border-[#ffffff30] pt-2 pb-4"
+              >
+                <div className="flex items-center">
+                  <img
+                    src={track?.image}
+                    alt="Track"
+                    className="w-11 h-11 rounded-full mr-4 border-2 border-[#CEA3D8]"
+                  />
+                  <div>
+                    <p className="text-white text-[16px] leading-[28px]">
+                      {track?.title}
+                    </p>
+                    <p className="text-white/45 text-[12px] leading-[20px]">
+                      {getDateFormat(track?.createdAt)}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <img src={graph} />
+                  <p className="text-[#f8e6ee] text-[16px] leading-[20px]">
+                    {track?.listenedDuration}
+                  </p>
+                </div>
+              </div>
+            ))}
       </div>
     </div>
   );

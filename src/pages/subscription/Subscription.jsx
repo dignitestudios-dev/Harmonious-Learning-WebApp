@@ -22,7 +22,6 @@ const Subscription = () => {
     currentPage,
     update
   );
-  console.log("🚀 ~ Subscription ~ data:", data);
 
   return (
     <div className="w-full min-h-screen p-8 overflow-auto">

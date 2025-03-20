@@ -7,6 +7,7 @@ import { getDateFormat } from "../../lib/helpers";
 
 const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState("");
 
   return (
     <div className="bg-[#00000044] border-[#000] rounded-[25px] mb-6 p-2">
@@ -14,14 +15,14 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
         className="grid grid-cols-12 text-[14px] leading-[19px] text-white rounded-[14px]
            border-[1.5px] border-white/30 font-light mb-2"
       >
-        <div className="col-span-1 py-4 px-4 text-center">#</div>
+        <div className="col-span-2 py-4 px-8 text-start">#</div>
         {/* <div className="col-span-2 py-4 px-4 text-left">Name</div>
         <div className="col-span-2 py-4 px-4 text-left">Description</div>
         <div className="col-span-2 py-4 px-4 text-left">Benefits</div> */}
         <div className="col-span-3 py-4 px-4 text-left">Date</div>
         <div className="col-span-2 py-4 px-4 text-left">Price</div>
         <div className="col-span-3 py-4 px-4 text-left">Status</div>
-        <div className="col-span-3 py-4 px-4 text-left">Action</div>
+        <div className="col-span-2 py-4 px-4 text-left">Action</div>
       </div>
 
       {loading
@@ -59,7 +60,7 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
               className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
                     hover:bg-opacity-60 transition duration-300"
             >
-              <div className="col-span-1 py-4 px-4 text-center pt-7">
+              <div className="col-span-2 py-4 px-8 text-start pt-7">
                 {index + 1}
               </div>
               {/* <div className="col-span-2 py-4 px-4 flex gap-4 pt-7">
@@ -78,7 +79,7 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
                 {subscription?.amount}
               </div>
               <div
-                className={`col-span-3 py-4 px-4 pt-7 font-medium ${
+                className={`col-span-3 py-4 px-4 pt-7 capitalize font-medium ${
                   subscription?.status === "pending"
                     ? " text-[#FF9500]"
                     : "text-[#b24040]"
@@ -96,10 +97,13 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
               <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full peer-checked:translate-x-5 transition-transform"></span>
             </label> */}
               </div>
-              <div className="col-span-3 py-4 px-1 flex items-center justify-start gap-2">
+              <div className="col-span-2 py-4 px-1 flex items-center justify-start gap-2">
                 <div className="w-5">{/* <img src={bin} alt="bin" /> */}</div>
                 <div
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    setModalData(subscription);
+                  }}
                   className="cursor-pointer"
                 >
                   <img src={right} alt="right" />
@@ -108,6 +112,7 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
             </div>
           ))}
       <SubscriptionDetailModal
+        modalData={modalData}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

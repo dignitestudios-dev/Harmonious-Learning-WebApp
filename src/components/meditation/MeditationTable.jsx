@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 import StoriesLoader from "../bedtimestories/StoriesLoader";
 import { useDelete } from "../../hooks/api/Delete";
 import { processDelete } from "../../lib/utils";
+import DeleteModal from "../bedtimestories/DeleteModal";
 
 const MeditationTable = ({ meditation, loader, setUpdate }) => {
   const navigate = useNavigate();
-  const { loading, deleteData } = useDelete(setUpdate);
+  const [selectedMeditationId, setSelectedMeditationId] = useState(null);
+  const [modal, setModalOpen] = useState(false);
 
-  const handleDelete = async (storyId) => {
-    deleteData("/admin/deleteStories", storyId, processDelete);
+  const openDeleteModal = (storyId) => {
+    setSelectedMeditationId(storyId);
+    setModalOpen(true);
   };
 
   return (
@@ -72,13 +75,9 @@ const MeditationTable = ({ meditation, loader, setUpdate }) => {
             <div className="col-span-2 py-4 px-2 flex items-center justify-center gap-2">
               <div
                 className="cursor-pointer"
-                onClick={() => handleDelete(meditation?._id)}
+                onClick={() => openDeleteModal(meditation?._id)}
               >
-                {loading ? (
-                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
-                ) : (
-                  <img src={bin} alt="Delete" />
-                )}
+                <img src={bin} alt="Delete" />
               </div>
               <div
                 className="cursor-pointer"
@@ -104,6 +103,12 @@ const MeditationTable = ({ meditation, loader, setUpdate }) => {
           No record found
         </div>
       )}
+      <DeleteModal
+        isOpen={modal}
+        onClose={() => setModalOpen(false)}
+        storyId={selectedMeditationId}
+        setUpdate={setUpdate}
+      />
     </div>
   );
 };

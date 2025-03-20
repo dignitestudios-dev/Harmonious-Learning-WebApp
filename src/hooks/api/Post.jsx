@@ -42,13 +42,20 @@ const useUpload = (setUpdate, isUpdate = false, onClose) => {
     isFormData = false,
     formdata = null,
     data = null,
-    callback
+    callback,
+    string
   ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, isFormData ? formdata : data);
       if (typeof callback === "function") {
-        callback(response?.data, navigate, setUpdate, isUpdate, onClose);
+        callback(
+          response?.data,
+          navigate(string),
+          setUpdate,
+          isUpdate,
+          onClose
+        );
       }
       return response?.data;
     } catch (error) {

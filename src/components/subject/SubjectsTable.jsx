@@ -30,8 +30,22 @@ const SubjectsTable = ({ id, stories, loading, setUpdate }) => {
         {/* Action column on the far right */}
       </div>
       {loading
-        ? Array.from({ length: 5 }).map((_, index) => (
-            <UsersLoader key={index} />
+        ? Array.from({ length: 5 })?.map((_, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-12 animate-pulse text-white text-[14px] font-extralight leading-[19px]
+         bg-opacity-40 hover:bg-opacity-60 transition duration-300"
+            >
+              <div className="col-span-1 pb-4 pt-7 pl-5">
+                <div className="h-4 w-6 bg-gray-600 rounded"></div>
+              </div>
+              <div className="col-span-10 pb-4 pt-7 pl-5">
+                <div className="h-4 w-14 bg-gray-600 rounded"></div>
+              </div>
+              <div className="col-span-1 pb-4 pt-7 pl-5">
+                <div className="h-4 w-6 bg-gray-600 rounded"></div>
+              </div>
+            </div>
           ))
         : stories?.map((item, index) => (
             <div

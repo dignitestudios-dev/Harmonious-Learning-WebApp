@@ -1,29 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import DashboardStats from "../../components/dashboard/DashboardStats";
 import SubscriptionStats from "../../components/dashboard/SubscriptionStats";
 import TopMeditationTracks from "../../components/dashboard/TopMeditationTracks";
+import { useStories } from "../../hooks/api/Get";
 
 const Home = () => {
-  const tracks = [
-    {
-      title: "Track Name",
-      date: "22 September 2020",
-      views: "25.2k Views",
-      image: "https://freesvg.org/img/Placeholder.png", // Replace with the actual image URL
-    },
-    {
-      title: "Track Name",
-      date: "22 September 2020",
-      views: "25.2k Views",
-      image: "https://freesvg.org/img/Placeholder.png", // Replace with the actual image URL
-    },
-    {
-      title: "Track Name",
-      date: "22 September 2020",
-      views: "25.2k Views",
-      image: "https://freesvg.org/img/Placeholder.png", // Replace with the actual image URL
-    },
-  ];
+  const [update, setUpdate] = useState(false);
+
+  const { data, loading, pagination } = useStories(
+    "/admin/getBedTimeStories",
+    1,
+    update
+  );
+  console.log("🚀 ~ Home ~ data:", data);
   return (
     <>
       <div className="w-full h-full p-10 overflow-auto">
@@ -48,13 +37,15 @@ const Home = () => {
           <div className="w-full flex flex-col lg:flex-row gap-6">
             <div className="w-full ">
               <TopMeditationTracks
-                tracks={tracks}
+                loading={loading}
+                tracks={data}
                 title="Top Meditation Tracks"
               />
             </div>
             <div className="w-full ">
               <TopMeditationTracks
-                tracks={tracks}
+                tracks={data}
+                loading={loading}
                 title="Top Bed Time Stories"
               />
             </div>

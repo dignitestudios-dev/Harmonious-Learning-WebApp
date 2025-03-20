@@ -14,8 +14,9 @@ const options = ["Physics", "Maths", "Chemistry"];
 
 const BedtimeStoriesUpload = () => {
   const { loading, postData } = useUpload();
-  const { data, loading: loader } = useAllSubject("/user/getAllSubjects", 1);
-  const subjectOptions = data?.map((item) => item.subject);
+  const { data, loading: loader } = useAllSubject(`/user/getAllSubjects`, "");
+
+  const subjectOptions = data?.map((item) => item);
   const [imageFile, setImageFile] = useState(null);
 
   const [trackFile, setTrackFile] = useState(null);
@@ -171,7 +172,14 @@ const BedtimeStoriesUpload = () => {
       });
     }
 
-    postData("/admin/createStories", true, formData, null, processUpload);
+    postData(
+      "/admin/createStories",
+      true,
+      formData,
+      null,
+      processUpload,
+      "/bedtime-stories"
+    );
   };
 
   return (
@@ -337,7 +345,7 @@ const BedtimeStoriesUpload = () => {
                         ? trackFile?.name?.slice(0, 38) + "..."
                         : trackFile?.name}
                     </p>
-                    <p className="ml-2 text-[12px] font-extralight">5:00</p>
+                    {/* <p className="ml-2 text-[12px] font-extralight">5:00</p> */}
                   </div>
                 </div>
                 <div

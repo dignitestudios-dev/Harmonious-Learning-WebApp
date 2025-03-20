@@ -63,7 +63,7 @@ const NotificationsTable = ({ notification, loading }) => {
               <div className="col-span-4 py-4 px-4 truncate">
                 {notify?.message}
               </div>
-              <div className="col-span-1 py-4 px-4">
+              <div className="col-span-1 w-40 py-4 px-4">
                 {getDateFormat(notify?.createdAt)}
               </div>
               <div className="col-span-1 py-4 px-4">

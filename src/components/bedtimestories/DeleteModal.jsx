@@ -3,11 +3,12 @@ import { useDelete } from "../../hooks/api/Delete";
 import { processDelete } from "../../lib/utils";
 
 const DeleteModal = ({ isOpen, onClose, onConfirm, storyId, setUpdate }) => {
-  if (!isOpen) return null;
   const { loading, deleteData } = useDelete(setUpdate, onClose);
   const handleDelete = async () => {
     deleteData("/admin/deleteStories", storyId, processDelete);
   };
+
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">
       <div className="bg-black bg-opacity-10 rounded-[26px] shadow-md text-white p-8 w-[455px] h-[367px]">

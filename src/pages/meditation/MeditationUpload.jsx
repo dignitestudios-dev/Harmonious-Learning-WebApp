@@ -19,9 +19,10 @@ import { useAllSubject } from "../../hooks/api/Get";
 const options = ["Physics", "Maths", "Chemistry"];
 
 const MeditationUpload = () => {
-  const { data, loading: loader } = useAllSubject("/user/getAllSubjects", 1);
+  const { data, loading: loader } = useAllSubject(`/user/getAllSubjects`, "");
 
-  const subjectOptions = data?.map((item) => item.subject);
+  console.log("🚀 ~ MeditationUpload ~ data:", data);
+  const subjectOptions = data?.map((item) => item);
   const { loading, postData } = useUpload();
 
   const [imageFile, setImageFile] = useState(null);
@@ -179,7 +180,14 @@ const MeditationUpload = () => {
       });
     }
 
-    postData("/admin/createStories", true, formData, null, processUpload);
+    postData(
+      "/admin/createStories",
+      true,
+      formData,
+      null,
+      processUpload,
+      "/meditation"
+    );
   };
 
   return (
@@ -344,7 +352,7 @@ const MeditationUpload = () => {
                         ? trackFile?.name?.slice(0, 38) + "..."
                         : trackFile?.name}
                     </p>
-                    <p className="ml-2 text-[12px] font-extralight">5:00</p>
+                    <p className="ml-2 text-[12px] font-extralight"></p>
                   </div>
                 </div>
                 <div

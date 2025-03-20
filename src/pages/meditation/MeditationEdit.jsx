@@ -348,7 +348,7 @@ const MeditationEdit = () => {
           </div>
         </div>
         <div className="w-[201px] h-[49px] -mt-24">
-          <SaveButton title="Save Track" />
+          <SaveButton title="Save Track" loading={loading} />
         </div>
       </form>
     </div>

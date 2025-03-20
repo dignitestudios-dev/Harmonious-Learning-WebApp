@@ -42,7 +42,7 @@ const SelectableField = ({
         {dropdownVisible && (
           <div
             ref={dropdownRef}
-            className="absolute top-12 mt-2 p-4 w-full bg-gradient-to-b from-[#16162a] to-[#530845]
+            className="absolute top-12 mt-2 p-4 w-full h-[280px] overflow-auto bg-gradient-to-b from-[#16162a] to-[#530845]
             border-[0.5px] rounded-[16px] shadow text-[#fff]/[0.5] z-10"
           >
             {/* <div className="w-full text-center">
@@ -56,7 +56,8 @@ const SelectableField = ({
                 options.map((option, index) => (
                   <div
                     key={index}
-                    className=" p-2 cursor-pointer border-b-[1px] border-white/30 hover:bg-gradient-to-l from-[#1d1d36] to-[#580c4a] "
+                    className=" p-2 cursor-pointer border-b-[1px] border-white/30 hover:bg-gradient-to-l
+                     from-[#1d1d36] to-[#580c4a] "
                   >
                     <button
                       type="button"

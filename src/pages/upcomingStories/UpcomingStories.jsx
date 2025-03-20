@@ -25,7 +25,6 @@ const UpcomingStories = () => {
     currentPage,
     update
   );
-  console.log("🚀 ~ UpcomingStories ~ data:", data);
 
   useEffect(() => {
     if (data?.length > 0) {

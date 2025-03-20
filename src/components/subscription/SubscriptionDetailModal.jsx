@@ -3,7 +3,8 @@ import { playSymbol } from "../../assets/export";
 import { IoMdClose } from "react-icons/io";
 import { subscriptionData } from "../../static/dummyData";
 
-const SubscriptionDetailModal = ({ isOpen, onClose }) => {
+const SubscriptionDetailModal = ({ modalData, isOpen, onClose }) => {
+  console.log("🚀 ~ SubscriptionDetailModal ~ modalData:", modalData);
   const [isMonthly, setIsMonthly] = useState(true);
   const [subscriptionType, setSubscriptionType] = useState(null);
 

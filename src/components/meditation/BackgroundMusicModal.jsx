@@ -44,13 +44,22 @@ const BackgroundMusicModal = ({ isOpen, onClose, id, setUpdate }) => {
       // }}
     >
       <div className="bg-black bg-opacity-30 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[316px] relative">
-        <div
-          onClick={() => onClose()}
-          className="cursor-pointer bg-gradient-to-r from-[#000086] to-[#CEA3D8] 
+        {loading ? (
+          <div
+            className=" bg-gradient-to-r from-[#000086] to-[#CEA3D8] 
+          rounded-full p-1 absolute top-3 right-3 "
+          >
+            <RxCross2 size={22} />
+          </div>
+        ) : (
+          <div
+            onClick={() => onClose()}
+            className="cursor-pointer bg-gradient-to-r from-[#000086] to-[#CEA3D8] 
           rounded-full p-1 absolute top-3 right-3 hover:opacity-80"
-        >
-          <RxCross2 size={22} />
-        </div>
+          >
+            <RxCross2 size={22} />
+          </div>
+        )}
         <div className="flex flex-col  ">
           <h2 className="text-[24px] font-semibold mb-2">
             Add New Background Music

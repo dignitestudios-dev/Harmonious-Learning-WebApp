@@ -4,7 +4,7 @@ import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import { FaPlay, FaStop } from "react-icons/fa";
 
 const AudioPlayer = ({ audioFile, lyrics, story }) => {
-  console.log("🚀 ~ AudioPlayer ~ lyrics:", lyrics);
+  console.log("🚀 ~ AudioPlayer ~ story:", story);
   const audioRef = useRef(null);
   const currentLyricRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -93,7 +93,7 @@ const AudioPlayer = ({ audioFile, lyrics, story }) => {
     <div>
       <div className="relative">
         <img
-          src={bedtime}
+          src={story?.image}
           alt="Anxiety Release"
           className="rounded-xl w-[695px] h-[350px] mb-4 object-cover shadow-2xl"
         />
@@ -111,7 +111,10 @@ const AudioPlayer = ({ audioFile, lyrics, story }) => {
         {story?.title}
       </h2>
 
-      <div className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4 relative">
+      <div
+        className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4
+       relative scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent"
+      >
         {lyrics?.map((lyric, index) => (
           <p
             key={index}

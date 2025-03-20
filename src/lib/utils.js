@@ -27,7 +27,7 @@ export const processUpload = (
       setUpdate((prev) => !prev);
       onClose();
     } else {
-      navigate("/meditation");
+      navigate;
     }
     return;
   }

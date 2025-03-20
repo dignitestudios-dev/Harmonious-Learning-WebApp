@@ -4,7 +4,7 @@ import AudioPlayer from "../../components/global/AudioPlayer";
 import { musicSymbol } from "../../assets/export";
 import BackgroundMusicModal from "../../components/meditation/BackgroundMusicModal";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "../../axios";
+import axios from "axios";
 
 const BedtimeStoriesDetail = () => {
   const navigate = useNavigate();
@@ -42,23 +42,40 @@ const BedtimeStoriesDetail = () => {
 
   const fetchAndParseSrt = async (srtUrl) => {
     try {
-      const response = await axios.get(srtUrl);
-      if (!response.ok) throw new Error("Failed to fetch SRT file");
+      const response = await axios.get(srtUrl, { responseType: "text" });
+      if (response.status !== 200) throw new Error("Failed to fetch SRT file");
 
-      const srtContent = await response.text(); // Read file as text
-      const parsedLyrics = parseSrt(srtContent); // Parse SRT content
-      setLyrics(parsedLyrics); // Store parsed lyrics
+      const srtContent = response.data?.toString();
+
+      const cleanedContent = cleanSrtContent(srtContent);
+      const parsedLyrics = parseSrt(cleanedContent);
+
+      setLyrics(parsedLyrics);
     } catch (error) {
       console.error("Error fetching SRT:", error);
     }
   };
 
-  // Parse SRT file content
-  const parseSrt = (srtContent) => {
-    const lines = srtContent.split("\n\n");
-    return lines
-      .map((line) => {
-        const [index, time, ...text] = line.split("\n");
+  const cleanSrtContent = (srtContent) => {
+    const subtitleBlocks = srtContent.trim().split(/\r?\n\r?\n/);
+
+    return subtitleBlocks
+      .map((block) => {
+        const lines = block.split(/\r?\n/); // Split into individual lines
+        if (lines.length < 3) return null; // Skip invalid entries
+
+        return {
+          index: lines[0].trim(), // Subtitle index
+          time: lines[1].trim(), // Time range
+          text: lines.slice(2).join(" "), // Subtitle text
+        };
+      })
+      .filter(Boolean); // Remove any null values
+  };
+
+  const parseSrt = (srtArray) => {
+    return srtArray
+      .map(({ index, time, text }) => {
         if (!time) return null;
         const [start, end] = time.split(" --> ").map((t) => {
           const [h, m, s] = t.split(":");
@@ -70,9 +87,10 @@ const BedtimeStoriesDetail = () => {
             parseFloat(ms) / 1000
           );
         });
-        return { start, end, text: text.join("\n") };
+
+        return { index, start, end, text };
       })
-      .filter((line) => line !== null);
+      .filter(Boolean);
   };
 
   useEffect(() => {
@@ -119,7 +137,6 @@ const BedtimeStoriesDetail = () => {
             currentLyric={currentLyric}
             currentSongIndex={currentSongIndex}
             lyrics={lyrics}
-            setLyrics={setLyrics}
           />
         </div>
 
