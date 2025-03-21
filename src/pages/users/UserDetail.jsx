@@ -48,13 +48,13 @@ const UserDetail = () => {
             </p>
           </div>
         </div>
-        <button
+        {/* <button
           onClick={() => setModalOpen(true)}
           className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] hover:from-[#1d0086] hover:to-[#d5a6df] px-6 py-2
           w-[199px] h-[49px] rounded-full text-[16px] font-medium"
         >
           Deactivate User
-        </button>
+        </button> */}
       </div>
 
       {/* Children Info */}
