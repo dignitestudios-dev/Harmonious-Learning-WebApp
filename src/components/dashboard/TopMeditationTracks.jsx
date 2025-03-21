@@ -4,7 +4,6 @@ import CalendarField from "../calendar/CalendarField";
 import { getDateFormat } from "../../lib/helpers";
 
 const TopMeditationTracks = ({ loading, title, tracks }) => {
-  console.log("🚀 ~ TopMeditationTracks ~ tracks:", tracks);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState("Nov, 15 2024");
@@ -20,17 +19,17 @@ const TopMeditationTracks = ({ loading, title, tracks }) => {
     setIsModalOpen(false);
   };
   return (
-    <div className="bg-[#00000082] border-[#000] shadow-lg rounded-[25px] p-5 w-full mx-auto">
+    <div className="bg-[#00000082] border-[#000] shadow-lg rounded-[25px] p-5 w-full mx-auto h-[460px]">
       <div className="flex items-center justify-between  border-b border-[#ffffff30] pb-4 -mx-4 ">
         <h2 className="text-white text-lg font-bold px-5">{title}</h2>
         <div className="relative w-[160px]">
-          <CalendarField
+          {/* <CalendarField
             toggleModal={toggleModal}
             selectedDate={selectedDate}
             isModalOpen={isModalOpen}
             handleDateClick={handleDateClick}
             // right={true}
-          />
+          /> */}
         </div>
       </div>
       <div>
@@ -75,7 +74,7 @@ const TopMeditationTracks = ({ loading, title, tracks }) => {
                 <div className="flex items-center space-x-3">
                   <img src={graph} />
                   <p className="text-[#f8e6ee] text-[16px] leading-[20px]">
-                    {track?.listenedDuration}
+                    {track?.listenedDuration} Plays
                   </p>
                 </div>
               </div>

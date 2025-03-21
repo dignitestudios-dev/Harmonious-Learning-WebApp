@@ -2,17 +2,28 @@ import React, { useState } from "react";
 import DashboardStats from "../../components/dashboard/DashboardStats";
 import SubscriptionStats from "../../components/dashboard/SubscriptionStats";
 import TopMeditationTracks from "../../components/dashboard/TopMeditationTracks";
-import { useStories } from "../../hooks/api/Get";
+import { useStats, useStories } from "../../hooks/api/Get";
 
 const Home = () => {
   const [update, setUpdate] = useState(false);
 
-  const { data, loading, pagination } = useStories(
-    "/admin/getBedTimeStories",
-    1,
+  const {
+    data: meditation,
+    loading,
+    pagination,
+  } = useStories("/admin/getMeditationStories", 1, update);
+
+  const {
+    data: stories,
+    loading: load,
+    pagination: pages,
+  } = useStories("/admin/getBedTimeStories", 1, update);
+
+  const { data: stats, loading: loader } = useStats(
+    "/admin/getUserContent",
     update
   );
-  console.log("🚀 ~ Home ~ data:", data);
+
   return (
     <>
       <div className="w-full h-full p-10 overflow-auto">
@@ -25,12 +36,12 @@ const Home = () => {
           {/* Stats Section */}
           <div className="w-full flex flex-col lg:flex-row gap-6">
             <div className="w-full">
-              <DashboardStats />
+              <DashboardStats loading={loader} values={stats} />
             </div>
           </div>
 
           <div className="w-full">
-            <SubscriptionStats />
+            <SubscriptionStats subscriptions={stats?.subscriptions} />
           </div>
 
           {/* Top Meditation Tracks Section */}
@@ -38,13 +49,13 @@ const Home = () => {
             <div className="w-full ">
               <TopMeditationTracks
                 loading={loading}
-                tracks={data}
+                tracks={meditation}
                 title="Top Meditation Tracks"
               />
             </div>
             <div className="w-full ">
               <TopMeditationTracks
-                tracks={data}
+                tracks={stories}
                 loading={loading}
                 title="Top Bed Time Stories"
               />

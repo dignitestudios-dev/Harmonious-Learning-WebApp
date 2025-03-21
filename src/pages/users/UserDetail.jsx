@@ -12,13 +12,10 @@ const UserDetail = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleDeactivate = () => {
-    console.log("User deactivated");
     setModalOpen(false);
   };
 
   const { data, loading } = useUsersDetail(`/admin/user/${id}`, 1);
-
-  console.log("🚀 ~ UserDetail ~ data:", data);
 
   return (
     <div className="w-full min-h-screen overflow-auto text-white p-10">
@@ -84,7 +81,9 @@ const UserDetail = () => {
                       {child?.profileName}
                     </h3>
                     <p className="text-[16px] text-white/90 font-light">
-                      {child?.dob?.split("-")[0]} Years
+                      {new Date().getFullYear() -
+                        new Date(child?.dob).getFullYear()}{" "}
+                      Years
                     </p>
                   </div>
                 </div>

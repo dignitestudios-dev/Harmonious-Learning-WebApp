@@ -68,7 +68,6 @@ export const AuthContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(Cookies.get("name"));
 
   const loginAuth = (data) => {
-    console.log("🚀 ~ login ~ data:", data);
     if (data) {
       Cookies.set("token", data?.token);
       Cookies.set("name", JSON.stringify(data?.data));

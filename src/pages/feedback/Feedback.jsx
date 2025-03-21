@@ -12,7 +12,6 @@ const Feedback = () => {
     currentPage,
     update
   );
-  console.log("🚀 ~ Feedback ~ data:", data);
 
   const [feedback, setFeedback] = useState([]);
   const [isUserFeedback, setIsUserFeedback] = useState(true);

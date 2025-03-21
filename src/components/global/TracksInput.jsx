@@ -8,6 +8,7 @@ const TracksInput = ({
   file,
   handleFileUpload,
   error,
+  extension = "audio/*",
 }) => {
   return (
     <div className="w-full">
@@ -45,7 +46,7 @@ const TracksInput = ({
           <input
             id={id}
             type="file"
-            accept="audio/*,video/*,.srt"
+            accept={extension}
             className="hidden"
             onChange={(e) => handleFileUpload(e)}
           />

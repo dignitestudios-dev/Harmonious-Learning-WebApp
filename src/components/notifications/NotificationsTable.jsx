@@ -11,12 +11,12 @@ const NotificationsTable = ({ notification, loading }) => {
            border-[1.5px] border-white/30 font-light mb-2"
       >
         <div className="col-span-1 py-4 px-4 text-center">#</div>
-        <div className="col-span-2 py-4 px-4 text-left">Name</div>
+        <div className="col-span-2 py-4 px-4 text-left">Title</div>
         <div className="col-span-4 py-4 px-4 text-left">Description</div>
         <div className="col-span-1 py-4 px-4 text-left">Date</div>
         <div className="col-span-1 py-4 px-4 text-left">Time</div>
-        <div className="col-span-1 py-4 px-4 text-center">Status</div>
-        <div className="col-span-2 py-4 px-4 text-center">Action</div>
+        <div className="col-span-2 py-4 px-4 text-center">Status</div>
+        {/* <div className="col-span-2 py-4 px-4 text-center">Action</div> */}
       </div>
 
       {loading
@@ -69,18 +69,18 @@ const NotificationsTable = ({ notification, loading }) => {
               <div className="col-span-1 py-4 px-4">
                 {getTimeFormat(notify?.createdAt)}
               </div>
-              <div className="col-span-1 py-4 px-4 text-center">
+              <div className="col-span-2 py-4 px-4 text-center">
                 <p
                   className={`text-[14px] font-medium ${
                     notify?.sentByAdmin ? "text-[#4EFF62]" : "text-[#FF9500]"
                   }`}
                 >
-                  {notify?.sentByAdmin ? "Scheduled" : "Delivered"}
+                  {notify?.sentByAdmin ? "Admin" : "User"}
                 </p>
               </div>
-              <div className="col-span-2 py-2 px-4 flex items-center justify-center gap-2">
+              {/* <div className="col-span-2 py-2 px-4 flex items-center justify-center gap-2">
                 <img src={bin} alt="bin" className="cursor-pointer" />
-              </div>
+              </div> */}
             </div>
           ))}
     </div>

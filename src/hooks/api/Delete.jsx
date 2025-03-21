@@ -8,9 +8,10 @@ const useDelete = (setUpdate, onClose) => {
   const navigate = useNavigate();
 
   const deleteData = async (url, storyId, callback) => {
+    // console.log("🚀 ~ deleteData ~ storyId:", storyId);
     try {
       setLoading(true);
-      const response = await axios.post(url, { storyId });
+      const response = await axios.post(url, { ...storyId });
       if (typeof callback === "function") {
         callback(response?.data, setUpdate, onClose);
       }

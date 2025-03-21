@@ -106,8 +106,10 @@ const MeditationTable = ({ meditation, loader, setUpdate }) => {
       <DeleteModal
         isOpen={modal}
         onClose={() => setModalOpen(false)}
-        storyId={selectedMeditationId}
+        storyId={{ storyId: selectedMeditationId }}
         setUpdate={setUpdate}
+        url="/admin/deleteStories"
+        text="you want to delete this meditation?"
       />
     </div>
   );

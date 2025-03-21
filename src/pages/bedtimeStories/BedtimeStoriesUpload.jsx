@@ -334,6 +334,7 @@ const BedtimeStoriesUpload = () => {
               file={trackFile}
               handleFileUpload={handleFileUpload}
               error={inputError?.trackFile}
+              extension="audio/*"
             />
             {trackFile && (
               <div className="flex justify-between items-center p-1 bg-transparent border border-white/30 rounded-full">
@@ -367,6 +368,7 @@ const BedtimeStoriesUpload = () => {
               file={srtFile}
               handleFileUpload={handleFileUpload}
               error={inputError?.srtFile}
+              extension=".srt"
             />
 
             {srtFile && (
@@ -399,6 +401,7 @@ const BedtimeStoriesUpload = () => {
               icon={uploadImg}
               file={backgroundMusic}
               handleFileUpload={handleFileUpload}
+              extension="audio/*"
             />
             <div className="flex">
               {backgroundMusic?.map((item, index) => {

@@ -2,6 +2,29 @@ import { useState, useEffect } from "react";
 import axios from "../../axios";
 import { processError } from "../../lib/utils";
 
+const useStats = (url, update) => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  const getStats = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`${url}`);
+      setData(data?.data);
+    } catch (error) {
+      processError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getStats();
+  }, [update]);
+
+  return { loading, data };
+};
+
 const useUsers = (url, currentPage = 1, update) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -110,7 +133,6 @@ const useFeedBack = (url, currentPage = 1, update) => {
       setLoading(true);
       const { data } = await axios.get(`${url}?page=${currentPage}&limit=15`);
       setData(data?.data);
-      console.log("🚀 ~ getFeedBack ~ data:", data);
       setPagination(data?.totalPages);
     } catch (error) {
       processError(error);
@@ -176,6 +198,7 @@ const useSubscription = (url, currentPage = 1, update) => {
   return { loading, data, pagination };
 };
 export {
+  useStats,
   useUsers,
   useStories,
   useUsersDetail,

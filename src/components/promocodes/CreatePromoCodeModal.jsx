@@ -32,8 +32,6 @@ const CreatePromoCodeModal = ({ isOpen, onClose }) => {
   };
 
   const endDateModal = () => {
-    console.log("click-->");
-
     setIsEndDateOpen((prev) => !prev);
   };
 

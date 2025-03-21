@@ -4,8 +4,8 @@ import FeedbackDetailModal from "./FeedbackDetailModal";
 import FeedbackReplyModal from "./FeedbackReplyModal";
 import UsersLoader from "../users/UsersLoader";
 import { getDateFormat, getTimeFormat } from "../../lib/helpers";
-import { useDelete } from "../../hooks/api/Delete";
-import { processDelete } from "../../lib/utils";
+
+import DeleteModal from "../bedtimestories/DeleteModal";
 
 const FeedbackTable = ({ feedback, loading, isUserFeedback, setUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,10 +15,18 @@ const FeedbackTable = ({ feedback, loading, isUserFeedback, setUpdate }) => {
     setSelectedFeedbackId(id);
     setIsModalOpen(true);
   };
+  const [modal, setModalOpen] = useState(false);
+  const [selectedFeedId, setSelectedFeedId] = useState(null);
+
+  const openDeleteModal = (feedId) => {
+    setSelectedFeedId(feedId);
+    setModalOpen(true);
+  };
+
   // const { loading: loader, deleteData } = useDelete(setUpdate);
 
-  // const handleDelete = async (storyId) => {
-  //   deleteData("/admin/deleteStories", storyId, processDelete);
+  // const handleDelete = async (FeedId) => {
+  //   deleteData("/admin/deleteStories", FeedId, processDelete);
   // };
   return (
     <div className="bg-[#00000044] border-[#000] rounded-[25px] mb-6 p-2">
@@ -67,13 +75,9 @@ const FeedbackTable = ({ feedback, loading, isUserFeedback, setUpdate }) => {
               <div className="col-span-2 py-4 px-4 flex items-center justify-center gap-4">
                 <div
                   className="cursor-pointer"
-                  // onClick={() => handleDelete(item?._id)}
+                  onClick={() => openDeleteModal(item?._id)}
                 >
-                  {loading ? (
-                    <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
-                  ) : (
-                    <img src={bin} alt="Delete" />
-                  )}
+                  <img src={bin} alt="Delete" />
                 </div>
 
                 {isUserFeedback && (
@@ -96,6 +100,14 @@ const FeedbackTable = ({ feedback, loading, isUserFeedback, setUpdate }) => {
         onClose={() => setReplyModalOpen(false)}
         feedbackId={selectedFeedbackId}
         setUpdate={setUpdate}
+      />
+      <DeleteModal
+        isOpen={modal}
+        onClose={() => setModalOpen(false)}
+        storyId={{ feedbackId: selectedFeedId }}
+        setUpdate={setUpdate}
+        url="/admin/deleteFeedback"
+        text="you want to delete this feedback?"
       />
     </div>
   );

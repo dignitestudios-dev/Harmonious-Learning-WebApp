@@ -2,10 +2,10 @@ import { deactivate } from "../../assets/export";
 import { useDelete } from "../../hooks/api/Delete";
 import { processDelete } from "../../lib/utils";
 
-const DeleteModal = ({ isOpen, onClose, onConfirm, storyId, setUpdate }) => {
+const DeleteModal = ({ isOpen, onClose, storyId, setUpdate, url, text }) => {
   const { loading, deleteData } = useDelete(setUpdate, onClose);
   const handleDelete = async () => {
-    deleteData("/admin/deleteStories", storyId, processDelete);
+    deleteData(url, storyId, processDelete);
   };
 
   if (!isOpen) return null;
@@ -19,7 +19,7 @@ const DeleteModal = ({ isOpen, onClose, onConfirm, storyId, setUpdate }) => {
           </div>
           <h2 className="text-[24px] font-semibold mb-2">Are you Sure </h2>
           <p className="text-[16px] font-light text-white mb-6 capitalize">
-            you want to delete this Bedtime story?
+            {text}
           </p>
           <div className="flex space-x-4">
             <button

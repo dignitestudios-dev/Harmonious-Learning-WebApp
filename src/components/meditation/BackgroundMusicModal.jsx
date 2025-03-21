@@ -74,6 +74,7 @@ const BackgroundMusicModal = ({ isOpen, onClose, id, setUpdate }) => {
               icon={uploadImg}
               file={backgroundMusic}
               handleFileUpload={handleFileUpload}
+              extension="audio/*"
             />
             <div className="w-full flex space-x-4 mt-6">
               <SaveButton title="Save" loading={loading} />

@@ -20,7 +20,7 @@ const options = ["Physics", "Maths", "Chemistry"];
 
 const MeditationEdit = () => {
   const location = useLocation();
-  const { meditation } = location.state || {};
+  const { data: meditation } = location.state || {};
 
   const { data, loading: loader } = useAllSubject("/user/getAllSubjects", 1);
 
@@ -254,18 +254,26 @@ const MeditationEdit = () => {
               icon={uploadImg}
               file={trackFile}
               handleFileUpload={handleFileUpload}
+              extension="audio/*"
             />
             {trackFile && (
               <div className="flex justify-between items-center p-1 bg-transparent border border-white/30 rounded-full">
                 <div className="flex items-center">
                   <img src={srtImage} alt="srt" className="w-10 mr-2" />
                   <div>
-                    <p className="ml-2 text-[12px] font-extralight">
-                      {trackFile?.name?.length > 38
-                        ? trackFile?.name?.slice(0, 38) + "..."
-                        : trackFile?.name}
-                    </p>
-                    <p className="ml-2 text-[12px] font-extralight">5:00</p>
+                    {trackFile?.name ? (
+                      <p className="ml-2 text-[12px] font-extralight">
+                        {trackFile?.name?.length > 38
+                          ? trackFile?.name?.slice(0, 38) + "..."
+                          : trackFile?.name}
+                      </p>
+                    ) : (
+                      <p className="ml-2 text-[12px] font-extralight">
+                        {trackFile?.split("/")?.pop()}
+                      </p>
+                    )}
+
+                    {/* <p className="ml-2 text-[12px] font-extralight">5:00</p> */}
                   </div>
                 </div>
                 <div
@@ -286,17 +294,24 @@ const MeditationEdit = () => {
               icon={uploadImg}
               file={srtFile}
               handleFileUpload={handleFileUpload}
+              extension=".srt"
             />
 
             {srtFile && (
               <div className="flex justify-between items-center p-1 bg-transparent border border-white/30 rounded-full">
                 <div className="flex items-center">
                   <img src={srtImage} alt="srt" className="w-10 mr-2" />
-                  <p className="ml-2 text-[14px] font-extralight">
-                    {srtFile?.name?.length > 38
-                      ? srtFile?.name?.slice(0, 38) + "..."
-                      : srtFile?.name}
-                  </p>
+                  {srtFile?.name ? (
+                    <p className="ml-2 text-[14px] font-extralight">
+                      {srtFile?.name?.length > 38
+                        ? srtFile?.name?.slice(0, 38) + "..."
+                        : srtFile?.name}
+                    </p>
+                  ) : (
+                    <p className="ml-2 text-[14px] font-extralight">
+                      {srtFile?.split("/")?.pop()}
+                    </p>
+                  )}
                 </div>
 
                 <div
@@ -318,6 +333,7 @@ const MeditationEdit = () => {
               icon={uploadImg}
               file={backgroundMusic}
               handleFileUpload={handleFileUpload}
+              extension="audio/*"
             />
             <div className="flex">
               {backgroundMusic?.map((item, index) => {
@@ -331,7 +347,7 @@ const MeditationEdit = () => {
                           className="pt-2 pl-1"
                         />
                         <p className="text-white text-[12px] font-medium pl-2 pt-2 overflow-clip text-ellipsis">
-                          {item?.file?.name}
+                          {item?.file?.name || item?.split("-").pop()}
                         </p>
                       </div>
                       <div

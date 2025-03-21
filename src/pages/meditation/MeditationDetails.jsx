@@ -11,7 +11,7 @@ const MeditationDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { meditation } = location.state || {};
-  console.log("🚀 ~ MeditationDetails ~ meditation:", meditation);
+
   const [update, setUpdate] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -20,8 +20,13 @@ const MeditationDetails = () => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [currentLyric, setCurrentLyric] = useState("");
   const [srtFile, setSrtFile] = useState(null);
-
   const [audioFile, setAudioFile] = useState(null);
+
+  const { data, loading } = useStoriesDetail(
+    `/admin/getStoryById?storyId=${meditation?._id}`,
+    update
+  );
+
   const handleDeactivate = () => {
     setModalOpen(false);
   };
@@ -123,15 +128,11 @@ const MeditationDetails = () => {
       .filter(Boolean);
   };
 
-  const { data, loading } = useStoriesDetail(
-    `/admin/getStoryById?storyId=${meditation?._id}`,
-    update
-  );
-  console.log("🚀 ~ MeditationDetails ~ data:", data);
-
   useEffect(() => {
-    fetchAndParseSrt(data?.mp3SrtFile);
-    setAudioFile(data?.mp3File);
+    if (data) {
+      fetchAndParseSrt(data?.mp3SrtFile);
+      setAudioFile(data?.mp3File);
+    }
   }, [data]);
 
   return (
@@ -166,18 +167,6 @@ const MeditationDetails = () => {
         <>
           <div className="flex justify-between items-center ">
             <h1 className="text-[36px] font-bold mb-6">{data?.title}</h1>
-            {/* Audio and File upload */}
-            {/* <div className="mb-4">
-          <label className="block mb-2">
-            Upload SRT File:
-            <input
-              type="file"
-              accept=".srt"
-              onChange={handleSrtUpload}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600"
-            />
-          </label>
-        </div> */}
 
             <button
               onClick={() =>
@@ -241,7 +230,7 @@ const MeditationDetails = () => {
                           className="w-8 mt-2"
                         />
                         <span className="text-[16px] font-extralight">
-                          {_.split("/").pop()}
+                          {_?.split("/")?.pop()}
                         </span>
                       </div>
                       <button className="bg-gradient-to-r from-[#000086] to-[#CEA3D8] p-2 rounded-full">
@@ -261,7 +250,6 @@ const MeditationDetails = () => {
       <BackgroundMusicModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onConfirm={handleDeactivate}
         setUpdate={setUpdate}
         id={data?._id}
       />

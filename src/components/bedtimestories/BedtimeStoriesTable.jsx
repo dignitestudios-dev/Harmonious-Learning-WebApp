@@ -101,8 +101,10 @@ const BedtimeStoriesTable = ({ stories, loader, setUpdate }) => {
       <DeleteModal
         isOpen={modal}
         onClose={() => setModalOpen(false)}
-        storyId={selectedStoryId}
+        storyId={{ storyId: selectedStoryId }}
         setUpdate={setUpdate}
+        url="/admin/deleteStories"
+        text="you want to delete this Bedtime story?"
       />
     </div>
   );

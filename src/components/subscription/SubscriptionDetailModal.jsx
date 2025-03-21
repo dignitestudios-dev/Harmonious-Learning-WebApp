@@ -4,7 +4,6 @@ import { IoMdClose } from "react-icons/io";
 import { subscriptionData } from "../../static/dummyData";
 
 const SubscriptionDetailModal = ({ modalData, isOpen, onClose }) => {
-  console.log("🚀 ~ SubscriptionDetailModal ~ modalData:", modalData);
   const [isMonthly, setIsMonthly] = useState(true);
   const [subscriptionType, setSubscriptionType] = useState(null);
 
@@ -40,7 +39,7 @@ const SubscriptionDetailModal = ({ modalData, isOpen, onClose }) => {
           </div>
           <div className="w-[32%] border-l border-white/40 pl-4 mb-2">
             <p className="text-[14px] text-white/60">price</p>
-            <p className="text-[18px] text-white">$150</p>
+            <p className="text-[18px] text-white">${modalData}</p>
           </div>
         </div>
         <div className="space-y-4">

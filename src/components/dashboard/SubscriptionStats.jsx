@@ -24,7 +24,7 @@ ChartJS.register(
   Legend
 );
 
-const SubscriptionStats = () => {
+const SubscriptionStats = ({ subscriptions }) => {
   const [filter, setFilter] = useState("monthly");
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state for the first date
   const [isModalOpenSecond, setIsModalOpenSecond] = useState(false); // Modal state for the second date
@@ -53,40 +53,16 @@ const SubscriptionStats = () => {
     setIsModalOpenSecond(false); // Close the second modal when a date is selected
   };
 
-  const data = {
-    monthly: {
-      thisMonth: [
-        1000, 20000, 5000, 12000, 24000, 15000, 7000, 10000, 24000, 18000,
-        12000, 3000,
-      ],
-      lastMonth: [
-        5000, 7000, 12000, 9000, 11000, 12000, 14000, 10000, 6000, 8000, 5000,
-        2000,
-      ],
-    },
-  };
-
-  const labels = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
-  ];
+  const labels = subscriptions?.map((item) => item.month); // Extract month names
+  const totalAmounts = subscriptions?.map((item) => item.totalAmount); // Extract total amounts
+  const counts = subscriptions?.map((item) => item.count);
 
   const chartData = {
     labels,
     datasets: [
       {
-        label: "This month",
-        data: data[filter].thisMonth,
+        label: "Total Amount",
+        data: totalAmounts,
         borderColor: "#8171F9",
         backgroundColor: "#8171F9",
         borderWidth: 2,
@@ -95,8 +71,8 @@ const SubscriptionStats = () => {
         tension: 0.4,
       },
       {
-        label: "Last month",
-        data: data[filter].lastMonth,
+        label: "Users",
+        data: counts,
         borderColor: "#F25C5C",
         backgroundColor: "#F25C5C",
         borderWidth: 2,
@@ -118,21 +94,21 @@ const SubscriptionStats = () => {
         </div>
         <div className="flex justify-end items-center gap-4 w-full">
           {/* Date and Calendar Icon for the first date */}
-          <CalendarField
+          {/* <CalendarField
             toggleModal={toggleModal}
             selectedDate={selectedDate}
             isModalOpen={isModalOpen}
             handleDateClick={handleDateClick}
             right={true}
-          />
+          /> */}
 
           {/* Date and Calendar Icon for the second date */}
-          <CalendarField
+          {/* <CalendarField
             toggleModal={toggleModalSecond}
             selectedDate={selectedDateSecond}
             isModalOpen={isModalOpenSecond}
             handleDateClick={handleDateClickSecond}
-          />
+          /> */}
         </div>
       </div>
 
@@ -154,8 +130,14 @@ const SubscriptionStats = () => {
               },
               tooltip: {
                 callbacks: {
-                  label: (tooltipItem) =>
-                    `${tooltipItem.raw.toLocaleString()}K`,
+                  label: (tooltipItem) => {
+                    // Check which dataset the tooltip is for
+                    if (tooltipItem.dataset.label === "Total Amount") {
+                      return `$ ${tooltipItem.raw}`; // Display "$" for the "Total Amount" dataset
+                    } else if (tooltipItem.dataset.label === "Counts") {
+                      return `${tooltipItem.raw} Users`; // Display "Users" for the "Counts" dataset
+                    }
+                  },
                 },
                 backgroundColor: "#2E2239",
                 titleColor: "#8171F9",
@@ -180,7 +162,7 @@ const SubscriptionStats = () => {
                 },
                 ticks: {
                   color: "#8E8E8E",
-                  callback: (value) => `${value / 1000}K`,
+                  callback: (value) => `${value}`,
                 },
               },
             },

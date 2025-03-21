@@ -112,7 +112,7 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
             </div>
           ))}
       <SubscriptionDetailModal
-        modalData={modalData}
+        modalData={modalData?.amount}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

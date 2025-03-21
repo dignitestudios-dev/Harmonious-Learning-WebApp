@@ -9,7 +9,6 @@ const FeedbackDetailModal = ({
   setReplyModalOpen,
   feedbackdetail,
 }) => {
-  console.log(feedbackdetail, "feedbackId");
   const [isMonthly, setIsMonthly] = useState(true);
 
   if (!isOpen) return null;

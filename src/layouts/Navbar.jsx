@@ -31,10 +31,10 @@ const Navbar = () => {
         {/* Search Bar */}
         <div className="w-full h-auto flex flex-col gap-1 justify-start items-start ">
           <div
-            className="w-[275px] h-[42px] flex items-center justify-start border-[1px] border-white/30 rounded-full 
-              focus-within:border-white/30 focus-within:border-[1px]"
+            className="w-[275px] h-[42px] flex items-center justify-start border-[1px] border-transparent rounded-full 
+              focus-within:border-transparent focus-within:border-[1px]"
           >
-            <div className="w-full h-full flex items-center justify-start rounded-[12px] relative">
+            {/* <div className="w-full h-full flex items-center justify-start rounded-[12px] relative">
               <input
                 type="text"
                 placeholder="Search anything..."
@@ -43,7 +43,7 @@ const Navbar = () => {
                 onChange={(e) => console.log(e.target.value)}
               />
               <CiSearch size={24} className=" text-white/50 absolute mx-4 " />
-            </div>
+            </div> */}
           </div>
         </div>
 

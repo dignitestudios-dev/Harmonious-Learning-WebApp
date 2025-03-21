@@ -4,18 +4,27 @@ import { IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import { FaPlay, FaStop } from "react-icons/fa";
 
 const AudioPlayer = ({ audioFile, lyrics, story }) => {
-  console.log("🚀 ~ AudioPlayer ~ story:", story);
   const audioRef = useRef(null);
   const currentLyricRef = useRef(null);
+  const lyricsContainerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    if (currentLyricRef.current) {
-      currentLyricRef.current.scrollIntoView({
+    if (currentLyricRef.current && lyricsContainerRef.current) {
+      const container = lyricsContainerRef.current;
+      const lyric = currentLyricRef.current;
+
+      // Calculate the position of the current lyric relative to the container
+      const containerTop = container.getBoundingClientRect().top;
+      const lyricTop = lyric.getBoundingClientRect().top;
+
+      const offset = lyricTop - containerTop - container.clientHeight / 2;
+
+      container.scrollTo({
+        top: container.scrollTop + offset,
         behavior: "smooth",
-        block: "center",
       });
     }
   }, [currentTime]);
@@ -112,8 +121,8 @@ const AudioPlayer = ({ audioFile, lyrics, story }) => {
       </h2>
 
       <div
-        className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4
-       relative scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent"
+        ref={lyricsContainerRef}
+        className="h-24 overflow-y-auto bg-white/5 p-3 rounded-lg mb-4 relative"
       >
         {lyrics?.map((lyric, index) => (
           <p
@@ -132,7 +141,6 @@ const AudioPlayer = ({ audioFile, lyrics, story }) => {
             {lyric.text}
           </p>
         ))}
-
         <div
           className="w-full h-[100%]"
           style={{
