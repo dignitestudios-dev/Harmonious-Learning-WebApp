@@ -41,7 +41,9 @@ const MeditationTable = ({ meditation, loader, setUpdate }) => {
             className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
                           hover:bg-opacity-60 transition duration-300"
           >
-            <div className="col-span-1 pb-4 pt-7 pl-5 text-left">{index}</div>
+            <div className="col-span-1 pb-4 pt-7 pl-5 text-left">
+              {index + 1}
+            </div>
             <div className="col-span-2 flex items-center gap-4">
               <img
                 src={meditation?.image}
@@ -100,7 +102,7 @@ const MeditationTable = ({ meditation, loader, setUpdate }) => {
           className="w-full text-center h-10 mt-10 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
         hover:bg-opacity-60 transition duration-300"
         >
-          No record found
+          No Tracks Available
         </div>
       )}
       <DeleteModal

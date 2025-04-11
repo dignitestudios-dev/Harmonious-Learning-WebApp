@@ -10,7 +10,7 @@ export const processSignup = (data, navigate) => {
 export const processLogin = (data, navigate, loginAuth) => {
   if (data?.success) {
     loginAuth(data);
-    navigate("/");
+    // navigate("/");
     return;
   }
 };
@@ -23,10 +23,14 @@ export const processUpload = (
   onClose
 ) => {
   if (data?.success) {
+    SuccessToast("Updated Successfully");
+
     if (isUpdate) {
+      console.log("if === call");
       setUpdate((prev) => !prev);
       onClose();
     } else {
+      console.log("else call");
       navigate;
     }
     return;
@@ -49,9 +53,10 @@ export const processSubject = (data, onClose, setUpdate) => {
     return;
   }
 };
-export const processPushNotification = (data, onClose, setUpdate) => {
+export const processPushNotification = (data, onClose, setUpdate, action) => {
   if (data?.success) {
     SuccessToast(data?.message);
+    action.resetForm();
     onClose();
     setUpdate((prev) => !prev);
     return;
@@ -67,7 +72,6 @@ export const processDelete = (data, setUpdate, onClose) => {
 };
 
 export const processError = (error) => {
-  console.log("🚀 ~ processError ~ error:", error);
   if (error?.response?.data?.message) {
     ErrorToast(error?.response?.data?.message);
     return;

@@ -42,52 +42,61 @@ const FeedbackTable = ({ feedback, loading, isUserFeedback, setUpdate }) => {
         <div className="col-span-2 py-4 px-4 text-center">Action</div>
       </div>
 
-      {loading
-        ? Array.from({ length: 5 })?.map((_, index) => (
-            <UsersLoader key={index} />
-          ))
-        : feedback?.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
+      {loading ? (
+        Array.from({ length: 5 })?.map((_, index) => (
+          <UsersLoader key={index} />
+        ))
+      ) : feedback.length > 0 ? (
+        feedback?.map((item, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
               hover:bg-opacity-60 transition duration-300"
-            >
-              <div className="col-span-1 py-4 px-4 text-center pt-7">
-                {index + 1}
-              </div>
-              <div className="col-span-2 flex items-center gap-4">
-                <img
-                  src={`https://i.pravatar.cc/40?img=${item?.id}`}
-                  alt="Profile"
-                  className="w-10 h-10 rounded-full border-2 border-purple-600"
-                />
-                <span>{item.name}</span>
-              </div>
-              <div className="col-span-4 py-4 px-4 truncate pt-7">
-                {isUserFeedback ? item?.message : item?.adminReply?.message}
-              </div>
-              <div className="col-span-2 py-4 px-4 pt-7">
-                {getDateFormat(item?.createdAt)}
-              </div>
-              <div className="col-span-1 py-4 px-3 text-center pt-7">
-                {getTimeFormat(item?.createdAt)}
-              </div>
-              <div className="col-span-2 py-4 px-4 flex items-center justify-center gap-4">
-                <div
-                  className="cursor-pointer"
-                  onClick={() => openDeleteModal(item?._id)}
-                >
-                  <img src={bin} alt="Delete" />
-                </div>
-
-                {isUserFeedback && (
-                  <div onClick={() => openDetailModal(item)}>
-                    <img src={right} alt="right" className="cursor-pointer" />
-                  </div>
-                )}
-              </div>
+          >
+            <div className="col-span-1 py-4 px-4 text-center pt-7">
+              {index + 1}
             </div>
-          ))}
+            <div className="col-span-2 flex items-center gap-4">
+              <img
+                src={`https://i.pravatar.cc/40?img=${item?.id}`}
+                alt="Profile"
+                className="w-10 h-10 rounded-full border-2 border-purple-600"
+              />
+              <span>{item.name}</span>
+            </div>
+            <div className="col-span-4 py-4 px-4 truncate pt-7">
+              {isUserFeedback ? item?.message : item?.adminReply?.message}
+            </div>
+            <div className="col-span-2 py-4 px-4 pt-7">
+              {getDateFormat(item?.createdAt)}
+            </div>
+            <div className="col-span-1 py-4 px-3 text-center pt-7">
+              {getTimeFormat(item?.createdAt)}
+            </div>
+            <div className="col-span-2 py-4 px-4 flex items-center justify-center gap-4">
+              <div
+                className="cursor-pointer"
+                onClick={() => openDeleteModal(item?._id)}
+              >
+                <img src={bin} alt="Delete" />
+              </div>
+
+              {isUserFeedback && (
+                <div onClick={() => openDetailModal(item)}>
+                  <img src={right} alt="right" className="cursor-pointer" />
+                </div>
+              )}
+            </div>
+          </div>
+        ))
+      ) : (
+        <div
+          className="w-full text-center h-10 mt-10 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
+        hover:bg-opacity-60 transition duration-300"
+        >
+          No Feedback Received
+        </div>
+      )}
       <FeedbackDetailModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

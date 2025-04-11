@@ -25,45 +25,46 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
         <div className="col-span-2 py-4 px-4 text-left">Action</div>
       </div>
 
-      {loading
-        ? Array.from({ length: 5 }).map((_, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-12 animate-pulse text-white text-[14px] font-extralight leading-[19px] bg-opacity-40"
-            >
-              <div className="col-span-1 py-4 px-4 text-center">
-                <div className="h-4 w-6 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-2 py-4 px-4">
-                <div className="h-4 w-24 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-4 py-4 px-4">
-                <div className="h-4 w-48 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-1 py-4 px-4">
-                <div className="h-4 w-12 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-1 py-4 px-4">
-                <div className="h-4 w-10 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-1 py-4 px-4 text-center">
-                <div className="h-4 w-16 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-2 py-2 px-4 flex items-center justify-center">
-                <div className="h-8 w-8 bg-gray-700 rounded-full"></div>
-              </div>
+      {loading ? (
+        Array.from({ length: 5 }).map((_, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-12 animate-pulse text-white text-[14px] font-extralight leading-[19px] bg-opacity-40"
+          >
+            <div className="col-span-1 py-4 px-4 text-center">
+              <div className="h-4 w-6 bg-gray-700 rounded"></div>
             </div>
-          ))
-        : subscription.map((subscription, index) => (
-            <div
-              key={subscription.id}
-              className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
+            <div className="col-span-2 py-4 px-4">
+              <div className="h-4 w-24 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-4 py-4 px-4">
+              <div className="h-4 w-48 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-1 py-4 px-4">
+              <div className="h-4 w-12 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-1 py-4 px-4">
+              <div className="h-4 w-10 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-1 py-4 px-4 text-center">
+              <div className="h-4 w-16 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-2 py-2 px-4 flex items-center justify-center">
+              <div className="h-8 w-8 bg-gray-700 rounded-full"></div>
+            </div>
+          </div>
+        ))
+      ) : subscription.length > 0 ? (
+        subscription.map((subscription, index) => (
+          <div
+            key={subscription.id}
+            className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
                     hover:bg-opacity-60 transition duration-300"
-            >
-              <div className="col-span-2 py-4 px-8 text-start pt-7">
-                {index + 1}
-              </div>
-              {/* <div className="col-span-2 py-4 px-4 flex gap-4 pt-7">
+          >
+            <div className="col-span-2 py-4 px-8 text-start pt-7">
+              {index + 1}
+            </div>
+            {/* <div className="col-span-2 py-4 px-4 flex gap-4 pt-7">
             {subscription?.name}
           </div>
           <div className="col-span-2 py-4 px-4 truncate pt-7">
@@ -72,21 +73,21 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
           <div className="col-span-2 py-4 px-4 truncate pt-7">
             {subscription?.benefit}
           </div> */}
-              <div className="col-span-3 py-4 px-4 pt-7">
-                {getDateFormat(subscription?.createdAt)}
-              </div>
-              <div className="col-span-2 py-4 px-4 pt-7">
-                {subscription?.amount}
-              </div>
-              <div
-                className={`col-span-3 py-4 px-4 pt-7 capitalize font-medium ${
-                  subscription?.status === "pending"
-                    ? " text-[#FF9500]"
-                    : "text-[#b24040]"
-                } `}
-              >
-                {subscription?.status}
-                {/* <label className="relative inline-flex items-center cursor-pointer">
+            <div className="col-span-3 py-4 px-4 pt-7">
+              {getDateFormat(subscription?.createdAt)}
+            </div>
+            <div className="col-span-2 py-4 px-4 pt-7">
+              {subscription?.amount}
+            </div>
+            <div
+              className={`col-span-3 py-4 px-4 pt-7 capitalize font-medium ${
+                subscription?.status === "pending"
+                  ? " text-[#FF9500]"
+                  : "text-[#b24040]"
+              } `}
+            >
+              {subscription?.status}
+              {/* <label className="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
                 checked={story.status}
@@ -96,21 +97,29 @@ const SubscriptionTable = ({ loading, subscription, handleToggleStatus }) => {
               <div className="w-11 h-6 bg-white/10 rounded-full  peer peer-checked:bg-gradient-to-l from-[#CEA3D8] to-[#000086]"></div>
               <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full peer-checked:translate-x-5 transition-transform"></span>
             </label> */}
-              </div>
-              <div className="col-span-2 py-4 px-1 flex items-center justify-start gap-2">
-                <div className="w-5">{/* <img src={bin} alt="bin" /> */}</div>
-                <div
-                  onClick={() => {
-                    setIsModalOpen(true);
-                    setModalData(subscription);
-                  }}
-                  className="cursor-pointer"
-                >
-                  <img src={right} alt="right" />
-                </div>
+            </div>
+            <div className="col-span-2 py-4 px-1 flex items-center justify-start gap-2">
+              <div className="w-5">{/* <img src={bin} alt="bin" /> */}</div>
+              <div
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setModalData(subscription);
+                }}
+                className="cursor-pointer"
+              >
+                <img src={right} alt="right" />
               </div>
             </div>
-          ))}
+          </div>
+        ))
+      ) : (
+        <div
+          className="w-full text-center h-10 mt-10 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
+        hover:bg-opacity-60 transition duration-300"
+        >
+          No Record Found
+        </div>
+      )}
       <SubscriptionDetailModal
         modalData={modalData?.amount}
         isOpen={isModalOpen}

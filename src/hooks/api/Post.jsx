@@ -133,13 +133,14 @@ const useCreateNotification = (onClose, setUpdate) => {
     isFormData = false,
     formdata = null,
     data = null,
-    callback
+    callback,
+    action
   ) => {
     try {
       setLoading(true);
       const response = await axios.post(url, isFormData ? formdata : data);
       if (typeof callback === "function") {
-        callback(response?.data, onClose, setUpdate);
+        callback(response?.data, setUpdate, onClose, action);
       }
       return response?.data;
     } catch (error) {

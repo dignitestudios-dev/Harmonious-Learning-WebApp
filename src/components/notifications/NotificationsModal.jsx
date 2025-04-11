@@ -27,9 +27,9 @@ const NotificationsModal = ({ isOpen, onClose, setUpdate }) => {
             message: values.description,
             target: "user",
           },
-  
           null,
-          processPushNotification
+          processPushNotification,
+          action
         );
       },
     });
@@ -56,7 +56,7 @@ const NotificationsModal = ({ isOpen, onClose, setUpdate }) => {
           <InputField
             id={"subscription"}
             name={"subscription"}
-            label="Subscription"
+            label="Title"
             placeholder="Name"
             handleChange={handleChange}
             handleBlur={handleBlur}

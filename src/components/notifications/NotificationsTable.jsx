@@ -19,70 +19,77 @@ const NotificationsTable = ({ notification, loading }) => {
         {/* <div className="col-span-2 py-4 px-4 text-center">Action</div> */}
       </div>
 
-      {loading
-        ? Array.from({ length: 5 }).map((_, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-12 animate-pulse text-white text-[14px] font-extralight leading-[19px] bg-opacity-40"
-            >
-              <div className="col-span-1 py-4 px-4 text-center">
-                <div className="h-4 w-6 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-2 py-4 px-4">
-                <div className="h-4 w-24 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-4 py-4 px-4">
-                <div className="h-4 w-48 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-1 py-4 px-4">
-                <div className="h-4 w-12 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-1 py-4 px-4">
-                <div className="h-4 w-10 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-1 py-4 px-4 text-center">
-                <div className="h-4 w-16 bg-gray-700 rounded"></div>
-              </div>
-              <div className="col-span-2 py-2 px-4 flex items-center justify-center">
-                <div className="h-8 w-8 bg-gray-700 rounded-full"></div>
-              </div>
+      {loading ? (
+        Array.from({ length: 5 }).map((_, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-12 animate-pulse text-white text-[14px] font-extralight leading-[19px] bg-opacity-40"
+          >
+            <div className="col-span-1 py-4 px-4 text-center">
+              <div className="h-4 w-6 bg-gray-700 rounded"></div>
             </div>
-          ))
-        : notification?.map((notify, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
+            <div className="col-span-2 py-4 px-4">
+              <div className="h-4 w-24 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-4 py-4 px-4">
+              <div className="h-4 w-48 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-1 py-4 px-4">
+              <div className="h-4 w-12 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-1 py-4 px-4">
+              <div className="h-4 w-10 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-1 py-4 px-4 text-center">
+              <div className="h-4 w-16 bg-gray-700 rounded"></div>
+            </div>
+            <div className="col-span-2 py-2 px-4 flex items-center justify-center">
+              <div className="h-8 w-8 bg-gray-700 rounded-full"></div>
+            </div>
+          </div>
+        ))
+      ) : notification.length > 0 ? (
+        notification?.map((notify, index) => (
+          <div
+            key={index}
+            className="grid grid-cols-12 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
                     hover:bg-opacity-60 transition duration-300"
-            >
-              <div className="col-span-1 py-4 px-4 text-center">
-                {index + 1}
-              </div>
-              <div className="col-span-2 py-4 px-4 flex items-center gap-4">
-                <span>{notify?.title}</span>
-              </div>
-              <div className="col-span-4 py-4 px-4 truncate">
-                {notify?.message}
-              </div>
-              <div className="col-span-1 w-40 py-4 px-4">
-                {getDateFormat(notify?.createdAt)}
-              </div>
-              <div className="col-span-1 py-4 px-4">
-                {getTimeFormat(notify?.createdAt)}
-              </div>
-              <div className="col-span-2 py-4 px-4 text-center">
-                <p
-                  className={`text-[14px] font-medium ${
-                    notify?.sentByAdmin ? "text-[#4EFF62]" : "text-[#FF9500]"
-                  }`}
-                >
-                  {notify?.sentByAdmin ? "Admin" : "User"}
-                </p>
-              </div>
-              {/* <div className="col-span-2 py-2 px-4 flex items-center justify-center gap-2">
+          >
+            <div className="col-span-1 py-4 px-4 text-center">{index + 1}</div>
+            <div className="col-span-2 py-4 px-4 flex items-center gap-4">
+              <span>{notify?.title}</span>
+            </div>
+            <div className="col-span-4 py-4 px-4 truncate">
+              {notify?.message}
+            </div>
+            <div className="col-span-1 w-40 py-4 px-4">
+              {getDateFormat(notify?.createdAt)}
+            </div>
+            <div className="col-span-1 py-4 px-4">
+              {getTimeFormat(notify?.createdAt)}
+            </div>
+            <div className="col-span-2 py-4 px-4 text-center">
+              <p
+                className={`text-[14px] font-medium ${
+                  notify?.sentByAdmin ? "text-[#4EFF62]" : "text-[#FF9500]"
+                }`}
+              >
+                {notify?.sentByAdmin ? "Admin" : "User"}
+              </p>
+            </div>
+            {/* <div className="col-span-2 py-2 px-4 flex items-center justify-center gap-2">
                 <img src={bin} alt="bin" className="cursor-pointer" />
               </div> */}
-            </div>
-          ))}
+          </div>
+        ))
+      ) : (
+        <div
+          className="w-full text-center h-10 mt-10 text-white text-[14px] font-extralight leading-[19px] bg-opacity-40 
+        hover:bg-opacity-60 transition duration-300"
+        >
+          No Notifications Yet
+        </div>
+      )}
     </div>
   );
 };

@@ -22,9 +22,9 @@ const MeditationEdit = () => {
   const location = useLocation();
   const { data: meditation } = location.state || {};
 
-  const { data, loading: loader } = useAllSubject("/user/getAllSubjects", 1);
+  const { data, loading: loader } = useAllSubject(`/user/getAllSubjects`, "");
 
-  const subjectOptions = data?.map((item) => item.subject);
+  const subjectOptions = data?.map((item) => item);
 
   const { loading, postData } = useUpload();
 
@@ -32,6 +32,7 @@ const MeditationEdit = () => {
   const [trackFile, setTrackFile] = useState(null);
   const [srtFile, setSrtFile] = useState(null);
   const [backgroundMusic, setBackgroundMusic] = useState([]);
+
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
@@ -42,7 +43,7 @@ const MeditationEdit = () => {
       setImageFile(meditation?.image || null);
       setTrackFile(meditation?.mp3File || null);
       setSrtFile(meditation?.mp3SrtFile || null);
-      setBackgroundMusic(meditation?.bgMusicFile.map((item) => item) || []);
+      setBackgroundMusic(meditation?.bgMusicFile?.map((item) => item) || []);
       setName(meditation?.title || "");
       setSubject(meditation?.tags?.join(", ") || ""); // If multiple tags, join as a string
       setDescription(meditation?.description || "");
@@ -152,12 +153,24 @@ const MeditationEdit = () => {
     if (srtFile) formData.append("mp3SrtFile", srtFile);
 
     // // Append backgroundMusic array files
+
     if (backgroundMusic && backgroundMusic.length > 0) {
       backgroundMusic.forEach((music, index) => {
-        formData.append(`bgMusicFile`, music.file);
+        if (music.file) {
+          formData.append(`bgMusicFile`, music.file);
+        } else {
+          formData.append(`bgMusicFile`, music);
+        }
       });
     }
-    postData("/admin/updateStories", true, formData, null, processUpload);
+    postData(
+      "/admin/updateStories",
+      true,
+      formData,
+      null,
+      processUpload,
+      "/meditation"
+    );
   };
 
   return (

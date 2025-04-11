@@ -14,8 +14,10 @@ const options = ["Physics", "Maths", "Chemistry"];
 const BedtimeStoriesEdit = () => {
   const location = useLocation();
   const { data: story } = location.state || {};
-  const { data, loading: loader } = useAllSubject("/user/getAllSubjects", 1);
-  const subjectOptions = data?.map((item) => item.subject);
+
+  const { data, loading: loader } = useAllSubject(`/user/getAllSubjects`, "");
+
+  const subjectOptions = data?.map((item) => item);
   const { loading, postData } = useUpload();
 
   const [imageFile, setImageFile] = useState(null);
@@ -23,6 +25,7 @@ const BedtimeStoriesEdit = () => {
   const [srtFile, setSrtFile] = useState(null);
 
   const [backgroundMusic, setBackgroundMusic] = useState([]);
+
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
@@ -145,10 +148,21 @@ const BedtimeStoriesEdit = () => {
     // // Append backgroundMusic array files
     if (backgroundMusic && backgroundMusic.length > 0) {
       backgroundMusic.forEach((music, index) => {
-        formData.append(`bgMusicFile`, music.file);
+        if (music.file) {
+          formData.append(`bgMusicFile`, music.file);
+        } else {
+          formData.append(`bgMusicFile`, music);
+        }
       });
     }
-    postData("/admin/updateStories", true, formData, null, processUpload);
+    postData(
+      "/admin/updateStories",
+      true,
+      formData,
+      null,
+      processUpload,
+      "/bedtime-stories"
+    );
   };
 
   return (

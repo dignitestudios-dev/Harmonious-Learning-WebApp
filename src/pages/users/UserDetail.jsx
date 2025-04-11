@@ -63,46 +63,52 @@ const UserDetail = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        {loading
-          ? [...Array(3)].map((_, index) => <UserDetailLoader key={index} />)
-          : data?.children?.map((child, index) => (
-              <div
-                key={index}
-                className="bg-[#00000044] border-[#000] rounded-[26px] shadow-md p-6 "
-              >
-                <div className="flex items-center space-x-4 mb-4 border-b pb-4 border-white/15">
-                  <img
-                    src={child?.profilePicture}
-                    alt={child?.profileName}
-                    className="w-16 h-16 rounded-full border-2 border-purple-500"
-                  />
-                  <div>
-                    <h3 className="text-[18px] font-medium">
-                      {child?.profileName}
-                    </h3>
-                    <p className="text-[16px] text-white/90 font-light">
-                      {new Date().getFullYear() -
-                        new Date(child?.dob).getFullYear()}{" "}
-                      Years
-                    </p>
-                  </div>
-                </div>
-
-                <h4 className="text-[24px] font-semibold mb-2 leading-[32px]">
-                  Interests
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {child?.preferences?.map((interest, i) => (
-                    <span
-                      key={i}
-                      className="px-6 py-2 leading-[22px] my-1 font-extralight text-sm rounded-full bg-transparent border border-gray-600"
-                    >
-                      {interest}
-                    </span>
-                  ))}
+        {loading ? (
+          [...Array(3)].map((_, index) => <UserDetailLoader key={index} />)
+        ) : data?.children?.length === 0 ? (
+          <div className="bg-[#00000044] border-[#000] rounded-[26px] shadow-md p-6 col-span-3 ">
+            No Child Profiles Yet Created By The Parent
+          </div>
+        ) : (
+          data?.children?.map((child, index) => (
+            <div
+              key={index}
+              className="bg-[#00000044] border-[#000] rounded-[26px] shadow-md p-6 "
+            >
+              <div className="flex items-center space-x-4 mb-4 border-b pb-4 border-white/15">
+                <img
+                  src={child?.profilePicture}
+                  alt={child?.profileName}
+                  className="w-16 h-16 rounded-full border-2 border-purple-500"
+                />
+                <div>
+                  <h3 className="text-[18px] font-medium">
+                    {child?.profileName}
+                  </h3>
+                  <p className="text-[16px] text-white/90 font-light">
+                    {new Date().getFullYear() -
+                      new Date(child?.dob).getFullYear()}{" "}
+                    Years
+                  </p>
                 </div>
               </div>
-            ))}
+
+              <h4 className="text-[24px] font-semibold mb-2 leading-[32px]">
+                Interests
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {child?.preferences?.map((interest, i) => (
+                  <span
+                    key={i}
+                    className="px-6 py-2 leading-[22px] my-1 font-extralight text-sm rounded-full bg-transparent border border-gray-600"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Modal */}
