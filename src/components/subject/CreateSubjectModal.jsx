@@ -22,7 +22,7 @@ const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
         postData(
           "/admin/createSubjects",
           true,
-          { subject: values.subjectname },
+          { subject: [values.subjectname] },
           null,
           processSubject
         );

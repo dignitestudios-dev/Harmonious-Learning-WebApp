@@ -25,6 +25,8 @@ const BedtimeStoriesEdit = () => {
   const [srtFile, setSrtFile] = useState(null);
 
   const [backgroundMusic, setBackgroundMusic] = useState([]);
+  const [removeFileList, setRemoveFileList] = useState([]);
+  console.log("🚀 ~ BedtimeStoriesEdit ~ removeFileList:", removeFileList);
 
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
@@ -71,10 +73,15 @@ const BedtimeStoriesEdit = () => {
     }
   };
 
-  const removeBackgroundMusic = (indexToRemove) => {
+  const removeBackgroundMusic = (indexToRemove, file) => {
+    console.log("🚀 ~ removeBackgroundMusic ~ file:", file);
     setBackgroundMusic((prev) =>
       prev.filter((_, idx) => idx !== indexToRemove)
     );
+    if (file?.startsWith("https:")) {
+      let removeFile = [...removeFileList, file];
+      setRemoveFileList(removeFile);
+    }
   };
 
   const formValidation = ({
@@ -149,12 +156,19 @@ const BedtimeStoriesEdit = () => {
     if (backgroundMusic && backgroundMusic.length > 0) {
       backgroundMusic.forEach((music, index) => {
         if (music.file) {
-          formData.append(`bgMusicFile`, music.file);
+          formData.append(`bgMusicFile[]`, music.file);
         } else {
-          formData.append(`bgMusicFile`, music);
+          formData.append(`bgMusicFile[]`, music);
         }
       });
     }
+
+    if (removeFileList.length > 0) {
+      removeFileList.forEach((file) => {
+        formData.append("deleteBgMusic[] ", file);
+      });
+    }
+
     postData(
       "/admin/updateStories",
       true,
@@ -339,11 +353,15 @@ const BedtimeStoriesEdit = () => {
                           className="pt-2 pl-1"
                         />
                         <p className="text-white text-[12px] font-medium pl-2 pt-2 overflow-clip text-ellipsis">
-                          {item?.file?.name || item?.split("-").pop()}
+                          {item?.file?.name
+                            ? item?.file?.name?.length > 20
+                              ? item?.file?.name?.slice(0, 20) + "..."
+                              : item?.file?.name
+                            : item?.split("-").pop().slice(0, 20) + "..."}
                         </p>
                       </div>
                       <div
-                        onClick={() => removeBackgroundMusic(index)}
+                        onClick={() => removeBackgroundMusic(index, item)}
                         className="absolute bg-white rounded-full top-0 left-20 shadow-sm cursor-pointer hover:bg-white/80"
                       >
                         <img src={bin} alt="bin" className="w-6" />
