@@ -26,7 +26,6 @@ const BedtimeStoriesEdit = () => {
 
   const [backgroundMusic, setBackgroundMusic] = useState([]);
   const [removeFileList, setRemoveFileList] = useState([]);
-  console.log("🚀 ~ BedtimeStoriesEdit ~ removeFileList:", removeFileList);
 
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
@@ -74,7 +73,6 @@ const BedtimeStoriesEdit = () => {
   };
 
   const removeBackgroundMusic = (indexToRemove, file) => {
-    console.log("🚀 ~ removeBackgroundMusic ~ file:", file);
     setBackgroundMusic((prev) =>
       prev.filter((_, idx) => idx !== indexToRemove)
     );

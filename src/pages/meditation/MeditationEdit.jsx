@@ -32,6 +32,7 @@ const MeditationEdit = () => {
   const [trackFile, setTrackFile] = useState(null);
   const [srtFile, setSrtFile] = useState(null);
   const [backgroundMusic, setBackgroundMusic] = useState([]);
+  const [removeFileList, setRemoveFileList] = useState([]);
 
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
@@ -78,10 +79,14 @@ const MeditationEdit = () => {
     }
   };
 
-  const removeBackgroundMusic = (indexToRemove) => {
+  const removeBackgroundMusic = (indexToRemove, file) => {
     setBackgroundMusic((prev) =>
       prev.filter((_, idx) => idx !== indexToRemove)
     );
+    if (file?.startsWith("http")) {
+      let removeFile = [...removeFileList, file];
+      setRemoveFileList(removeFile);
+    }
   };
 
   const formValidation = ({
@@ -161,6 +166,12 @@ const MeditationEdit = () => {
         } else {
           formData.append(`bgMusicFile`, music);
         }
+      });
+    }
+
+    if (removeFileList.length > 0) {
+      removeFileList.forEach((file) => {
+        formData.append("deleteBgMusic[] ", file);
       });
     }
     postData(
@@ -364,7 +375,12 @@ const MeditationEdit = () => {
                         </p>
                       </div>
                       <div
-                        onClick={() => removeBackgroundMusic(index)}
+                        onClick={() =>
+                          removeBackgroundMusic(
+                            index,
+                            item?.file ? item?.file?.name : item
+                          )
+                        }
                         className="absolute bg-white rounded-full top-0 left-20 shadow-sm cursor-pointer hover:bg-white/80"
                       >
                         <img src={bin} alt="bin" className="w-6" />
