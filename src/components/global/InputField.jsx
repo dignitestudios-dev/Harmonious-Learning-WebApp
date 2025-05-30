@@ -8,7 +8,8 @@ const InputField = ({
   error,
   name,
   id,
-  handleBlur
+  handleBlur,
+  maxLength,
 }) => {
   return (
     <div>
@@ -19,6 +20,7 @@ const InputField = ({
         type="text"
         placeholder={placeholder}
         value={value}
+        maxLength={maxLength}
         onChange={(e) => handleChange(e)}
         onBlur={handleBlur}
         className={`w-full bg-transparent border focus:ring-0 focus:outline-none ${

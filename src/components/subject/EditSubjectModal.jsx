@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { subjectSchema } from "../../schema/SubjectSchema";
 import { processSubject } from "../../lib/utils";
 import { useEffect } from "react";
+import { ErrorToast } from "../global/Toaster";
 
 const EditSubjectModal = ({
   isOpen,
@@ -13,17 +14,28 @@ const EditSubjectModal = ({
   subjectId,
   subject,
   id,
+  stories,
 }) => {
   const { loading, postData } = useCreateSubject(onClose, setUpdate);
 
   const formik = useFormik({
-    initialValues: { subjectname: "" },
+    initialValues: { subjectName: "" },
     validationSchema: subjectSchema,
     onSubmit: async (values) => {
+      const isValid = /^[a-zA-Z0-9\s]+$/.test(values.subjectName.trim());
+
+      if (!isValid) {
+        return;
+      }
+      if (stories.includes(values.subjectName)) {
+        ErrorToast("Subject name already exist");
+        return;
+      }
+
       postData(
         `/admin/updateSubjects/${id}/${subjectId}`,
         true,
-        { subject: values?.subjectname },
+        { subject: values?.subjectName },
         null,
         processSubject
       );
@@ -33,7 +45,7 @@ const EditSubjectModal = ({
   // Set the subject value when the modal opens
   useEffect(() => {
     if (subject) {
-      formik.setValues({ subjectname: subject });
+      formik.setValues({ subjectName: subject });
     }
   }, [subject]);
 
@@ -56,18 +68,18 @@ const EditSubjectModal = ({
           <div className="flex flex-col items-start text-center ">
             <label className="block text-[16px] mb-2">Subject</label>
             <input
-              id="subjectname"
-              name="subjectname"
+              id="subjectName"
+              name="subjectName"
               type="text"
               placeholder="Name"
-              value={formik.values.subjectname}
+              value={formik.values.subjectName}
               onChange={formik.handleChange}
               className="w-full bg-transparent border border-white/30 text-white px-5 py-3 
               rounded-full placeholder:text-white placeholder:text-sm"
             />
-            {formik.errors.subjectname && formik.touched.subjectname ? (
+            {formik.errors.subjectName && formik.touched.subjectName ? (
               <span className="text-red-700 text-sm font-medium">
-                {formik.errors.subjectname}
+                {formik.errors.subjectName}
               </span>
             ) : null}
             <div className="w-full flex space-x-4 mt-6">

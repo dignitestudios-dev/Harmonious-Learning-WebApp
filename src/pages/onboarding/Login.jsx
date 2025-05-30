@@ -21,7 +21,12 @@ const Login = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
-        postData("/auth/adminSignIn", false, null, values, processLogin);
+        const trimmedValues = {
+          ...values,
+          password: values.password.trim(), // Trim spaces before sending
+        };
+
+        postData("/auth/adminSignIn", false, null, trimmedValues, processLogin);
       },
     });
 

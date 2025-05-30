@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaPen } from "react-icons/fa";
 import CreateSubjectModal from "./CreateSubjectModal";
-import UsersLoader from "../users/UsersLoader";
+
 import EditSubjectModal from "./EditSubjectModal";
 
 const SubjectsTable = ({ id, stories, loading, setUpdate }) => {

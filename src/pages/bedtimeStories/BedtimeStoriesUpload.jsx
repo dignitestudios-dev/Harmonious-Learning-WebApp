@@ -46,7 +46,7 @@ const BedtimeStoriesUpload = () => {
 
   const handleChange = (e) => {
     setInputError({});
-    setName(e.target.value);
+    setName(e.target.value.trimStart());
   };
 
   const handleSelectChange = (value) => {
@@ -66,8 +66,19 @@ const BedtimeStoriesUpload = () => {
       return;
     }
     if (e.target.id === "music") {
-      setBackgroundMusic((prev) => [...prev, { file }]);
-      return;
+      if (backgroundMusic.length < 5) {
+        const isDuplicate = backgroundMusic.some(
+          (item) => item.file.name === file.name
+        );
+
+        if (isDuplicate) {
+          return;
+        }
+        setBackgroundMusic((prev) => [...prev, { file }]);
+        return;
+      } else {
+        setInputError({ bgMusic: "You can upload up to 5 files only" });
+      }
     }
     if (e.target.id === "image-upload") {
       setImageFile(file);
@@ -92,8 +103,8 @@ const BedtimeStoriesUpload = () => {
   }) => {
     let errors = {};
 
-    if (!name) {
-      errors.name = "Enter Name";
+    if (!name.trim()) {
+      errors.name = "Enter a valid name";
     }
 
     if (!subject) {
@@ -106,7 +117,7 @@ const BedtimeStoriesUpload = () => {
       }
     }
 
-    if (!description) {
+    if (!description.trim()) {
       errors.description = "Enter Description";
     }
 
@@ -282,7 +293,7 @@ const BedtimeStoriesUpload = () => {
             <InputField
               label="Meditation Track"
               placeholder="Name"
-              maxLength={30}
+              maxLength={50}
               handleChange={(e) => handleChange(e)}
               value={name}
               error={inputError?.name}
@@ -307,7 +318,7 @@ const BedtimeStoriesUpload = () => {
                 value={description}
                 maxLength={250}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(e.target.value.trimStart());
                   setInputError({});
                 }}
                 className={`w-full h-[149px] bg-transparent border rounded-[16px] text-white p-3 focus:ring-0 focus:outline-none ${
@@ -401,6 +412,7 @@ const BedtimeStoriesUpload = () => {
               icon={uploadImg}
               file={backgroundMusic}
               handleFileUpload={handleFileUpload}
+              error={inputError?.bgMusic}
               extension="audio/*"
             />
             <div className="flex">

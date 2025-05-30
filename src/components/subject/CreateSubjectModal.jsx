@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import SaveButton from "../global/SaveButton";
 import { useCreateSubject } from "../../hooks/api/Post";
@@ -6,11 +6,9 @@ import { useFormik } from "formik";
 import { subjectValues } from "../../init/app/subjectValues";
 import { subjectSchema } from "../../schema/SubjectSchema";
 import { processSubject } from "../../lib/utils";
-import { useAllSubject } from "../../hooks/api/Get";
+import { ErrorToast } from "../global/Toaster";
 
-const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
-  if (!isOpen) return null;
-
+const CreateSubjectModal = ({ isOpen, onClose, setUpdate, subject }) => {
   const { loading, postData } = useCreateSubject(onClose, setUpdate);
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
@@ -19,15 +17,26 @@ const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
+        const isValid = /^[a-zA-Z0-9\s]+$/.test(values.subjectName.trim());
+
+        if (!isValid) {
+          return;
+        }
+        if (subject.includes(values.subjectName)) {
+          ErrorToast("Subject name already exist");
+          return;
+        }
+
         postData(
           "/admin/createSubjects",
           true,
-          { subject: [values.subjectname] },
+          { subject: [values.subjectName] },
           null,
           processSubject
         );
       },
     });
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/20 backdrop-blur-xl w-full h-screen">
       <div className="bg-black bg-opacity-30 rounded-[26px] shadow-md text-white p-6 w-[455px] h-[249px] relative">
@@ -46,18 +55,18 @@ const CreateSubjectModal = ({ isOpen, onClose, setUpdate }) => {
           <div className="flex flex-col items-start text-center ">
             <label className="block text-[16px] mb-2">Subject</label>
             <input
-              id="subjectname"
-              name="subjectname"
+              id="subjectName"
+              name="subjectName"
               type="text"
               placeholder="Name"
-              value={values.subjectname}
+              value={values.subjectName}
               onChange={handleChange}
               className="w-full bg-transparent border border-white/30 text-white px-5 py-3 
               rounded-full placeholder:text-white placeholder:text-sm "
             />
-            {errors.subjectname && touched.subjectname ? (
+            {errors.subjectName && touched.subjectName ? (
               <span className="text-red-700 text-sm font-medium">
-                {errors.subjectname}
+                {errors.subjectName}
               </span>
             ) : null}
             <div className="w-full flex space-x-4 mt-6">

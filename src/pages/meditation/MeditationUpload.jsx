@@ -54,7 +54,7 @@ const MeditationUpload = () => {
 
   const handleChange = (e) => {
     setInputError({});
-    setName(e.target.value);
+    setName(e.target.value.trimStart());
   };
 
   const handleSelectChange = (value) => {
@@ -74,8 +74,19 @@ const MeditationUpload = () => {
       return;
     }
     if (e.target.id === "music") {
-      setBackgroundMusic((prev) => [...prev, { file }]);
-      return;
+      if (backgroundMusic.length < 5) {
+        const isDuplicate = backgroundMusic.some(
+          (item) => item.file.name === file.name
+        );
+
+        if (isDuplicate) {
+          return;
+        }
+        setBackgroundMusic((prev) => [...prev, { file }]);
+        return;
+      } else {
+        setInputError({ bgMusic: "You can upload up to 5 files only" });
+      }
     }
     if (e.target.id === "image-upload") {
       setImageFile(file);
@@ -288,7 +299,7 @@ const MeditationUpload = () => {
             <InputField
               label="Meditation Track"
               placeholder="Name"
-              maxLength={30}
+              maxLength={50}
               handleChange={(e) => handleChange(e)}
               value={name}
               error={inputError?.name}
@@ -313,7 +324,7 @@ const MeditationUpload = () => {
                 value={description}
                 maxLength={250}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  setDescription(e.target.value.trimStart());
                   setInputError({});
                 }}
                 className={`w-full h-[149px] bg-transparent border rounded-[16px] text-white p-3 focus:ring-0 focus:outline-none ${
@@ -407,6 +418,7 @@ const MeditationUpload = () => {
               icon={uploadImg}
               file={backgroundMusic}
               handleFileUpload={handleFileUpload}
+              error={inputError?.bgMusic}
               extension="audio/*"
             />
             <div className="flex">

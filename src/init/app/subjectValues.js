@@ -1,4 +1,3 @@
 export const subjectValues = {
-    subjectname: "",
-  };
-  
+  subjectName: "",
+};

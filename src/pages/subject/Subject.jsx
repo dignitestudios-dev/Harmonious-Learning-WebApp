@@ -49,6 +49,7 @@ const Subject = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         setUpdate={setUpdate}
+        subject={data}
       />
     </div>
   );
