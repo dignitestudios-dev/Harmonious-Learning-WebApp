@@ -116,7 +116,7 @@ const AudioPlayer = ({ audioFile, lyrics, story }) => {
         </div>
       </div>
 
-      <h2 className="text-2xl font-semibold text-center mb-4">
+      <h2 className="text-2xl font-semibold text-center mb-4 truncate">
         {story?.title}
       </h2>
 

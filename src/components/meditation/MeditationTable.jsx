@@ -48,13 +48,15 @@ const MeditationTable = ({ meditation, loader, setUpdate }) => {
               <img
                 src={meditation?.image}
                 alt="Profile"
-                className="w-10 h-10 rounded-full border-2 border-purple-600"
+                className="w-10 h-10 rounded-full border-2 border-purple-600 "
               />
-              <span>{meditation?.title}</span>
+<span className="block max-w-[150px] truncate">
+  {meditation?.title}
+</span>
             </div>
             <div className="col-span-5 pb-4 pt-7 px-6 ">
               {meditation?.description?.length > 70
-                ? meditation?.description?.slice(0, 70) + "..."
+                ? meditation?.description?.slice(0, 50) + "..."
                 : meditation?.description}
             </div>{" "}
             {/* Adjusted padding to move it right */}

@@ -50,11 +50,11 @@ const BedtimeStoriesTable = ({ stories, loader, setUpdate }) => {
                 alt="Profile"
                 className="w-10 h-10 rounded-full border-2 border-purple-600"
               />
-              <span>{story?.title}</span>
+              <span className="block max-w-[150px] truncate">{story?.title}</span>
             </div>
             <div className="col-span-5 pb-4 pt-7 px-6 truncate">
               {story?.description?.length > 70
-                ? story?.description?.slice(0, 70) + "..."
+                ? story?.description?.slice(0, 50) + "..."
                 : story?.description}
             </div>
             <div className="col-span-2 pb-4 pt-7 px-4">

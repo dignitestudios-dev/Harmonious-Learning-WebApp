@@ -56,14 +56,14 @@ const Navbar = () => {
           className="flex items-center gap-2 w-24 "
         >
           {/* Image for profile link */}
-          <img
+          {/* <img
             src={`https://i.pravatar.cc/40?img=3`}
             alt="Profile"
             className="w-[32px] h-[32px] rounded-full cursor-pointer"
           />
           <div className=" flex flex-col justify-start items-start">
             <p className="text-[13px] font-medium text-white">Admin</p>
-          </div>
+          </div> */}
         </button>
 
         {/* <div

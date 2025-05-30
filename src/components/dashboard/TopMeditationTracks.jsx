@@ -63,7 +63,7 @@ const TopMeditationTracks = ({ loading, title, tracks }) => {
                     className="w-11 h-11 rounded-full mr-4 border-2 border-[#CEA3D8]"
                   />
                   <div>
-                    <p className="text-white text-[16px] leading-[28px]">
+                    <p className="text-white text-[16px] leading-[28px] truncate max-w-[300px]">
                       {track?.title}
                     </p>
                     <p className="text-white/45 text-[12px] leading-[20px]">
