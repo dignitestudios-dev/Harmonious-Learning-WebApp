@@ -104,7 +104,7 @@ const AudioPlayer = ({ audioFile, lyrics, story }) => {
         <img
           src={story?.image}
           alt="Anxiety Release"
-          className="rounded-xl w-[695px] h-[350px] mb-4 object-cover shadow-2xl"
+          className="rounded-xl w-full h-[350px] mb-4 object-contain shadow-2xl"
         />
         <div className="w-full flex justify-between items-center absolute top-0 pt-4 pr-8 pl-5">
           <span className=" bg-white/10 text-white w-[124px] h-[46px] text-center pt-[11px] rounded-full">

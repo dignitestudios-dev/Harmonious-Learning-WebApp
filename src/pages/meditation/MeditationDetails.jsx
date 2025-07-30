@@ -185,7 +185,7 @@ const MeditationDetails = () => {
             </button>
           </div>
           {/* Main Content */}
-          <div className="flex gap-8 mb-12">
+          <div className="flex justify-center gap-8 mb-12">
             {/* Left Section */}
 
             <div className="bg-gray-800 w-[686px] h-[668px] backdrop-blur-md rounded-xl p-6 flex-1">
@@ -199,7 +199,7 @@ const MeditationDetails = () => {
             </div>
 
             {/* Right Section */}
-            <div className="bg-[#00000044] border-[#000] h-[668px] rounded-[26px] px-6 pt-2 w-[363px]">
+            {/* <div className="bg-[#00000044] border-[#000] h-[668px] rounded-[26px] px-6 pt-2 w-[363px]">
               <div className="flex justify-between items-center pb-4">
                 <h3 className="text-[20px] font-medium ">
                   Background Music{" "}
@@ -242,7 +242,7 @@ const MeditationDetails = () => {
               ) : (
                 <ul className="space-y-4">No Record Found</ul>
               )}
-            </div>
+            </div> */}
           </div>
         </>
       )}

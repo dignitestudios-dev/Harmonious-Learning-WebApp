@@ -164,7 +164,7 @@ const BedtimeStoriesDetail = () => {
             </div>
 
             {/* Right Section */}
-            <div className="bg-[#00000044] border-[#000] h-[668px] rounded-[26px] px-6 pt-2 w-[363px]">
+            {/* <div className="bg-[#00000044] border-[#000] h-[668px] rounded-[26px] px-6 pt-2 w-[363px]">
               <div className="flex justify-between items-center  pb-4">
                 <div>
                   <h3 className="text-[20px] font-medium ">
@@ -208,7 +208,7 @@ const BedtimeStoriesDetail = () => {
               ) : (
                 <ul className="space-y-4">No Record Found</ul>
               )}
-            </div>
+            </div> */}
           </div>
         </>
       )}
