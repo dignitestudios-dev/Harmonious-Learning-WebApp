@@ -348,8 +348,9 @@ const MeditationEdit = () => {
             )}
 
             {/* Background Music Upload Section with Icon */}
+            <div className="w-full h-8"></div>
 
-            <TracksInput
+            {/* <TracksInput
               id="music"
               label="Background Music"
               placeholder="Choose Background Music File to Upload"
@@ -389,7 +390,7 @@ const MeditationEdit = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="w-[201px] h-[49px] -mt-24">

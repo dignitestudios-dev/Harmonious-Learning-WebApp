@@ -472,7 +472,7 @@ const MeditationUpload = () => {
 
             {/* Background Music Upload Section with Icon */}
 
-            <TracksInput
+            {/* <TracksInput
               id="music"
               label="Background Music"
               placeholder="Choose Background Music File to Upload"
@@ -510,7 +510,7 @@ const MeditationUpload = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
 
             <TracksInput
               id="pdf"

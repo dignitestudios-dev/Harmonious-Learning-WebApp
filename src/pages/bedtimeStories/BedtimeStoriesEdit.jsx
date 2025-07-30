@@ -329,7 +329,7 @@ const BedtimeStoriesEdit = () => {
 
             {/* Background Music Upload Section with Icon */}
 
-            <TracksInput
+            {/* <TracksInput
               id="music"
               label="Background Music"
               placeholder="Choose Background Music File to Upload"
@@ -368,7 +368,7 @@ const BedtimeStoriesEdit = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="mt-8 w-[18%]">

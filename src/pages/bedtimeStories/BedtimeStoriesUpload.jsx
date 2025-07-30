@@ -467,7 +467,7 @@ const BedtimeStoriesUpload = () => {
 
             {/* Background Music Upload Section with Icon */}
 
-            <TracksInput
+            {/* <TracksInput
               id="music"
               label="Background Music"
               placeholder="Choose Background Music File to Upload"
@@ -505,7 +505,7 @@ const BedtimeStoriesUpload = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
 
             <TracksInput
               id="pdf"
