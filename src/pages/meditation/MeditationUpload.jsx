@@ -5,6 +5,8 @@ import {
   musicSymbol,
   srtImage,
   uploadImg,
+  book,
+  bookSide,
 } from "../../assets/export";
 import InputField from "../../components/global/InputField";
 import SelectableField from "../../components/global/SelectableField";
@@ -27,6 +29,11 @@ const MeditationUpload = () => {
   const [imageFile, setImageFile] = useState(null);
 
   const [trackFile, setTrackFile] = useState(null);
+  const [trackNoMusicFile, setTrackNoMusicFile] = useState(null);
+  console.log("🚀 ~ MeditationUpload ~ trackNoMusicFile:", trackNoMusicFile);
+
+  const [pdfFile, setPdfFile] = useState(null);
+
   const [srtFile, setSrtFile] = useState(null);
 
   const [backgroundMusic, setBackgroundMusic] = useState([]);
@@ -65,6 +72,10 @@ const MeditationUpload = () => {
   const handleFileUpload = (e) => {
     setInputError({});
     const file = e.target.files[0];
+    if (e.target.id === "noMusic") {
+      setTrackNoMusicFile(file);
+      return;
+    }
     if (e.target.id === "track") {
       setTrackFile(file);
       return;
@@ -73,6 +84,17 @@ const MeditationUpload = () => {
       setSrtFile(file);
       return;
     }
+
+    if (e.target.id === "pdf") {
+      // <-- PDF upload case
+      if (file.type === "application/pdf") {
+        setPdfFile(file);
+      } else {
+        setInputError({ pdfFile: "Only PDF files are allowed" });
+      }
+      return;
+    }
+
     if (e.target.id === "music") {
       if (backgroundMusic.length < 5) {
         const isDuplicate = backgroundMusic.some(
@@ -108,6 +130,7 @@ const MeditationUpload = () => {
     imageFile,
     trackFile,
     srtFile,
+    trackNoMusicFile,
   }) => {
     let errors = {};
 
@@ -136,6 +159,9 @@ const MeditationUpload = () => {
     if (!trackFile) {
       errors.trackFile = "Upload Track File";
     }
+    if (!trackNoMusicFile) {
+      errors.trackFile = "Upload Without Music Track File";
+    }
     if (!srtFile) {
       errors.srtFile = "Upload SRT File";
     }
@@ -153,6 +179,7 @@ const MeditationUpload = () => {
       imageFile,
       trackFile,
       srtFile,
+      trackNoMusicFile,
     };
     const errors = formValidation(validateData);
 
@@ -181,6 +208,9 @@ const MeditationUpload = () => {
     // // Append files
     if (imageFile) formData.append("image", imageFile);
     if (trackFile) formData.append("mp3File", trackFile);
+    if (trackNoMusicFile) formData.append("mp3FileWithoutBg", trackNoMusicFile);
+    if (pdfFile) formData.append("pdfFile", pdfFile);
+
     if (srtFile) formData.append("mp3SrtFile", srtFile);
 
     // // Append backgroundMusic array files
@@ -344,7 +374,7 @@ const MeditationUpload = () => {
             {/* Meditation Tracks Upload Section with Icon */}
             <TracksInput
               id="track"
-              label="Meditation Tracks"
+              label="Meditation Tracks With Music"
               placeholder="Choose Mp3, Mp4 File to Upload"
               setFile={setTrackFile}
               icon={uploadImg}
@@ -368,6 +398,39 @@ const MeditationUpload = () => {
                 </div>
                 <div
                   onClick={() => setTrackFile(null)}
+                  className="border-l-[1px] border-white/30"
+                >
+                  <img src={bin} alt="srt" className="w-7 mr-2" />
+                </div>
+              </div>
+            )}
+
+            <TracksInput
+              id="noMusic"
+              label="Meditation Tracks Without Music"
+              placeholder="Choose Mp3, Mp4 File to Upload"
+              setFile={setTrackNoMusicFile}
+              icon={uploadImg}
+              file={trackNoMusicFile}
+              handleFileUpload={handleFileUpload}
+              error={inputError?.trackNoMusicFile}
+              extension="audio/*"
+            />
+            {trackNoMusicFile && (
+              <div className="flex justify-between items-center p-1 bg-transparent border border-white/30 rounded-full">
+                <div className="flex items-center">
+                  <img src={srtImage} alt="srt" className="w-10 mr-2" />
+                  <div>
+                    <p className="ml-2 text-[12px] font-extralight">
+                      {trackNoMusicFile?.name?.length > 38
+                        ? trackNoMusicFile?.name?.slice(0, 38) + "..."
+                        : trackNoMusicFile?.name}
+                    </p>
+                    <p className="ml-2 text-[12px] font-extralight"></p>
+                  </div>
+                </div>
+                <div
+                  onClick={() => setTrackNoMusicFile(null)}
                   className="border-l-[1px] border-white/30"
                 >
                   <img src={bin} alt="srt" className="w-7 mr-2" />
@@ -449,6 +512,39 @@ const MeditationUpload = () => {
                 );
               })}
             </div>
+
+            <TracksInput
+              id="pdf"
+              label="Upload PDF (Optional)"
+              placeholder="Choose PDF File to Upload"
+              setFile={setPdfFile}
+              icon={book}
+              file={pdfFile}
+              handleFileUpload={handleFileUpload}
+              error={inputError?.pdfFile}
+              extension=".pdf"
+            />
+
+            {pdfFile && (
+              <div className="flex justify-between items-center p-1 bg-transparent border border-white/30 rounded-full">
+                <div className="flex items-center">
+                  <img src={book} alt="pdf" className="w-10 mr-2" />
+
+                  <p className="ml-2 text-[14px] font-extralight">
+                    {pdfFile?.name?.length > 38
+                      ? pdfFile?.name?.slice(0, 38) + "..."
+                      : pdfFile?.name}
+                  </p>
+                </div>
+
+                <div
+                  onClick={() => setPdfFile(null)}
+                  className="border-l-[1px] border-white/30"
+                >
+                  <img src={bin} alt="delete" className="w-7 mr-2" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </form>

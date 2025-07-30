@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { bin, musicSymbol, srtImage, uploadImg } from "../../assets/export";
+import {
+  bin,
+  book,
+  musicSymbol,
+  srtImage,
+  uploadImg,
+} from "../../assets/export";
 import InputField from "../../components/global/InputField";
 import SelectableField from "../../components/global/SelectableField";
 import TracksInput from "./../../components/global/TracksInput";
@@ -33,6 +39,9 @@ const BedtimeStoriesUpload = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [inputError, setInputError] = useState({});
 
+  const [pdfFile, setPdfFile] = useState(null);
+  const [trackNoMusicFile, setTrackNoMusicFile] = useState(null);
+
   // Function to toggle first modal
   const toggleModal = () => {
     setIsDateModalOpen((prev) => !prev);
@@ -57,6 +66,10 @@ const BedtimeStoriesUpload = () => {
   const handleFileUpload = (e) => {
     setInputError({});
     const file = e.target.files[0];
+    if (e.target.id === "noMusic") {
+      setTrackNoMusicFile(file);
+      return;
+    }
     if (e.target.id === "track") {
       setTrackFile(file);
       return;
@@ -65,6 +78,16 @@ const BedtimeStoriesUpload = () => {
       setSrtFile(file);
       return;
     }
+    if (e.target.id === "pdf") {
+      // <-- PDF upload case
+      if (file.type === "application/pdf") {
+        setPdfFile(file);
+      } else {
+        setInputError({ pdfFile: "Only PDF files are allowed" });
+      }
+      return;
+    }
+
     if (e.target.id === "music") {
       if (backgroundMusic.length < 5) {
         const isDuplicate = backgroundMusic.some(
@@ -100,6 +123,7 @@ const BedtimeStoriesUpload = () => {
     imageFile,
     trackFile,
     srtFile,
+    trackNoMusicFile,
   }) => {
     let errors = {};
 
@@ -119,6 +143,9 @@ const BedtimeStoriesUpload = () => {
 
     if (!description.trim()) {
       errors.description = "Enter Description";
+    }
+    if (!trackNoMusicFile) {
+      errors.trackFile = "Upload Without Music Track File";
     }
 
     if (!imageFile) {
@@ -145,6 +172,7 @@ const BedtimeStoriesUpload = () => {
       imageFile,
       trackFile,
       srtFile,
+      trackNoMusicFile,
     };
     const errors = formValidation(validateData);
 
@@ -175,6 +203,8 @@ const BedtimeStoriesUpload = () => {
     if (imageFile) formData.append("image", imageFile);
     if (trackFile) formData.append("mp3File", trackFile);
     if (srtFile) formData.append("mp3SrtFile", srtFile);
+    if (trackNoMusicFile) formData.append("mp3FileWithoutBg", trackNoMusicFile);
+    if (pdfFile) formData.append("pdfFile", pdfFile);
 
     // // Append backgroundMusic array files
     if (backgroundMusic && backgroundMusic.length > 0) {
@@ -369,6 +399,39 @@ const BedtimeStoriesUpload = () => {
               </div>
             )}
 
+            <TracksInput
+              id="noMusic"
+              label="Meditation Tracks Without Music"
+              placeholder="Choose Mp3, Mp4 File to Upload"
+              setFile={setTrackNoMusicFile}
+              icon={uploadImg}
+              file={trackNoMusicFile}
+              handleFileUpload={handleFileUpload}
+              error={inputError?.trackNoMusicFile}
+              extension="audio/*"
+            />
+            {trackNoMusicFile && (
+              <div className="flex justify-between items-center p-1 bg-transparent border border-white/30 rounded-full">
+                <div className="flex items-center">
+                  <img src={srtImage} alt="srt" className="w-10 mr-2" />
+                  <div>
+                    <p className="ml-2 text-[12px] font-extralight">
+                      {trackNoMusicFile?.name?.length > 38
+                        ? trackNoMusicFile?.name?.slice(0, 38) + "..."
+                        : trackNoMusicFile?.name}
+                    </p>
+                    <p className="ml-2 text-[12px] font-extralight"></p>
+                  </div>
+                </div>
+                <div
+                  onClick={() => setTrackNoMusicFile(null)}
+                  className="border-l-[1px] border-white/30"
+                >
+                  <img src={bin} alt="srt" className="w-7 mr-2" />
+                </div>
+              </div>
+            )}
+
             {/* Transcription SRT Upload Section with Icon */}
             <TracksInput
               id="srt"
@@ -443,6 +506,39 @@ const BedtimeStoriesUpload = () => {
                 );
               })}
             </div>
+
+            <TracksInput
+              id="pdf"
+              label="Upload PDF (Optional)"
+              placeholder="Choose PDF File to Upload"
+              setFile={setPdfFile}
+              icon={book}
+              file={pdfFile}
+              handleFileUpload={handleFileUpload}
+              error={inputError?.pdfFile}
+              extension=".pdf"
+            />
+
+            {pdfFile && (
+              <div className="flex justify-between items-center p-1 bg-transparent border border-white/30 rounded-full">
+                <div className="flex items-center">
+                  <img src={book} alt="pdf" className="w-10 mr-2" />
+
+                  <p className="ml-2 text-[14px] font-extralight">
+                    {pdfFile?.name?.length > 38
+                      ? pdfFile?.name?.slice(0, 38) + "..."
+                      : pdfFile?.name}
+                  </p>
+                </div>
+
+                <div
+                  onClick={() => setPdfFile(null)}
+                  className="border-l-[1px] border-white/30"
+                >
+                  <img src={bin} alt="delete" className="w-7 mr-2" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </form>
