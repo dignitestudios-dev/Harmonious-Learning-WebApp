@@ -30,7 +30,6 @@ const MeditationUpload = () => {
 
   const [trackFile, setTrackFile] = useState(null);
   const [trackNoMusicFile, setTrackNoMusicFile] = useState(null);
-  console.log("🚀 ~ MeditationUpload ~ trackNoMusicFile:", trackNoMusicFile);
 
   const [pdfFile, setPdfFile] = useState(null);
 

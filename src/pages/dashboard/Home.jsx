@@ -40,9 +40,9 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="w-full">
-            <SubscriptionStats subscriptions={stats?.subscriptions} />
-          </div>
+          {/* <div className="w-full">
+            <SubscriptionStats subscriptions={stats?.subscriptionCount} />
+          </div> */}
 
           {/* Top Meditation Tracks Section */}
           <div className="w-full flex flex-col lg:flex-row gap-6">

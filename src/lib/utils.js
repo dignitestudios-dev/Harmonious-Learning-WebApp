@@ -26,11 +26,9 @@ export const processUpload = (
     SuccessToast("Updated Successfully");
 
     if (isUpdate) {
-      console.log("if === call");
       setUpdate((prev) => !prev);
       onClose();
     } else {
-      console.log("else call");
       navigate;
     }
     return;

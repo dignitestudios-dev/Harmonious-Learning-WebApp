@@ -17,7 +17,6 @@ const useDelete = (setUpdate, onClose) => {
       }
       return response?.data;
     } catch (error) {
-      console.log("🚀 ~ useUpload ~ error:", error);
       processError(error);
     } finally {
       setLoading(false);
