@@ -42,11 +42,11 @@ export const sidebarArr = [
     icon: calendar,
   },
 
-  {
-    title: "Subscription",
-    url: "/subscription",
-    icon: draft,
-  },
+  // {
+  //   title: "Subscription",
+  //   url: "/subscription",
+  //   icon: draft,
+  // },
   {
     title: "Subjects",
     url: "/subjects",

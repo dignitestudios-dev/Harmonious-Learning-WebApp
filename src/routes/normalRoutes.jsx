@@ -86,11 +86,11 @@ export const normalRoutes = [
     page: <BedtimeStoriesEdit />,
   },
 
-  {
-    title: "Subscription",
-    url: "subscription",
-    page: <Subscription />,
-  },
+  // {
+  //   title: "Subscription",
+  //   url: "subscription",
+  //   page: <Subscription />,
+  // },
 
   {
     title: "Upcoming",
